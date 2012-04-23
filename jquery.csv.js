@@ -72,7 +72,7 @@
   };
 
   /**
-   * jQuery.CSV2Array(csvString)
+   * jQuery.CSVEntry2Array(csvString)
    * Converts a CSV string to a javascript array.
    *
    * @param {String} csv The string containing the raw CSV data.
@@ -116,3 +116,4 @@
   };
 
 })( jQuery );
+
