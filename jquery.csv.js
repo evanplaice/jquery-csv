@@ -7,18 +7,18 @@
  *
  * This plugin was originally designed to assist in parsing CSV files loaded
  * from client-side javascript. It's influenced by jQuery.json and the original
- * core RegEx comes directly from the following answer posted by a 
+ * core RegEx comes directly from the following answer posted by a
  * StackOverflow.com user named Ridgerunner.
  * Source:
- * - http://stackoverflow.com/q/8493195/290340 
+ * - http://stackoverflow.com/q/8493195/290340
  *
- * For legal purposes I'll include the "NO WARRANTY EXPRESSED OR IMPLIED. 
+ * For legal purposes I'll include the "NO WARRANTY EXPRESSED OR IMPLIED.
  * USE AT YOUR OWN RISK.". Which, in 'layman's terms' means, by using this
- * library you are accepting responsability if it breaks your code. 
+ * library you are accepting responsability if it breaks your code.
  *
  * Legal jargon aside, I will do my best to provide a useful and stable core
  * that can effectively be built on.
- * 
+ *
  * Copyrighted 2012 by Evan Plaice.
  */
 
@@ -37,10 +37,10 @@
    * This method deals with multi-line CSV. The breakdown is simple. The first
    * dimension of the array represents the line (or entry/row) while the second
    * dimension contains the values (or values/columns).
-   * 
+   *
    * Example - Print the 4th value in the 10th row:
    *   data = $.CSV2Array(csv); // cache the output to avoid unnecessary processing
-   *   console.log(data[9][3]);  
+   *   console.log(data[9][3]);
 	 */
   $.CSV2Array = function(csv) {
     //var separator = ','; // not used yet
@@ -77,6 +77,6 @@
     // Handle special case of empty last value.
     if (/,\s*$/.test(csv)) a.push('');
     return a;
-};
+  };
 
 })( jQuery );
