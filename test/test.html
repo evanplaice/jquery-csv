@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>jQuery-CSV Testing</title>
+<meta charset="UTF-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="../src/jquery.csv.js"></script>
+<script src="qunit.js"></script>
+<link media="screen" href="qunit.css" rel="stylesheet"/>
+<script>
+$(document).ready(function() {
+  
+  // initialize the data for the 'core' module
+  function coreDataSetUp() {
+    testCSVEntry = '1,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",';
+    //console.log(testCSVEntry);
+
+    testCSV = '';
+    testCSV += 'ID,iManufacturer,iMPartNumber,iSerialNumber,iSimCategory,iPartType,iDescription,iGroup,iLocation,iSold\r\n';
+    testCSV += '1,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",\r\n';
+    testCSV += '2,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",\r\n';
+    testCSV += '3,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
+    testCSV += '4,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
+    testCSV += '5,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
+    testCSV += '6,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
+    testCSV += '7,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
+    testCSV += '8,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
+    testCSV += '9,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
+    testCSV += '10,"Evans & Sutherland","230-121-150AC",,"Visual","PCB",,1,"Offsite",';
+    //console.log(testCSV);
+
+    testEntryArray = ["1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB", "", "1", "Offsite", ""];
+    //console.log(testEntryArray);
+
+    testArray = [];
+    testArray.push(["ID", "iManufacturer", "iMPartNumber", "iSerialNumber", "iSimCategory", "iPartType", "iDescription", "iGroup", "iLocation", "iSold"]);
+    testArray.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    testArray.push(["2", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    testArray.push(["3", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    testArray.push(["4", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    testArray.push(["5", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    testArray.push(["6", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    testArray.push(["7", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    testArray.push(["8", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    testArray.push(["9", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    testArray.push(["10", "Evans & Sutherland", "230-121-150AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    //for(i in testArray) {
+    //  console.log(testArray[i]);
+    //}
+
+    testDictionary = [];
+    testDictionary.push({ ID:"1",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-132-111AA", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    testDictionary.push({ ID:"2",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-132-111AA", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    testDictionary.push({ ID:"3",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    testDictionary.push({ ID:"4",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    testDictionary.push({ ID:"5",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    testDictionary.push({ ID:"6",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    testDictionary.push({ ID:"7",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    testDictionary.push({ ID:"8",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    testDictionary.push({ ID:"9",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    testDictionary.push({ ID:"10",  iManufacturer:"Evans & Sutherland", iMPartNumber:"230-121-150AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    //for(i in testDictionary) {
+    //  console.log(testDictionary[i]);
+    //}
+  }
+  
+  module("core", { setup:function(){ coreDataSetUp() }});
+  test("csvEntry2Array() parsing", function() {
+    expect(1);
+    stop();
+    var output = $.csvEntry2Array(testCSVEntry);
+    start();
+    deepEqual(output, testEntryArray, "csvEntry2Array() standard parsing");
+    //console.log(output);
+  });
+
+  test("csv2Array() parsing", function() {
+    expect(1);
+    var output = $.csv2Array(testCSV);
+    deepEqual(output, testArray, "csv2Array() standard parsing");
+    //for(i in output) {
+    //  console.log(output[i]);
+    //}
+  });
+
+  test("csv2Dictionary() parsing", function() {
+    expect(1);
+    var output = $.csv2Dictionary(testCSV);
+    deepEqual(output, testDictionary, "csv2Dictionary() standard parsing");
+    //for(i in output) {
+    //  console.log(output[i]);
+    //}
+  });
+
+  //test("array2CSVEntry() parsing", function() {
+  //  expect(1);
+  //  var output = $.array2CSVEntry(testEntryArray);
+  //  equal(output, testCSVEntry, "array2CSVEntry() standard parsing");
+    //console.log(output);
+  //});
+
+//  test("array2CSV() parsing", function() {
+//    var output = $.array2CSV(testArray);
+//    //console.log(output);
+//  });
+
+//  test("dictionary2CSV() parsing", function() {
+//    var output = $.dictionary2CSV(testDictionary);
+//    //console.log(output)
+//  });
+});
+</script>
+</head>
+
+<body>
+  <h1 id="qunit-header">jQuery-CSV Testing</h1>
+  <h2 id="qunit-banner"></h2>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests">
+  </ol>
+</body>
+
+</html>
