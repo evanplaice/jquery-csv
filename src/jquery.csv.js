@@ -24,48 +24,23 @@
 
 (function( $ ) {
   /**
-   * jQuery.csv2Array(csvString)
-   * Converts a CSV string to a javascript array.
-   *
-   * @param {String} csv The string containing the raw CSV data.
-   * @param {Array} [meta] The dictionary where the meta variables (ie separator, delimiter, line-break, and headers) are defined. Defaults to an empty object ({}).
-   * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
-   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote(').
-   * @param {Integer} [skip] The number of lines that need to be skipped before the parser starts. Defaults to 0. 
-   *
-   * This method deals with multi-line CSV. The breakdown is simple. The first
-   * dimension of the array represents the line (or entry/row) while the second
-   * dimension contains the values (or values/columns).
-   *
-   * Example - Print the 4th value in the 10th row:
-   *   data = $.csv2Array(csv); // cache the output to avoid unnecessary processing
-   *   console.log(data[9][3]);
-	 */
-  $.csv2Array = function(csv, meta) {
-    var meta = (meta !== undefined ? meta : {});
-    var separator = 'separator' in meta ? args.separator : ',';
-    var delimiter = 'delimiter' in meta ? args.delimiter : "'";
-    var skip = 'skip' in meta ? args.headers : 0;
-
-    // check for line breaks
-    var lines = csv.split(/\r\n|\r|\n/g);
-    var output = [];
-    for(var i in lines) {
-      if(line < skip) {
-        continue;
-      }
-      var line = $.csvEntry2Array(lines[i]);
-      output.push(line);
-    }
-    return output;
+   * jQuery.csv.defaults
+   * Encapsulates the method paramater defaults for the CSV plugin module.
+   */
+  $.csvDefaults = {
+    separator:',',
+    delimiter:'"',
+    skip:0,
+    headerLine:1,
+    dataLine:2
   };
 
   /**
-   * jQuery.csvEntry2Array(csvString)
+   * jQuery.csvEntry2Array(csv)
    * Converts a CSV string to a javascript array.
    *
-   * @param {String} csv The string containing the raw CSV data.
-   * @param {Array} [meta] The dictionary where the meta variables (ie separator, delimiter, line-break, and headers) are defined. Defaults to an empty object ({}).
+   * @param {Array} csv The string containing the CSV data.
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter) are defined. Defaults to an empty object ({}).
    * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
    * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote(').
    *
@@ -75,49 +50,192 @@
    */
   $.csvEntry2Array = function(csv, meta) {
     var meta = (meta !== undefined ? meta : {});
-    var separator = 'separator' in meta ? args.separator : ',';
-    var delimiter = 'delimiter' in meta ? args.delimiter : "'";
+    var separator = 'separator' in meta ? meta.separator : $.csvDefaults.separator;
+    var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
 
+    // build the CSV validator regex
     var reValid = /^\s*(?:D[^D\\]*(?:\\[\S\s][^D\\]*)*D|[^SD\s\\]*(?:\s+[^SD\s\\]+)*)\s*(?:S\s*(?:D[^D\\]*(?:\\[\S\s][^D\\]*)*D|[^SD\s\\]*(?:\s+[^SD\s\\]+)*)\s*)*$/;
     reValid = RegExp(reValid.source.replace(/S/g, separator));
     reValid = RegExp(reValid.source.replace(/D/g, delimiter));
 
+    // build the CSV line parser regex
     var reValue = /(?!\s*$)\s*(?:D([^D\\]*(?:\\[\S\s][^D\\]*)*)D|([^SD\s\\]*(?:\s+[^SD\s\\]+)*))\s*(?:S|$)/g;
     reValue = RegExp(reValue.source.replace(/S/g, separator), 'g');
     reValue = RegExp(reValue.source.replace(/D/g, delimiter), 'g');
 
     // Return NULL if input string is not well formed CSV string.
-    if (!reValid.test(csv)) { return null; }
-    
-    var a = [];
+    if (!reValid.test(csv)) {
+      return null;
+    }
 
     // "Walk" the string using replace with callback.
+    var output = [];
     csv.replace(reValue, function(m0, m1, m2) {
-            // Remove backslash from \' in single quoted values.
-            if (m1 !== undefined) {
-              a.push(m1.replace(/\\'/g, "'"));
-            }
-
-            else if (m2 !== undefined) { 
-              a.push(m2);
-            }
-            return '';
-        });
+      // Remove backslash from any delimiters in the value
+      if (m1 !== undefined) {
+        var reDelimiterUnescape = /\\D/g;              
+        reDelimiterUnescape = RegExp(reDelimiterUnescape.source.replace(/D/, delimiter), 'g');
+        output.push(m1.replace(reDelimiterUnescape, delimiter));
+      } else if (m2 !== undefined) { 
+        output.push(m2);
+      }
+      return '';
+    });
 
     // Handle special case of empty last value.
-    if (/,\s*$/.test(csv)) {
-      a.push('');
+    var reEmptyLast = /S\s*$/;
+    reEmptyLast = RegExp(reEmptyLast.source.replace(/S/, separator));
+    if (reEmptyLast.test(csv)) {
+      output.push('');
     }
-    return a;
+    
+    return output;
   };
 
-  // TODO: Implement this
+  /**
+   * jQuery.array2CSVEntry(array)
+   * Converts a javascript array to a CSV String.
+   *
+   * @param {Array} array The array containing the CSV data.
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter) are defined. Defaults to an empty object ({}).
+   * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote(').
+   *
+   * This method deals with simple CSV arrays only. It's useful if you only
+   * need to convert a single entry. If you need to convert more than one line,
+   * use $.csv2Array instead.
+   */
+  $.array2CSVEntry = function(array, meta) {
+    var meta = (meta !== undefined ? meta : {});
+    var separator = 'separator' in meta ? meta.separator : $.csvDefaults.separator;
+    var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
+    
+    var output = [] 
+    for(i in array) {
+      output.push(array[i]);
+    }
+    
+    return output;
+  };
+
+  /**
+   * jQuery.csv2Array(csv)
+   * Converts a CSV string to a javascript array.
+   *
+   * @param {String} csv The string containing the raw CSV data.
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, skip) are defined. Defaults to an empty object ({}).
+   * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote(').
+   * @param {Integer} [skip] The number of lines that need to be skipped before the parser starts. Defaults to 0. 
+   *
+   * This method deals with multi-line CSV. The breakdown is simple. The first
+   * dimension of the array represents the line (or entry/row) while the second
+   * dimension contains the values (or values/columns).
+	 */
+  $.csv2Array = function(csv, meta) {
+    var meta = (meta !== undefined ? meta : {});
+    var separator = 'separator' in meta ? meta.separator : $.csvDefaults.separator;
+    var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
+    var skip = 'skip' in meta ? meta.skip : $.csvDefaults.skip;
+
+    // process by line
+    var lines = csv.split(/\r\n|\r|\n/g);
+    var output = [];
+    for(var i in lines) {
+      if(i < skip) {
+        continue;
+      }
+      // process each value
+      var line = $.csvEntry2Array(lines[i], {
+        delimiter: delimiter,
+        separator: separator
+      });
+      output.push(line);
+    }
+
+    return output;
+  };
+
+  /**
+   * jQuery.array2CSV(array)
+   * Converts a CSV array to a javascript string.
+   *
+   * @param {Array} csv The array containing the CSV data.
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, skip) are defined. Defaults to an empty object ({}).
+   * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote(').
+   * @param {Integer} [skip] The number of lines that need to be skipped before the parser starts. Defaults to 0. 
+   *
+   * This method dimensional multi-line CSV arrays. The breakdown is simple.
+   * The first dimension of the array gets mapped to rows, the second dimension
+   * gets mapped to data within those rows.
+	 */
+  //$.array2CSV = function(array, meta) {
+  //  alert('Not implemented yet'); // TODO: implement this
+  //};
+
+  /**
+   * jQuery.csv2Dictionary(csv)
+   * Converts a CSV string to a javascript dictionary.
+   * @param {String} csv The string containing the raw CSV data.
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, headerLine, dataLine) are defined. Defaults to an empty object ({}).
+   * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote('). 
+   * @param {Integer} [headerLine] The line in the file that contains the header data. Defaults to 1 (1-based counting).
+   * @param {Integer} [dataLine] The line where the data values start. Defaults to 2 (1-based counting).
+   *
+   * This method deals with multi-line CSV strings. Where the headers line is
+   * used as the key for each value per entry.
+   */
   $.csv2Dictionary = function(csv, meta) {
     var meta = (meta !== undefined ? meta : {});
-    //header-line // TODO: Implement this, marks the line that contains the header
-    //data-line // TODO: Implement this, marks the line where the data starts
-    alert("Method csv2Dictionary() not implemented yet");
+    var separator = 'separator' in meta ? meta.separator : $.csvDefaults.separator;
+    var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
+    var headerLine = 'headerLine' in meta ? meta.headerLine : $.csvDefaults.headerLine;
+    var dataLine = 'dataLine' in meta ? meta.dataLine : $.csvDefaults.dataLine;
+
+    // process data into lines
+    var lines = csv.split(/\r\n|\r|\n/g);
+    // fetch the headers
+    var headers = $.csvEntry2Array(lines[(headerLine - 1)]);    
+    // process the data
+    var output = [];
+    for(var i in lines) {
+      if(i < (dataLine - 1)) {
+        continue;
+      }
+      // process each value
+      var line = $.csvEntry2Array(lines[i], {
+        delimiter: delimiter, 
+        separator: separator
+      });
+      var lineDict = {};
+      for(var j in headers) {
+        lineDict[headers[j]] = line[j];
+      }
+      output.push(lineDict);
+    }
+
+    return output;
   };
 
+  /**
+   * jQuery.dictionary2CSV(dictionary)
+   * Converts a javascript dictionary to a CSV string.
+   * @param {Object} dictionary The dictionary containing the CSV data.
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, headerLine, dataLine) are defined. Defaults to an empty object ({}).
+   * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote('). 
+   * @param {Integer} [headerLine] The line in the file that contains the header data. Defaults to 1 (1-based counting).
+   * @param {Integer} [dataLine] The line where the data values start. Defaults to 2 (1-based counting).
+   *
+   * This method generates a CSV file from a javascript dictionary structure.
+   * It starts by detecting the headers and adding them as the first line of 
+   * the CSV file, followed by a structured dump of the data.
+   */
+  //$.dictionary2CSV = function(dictionary, meta) {
+  //  alert('Not implemented yet'); // TODO: implement this
+  //};  
+  
 })( jQuery );
 
