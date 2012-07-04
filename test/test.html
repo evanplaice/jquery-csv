@@ -10,11 +10,10 @@
 <link media="screen" href="qunit.css" rel="stylesheet"/>
 <script>
 $(document).ready(function() {
-  
+
   // initialize the data for the 'core' module
   function coreDataSetUp() {
     testCSVEntry = '1,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",';
-    //console.log(testCSVEntry);
 
     testCSV = '';
     testCSV += 'ID,iManufacturer,iMPartNumber,iSerialNumber,iSimCategory,iPartType,iDescription,iGroup,iLocation,iSold\r\n';
@@ -28,10 +27,8 @@ $(document).ready(function() {
     testCSV += '8,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
     testCSV += '9,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
     testCSV += '10,"Evans & Sutherland","230-121-150AC",,"Visual","PCB",,1,"Offsite",';
-    //console.log(testCSV);
 
     testEntryArray = ["1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB", "", "1", "Offsite", ""];
-    //console.log(testEntryArray);
 
     testArray = [];
     testArray.push(["ID", "iManufacturer", "iMPartNumber", "iSerialNumber", "iSimCategory", "iPartType", "iDescription", "iGroup", "iLocation", "iSold"]);
@@ -45,9 +42,6 @@ $(document).ready(function() {
     testArray.push(["8", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
     testArray.push(["9", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
     testArray.push(["10", "Evans & Sutherland", "230-121-150AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
-    //for(i in testArray) {
-    //  console.log(testArray[i]);
-    //}
 
     testDictionary = [];
     testDictionary.push({ ID:"1",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-132-111AA", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
@@ -60,54 +54,109 @@ $(document).ready(function() {
     testDictionary.push({ ID:"8",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
     testDictionary.push({ ID:"9",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
     testDictionary.push({ ID:"10",  iManufacturer:"Evans & Sutherland", iMPartNumber:"230-121-150AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
-    //for(i in testDictionary) {
-    //  console.log(testDictionary[i]);
-    //}
+
+    testEscaping = [];
+    testEscaping.push('1,"he said ""you are crazy""", "one "", two "", three """');
+    testEscaping.push('2,\'he said "\'you are crazy"\'\', \'one "\', two "\', three "\'\'');
+    testEscaping.push('3;"he said ""you are crazy"""; "one "", two "", three """');
+    testEscaping.push('4,"he said \\"you are crazy\\"", "one \\", two \\", three \\""');
+    testEscaping.push('5|"he said ""you are crazy"""| "one "", two "", three """');
+    resultEscaping = [];
+    resultEscaping.push(['1', 'he said "you are crazy"', 'one ", two ", three "']);
+    resultEscaping.push(['2', 'he said \'you are crazy\'', 'one \', two \', three \'']);
+    resultEscaping.push(['3', 'he said "you are crazy"', 'one ", two ", three "']);
+    resultEscaping.push(['4', 'he said "you are crazy"', 'one ", two ", three "']);
+    resultEscaping.push(['5', 'he said "you are crazy"', 'one ", two ", three "']);
+
+    testNewLines = '';
+    testNewLines += '"-1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"\r\n';
+    testNewLines += '"0", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"\r\n';
+    testNewLines += '"1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"\r\n';
+    testNewLines += '"2", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"\r\n';
+    testNewLines += '"3", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB"\r\n';
+    resultNewLines = [];
+    resultNewLines.push(["-1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"]);
+    resultNewLines.push(["0", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"]);
+    resultNewLines.push(["1", "Evans & Sutherland", "230\r\n-132-111AA", "", "Visual", "PCB"]);
+    resultNewLines.push(["2", "Evans & Sutherland", "230\r-132-111AA", "", "Visual", "PCB"]);
+    resultNewLines.push(["3", "Evans & Sutherland", "230\n-120-112AC", "", "Visual", "PCB"]);
   }
-  
+
   module("core", { setup:function(){ coreDataSetUp() }});
-  test("csvEntry2Array() parsing", function() {
+  test("CSV Entry Parsing", function() {
     expect(1);
     stop();
     var output = $.csvEntry2Array(testCSVEntry);
     start();
-    deepEqual(output, testEntryArray, "csvEntry2Array() standard parsing");
-    //console.log(output);
+    deepEqual(output, testEntryArray, "csvEntry2Array()");
+    //stop();
+    //var output = $.array2CSVEntry(testEntryArray);
+    //start();
+    //equal(output, testCSVEntry, "array2CSVEntry()");
   });
 
-  test("csv2Array() parsing", function() {
+  test("CSV Array Parsing", function() {
     expect(1);
+    stop();
     var output = $.csv2Array(testCSV);
-    deepEqual(output, testArray, "csv2Array() standard parsing");
-    //for(i in output) {
-    //  console.log(output[i]);
-    //}
+    start();
+    deepEqual(output, testArray, "csv2Array()");
+    //stop()
+    //var output = $.array2CSV(testArray);
+    //start()
+    // TODO: Add test
   });
 
-  test("csv2Dictionary() parsing", function() {
+  test("Dictionary Parsing", function() {
     expect(1);
+    stop();
     var output = $.csv2Dictionary(testCSV);
-    deepEqual(output, testDictionary, "csv2Dictionary() standard parsing");
-    //for(i in output) {
-    //  console.log(output[i]);
-    //}
+    start();
+    deepEqual(output, testDictionary, "csv2Dictionary()");
+    //stop();
+    //var output = $.dictionary2CSV(testDictionary);
+    //start();
+    // TODO: Add test
   });
 
-  //test("array2CSVEntry() parsing", function() {
-  //  expect(1);
-  //  var output = $.array2CSVEntry(testEntryArray);
-  //  equal(output, testCSVEntry, "array2CSVEntry() standard parsing");
-    //console.log(output);
-  //});
+  test("Custom Delimiter, Separator, and Escaper Characters", function() {
+    expect(5);
+    stop();
+    var output = $.csvEntry2Array(testEscaping[0]);
+    start();
+    deepEqual(output, resultEscaping[0], "standard delimiter/separator/escaper");
+    stop();
+    var output = $.csvEntry2Array(testEscaping[1], {
+      delimiter:"'"
+    });
+    start();
+    deepEqual(output, resultEscaping[1], "custom delimiter");
+    stop();
+    var output = $.csvEntry2Array(testEscaping[2], {
+      separator:';'
+    });
+    start();
+    deepEqual(output, resultEscaping[2], "custom separator");
+    stop();
+    var output = $.csvEntry2Array(testEscaping[3], {
+      escaper:'\\'
+    });
+    start();
+    deepEqual(output, resultEscaping[3], "custom escaper");
+    stop();
+    var output = $.csvEntry2Array(testEscaping[4], {
+      separator:'|'
+    });
+    start();
+    deepEqual(output, resultEscaping[4], "regex special char");
+  });
 
-//  test("array2CSV() parsing", function() {
-//    var output = $.array2CSV(testArray);
-//    //console.log(output);
-//  });
-
-//  test("dictionary2CSV() parsing", function() {
-//    var output = $.dictionary2CSV(testDictionary);
-//    //console.log(output)
+//  test("Edge Cases", function() {
+//    expect(1);
+//    stop();
+//    var output = $.csv2Array(testNewLines);
+//    start();
+//    deepEqual(output, resultNewLines, "parsing fields that contain newline chars");
 //  });
 });
 </script>

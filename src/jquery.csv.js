@@ -1,6 +1,6 @@
 ﻿/**
  * jQuery-csv (jQuery Plugin)
- * version: 0.51 (2012-04-26)
+ * version: 0.61 (2012-07-04)
  *
  * This document is licensed as free software under the terms of the
  * MIT License: http://www.opensource.org/licenses/mit-license.php
@@ -22,6 +22,10 @@
  * Copyrighted 2012 by Evan Plaice.
  */
 
+RegExp.escape= function(s) {
+    return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+};
+
 (function( $ ) {
   /**
    * jQuery.csv.defaults
@@ -30,6 +34,7 @@
   $.csvDefaults = {
     separator:',',
     delimiter:'"',
+    escaper:'"',
     skip:0,
     headerLine:1,
     dataLine:2
@@ -40,9 +45,10 @@
    * Converts a CSV string to a javascript array.
    *
    * @param {Array} csv The string containing the CSV data.
-   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter) are defined. Defaults to an empty object ({}).
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, escaper) are defined.
    * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
-   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote(').
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
+   * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
    *
    * This method deals with simple CSV strings only. It's useful if you only
    * need to parse a single entry. If you need to parse more than one line,
@@ -52,16 +58,23 @@
     var meta = (meta !== undefined ? meta : {});
     var separator = 'separator' in meta ? meta.separator : $.csvDefaults.separator;
     var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
+    var escaper = 'escaper' in meta ? meta.escaper : $.csvDefaults.escaper;
+
+    separator = RegExp.escape(separator);
+    delimiter = RegExp.escape(delimiter);
+    escaper = RegExp.escape(escaper);
 
     // build the CSV validator regex
-    var reValid = /^\s*(?:D[^D\\]*(?:\\[\S\s][^D\\]*)*D|[^SD\s\\]*(?:\s+[^SD\s\\]+)*)\s*(?:S\s*(?:D[^D\\]*(?:\\[\S\s][^D\\]*)*D|[^SD\s\\]*(?:\s+[^SD\s\\]+)*)\s*)*$/;
-    reValid = RegExp(reValid.source.replace(/S/g, separator));
-    reValid = RegExp(reValid.source.replace(/D/g, delimiter));
+    var reValid = /^\s*(?:Y[^YZ]*(?:ZY[^YZ]*)*Y|[^XYZ\s]*(?:\s+[^XYZ\s]+)*)\s*(?:X\s*(?:Y[^YZ]*(?:ZY[^YZ]*)*Y|[^XYZ\s]*(?:\s+[^XYZ\s]+)*)\s*)*$/;
+    reValid = RegExp(reValid.source.replace(/X/g, separator));
+    reValid = RegExp(reValid.source.replace(/Y/g, delimiter));
+    reValid = RegExp(reValid.source.replace(/Z/g, escaper));
 
     // build the CSV line parser regex
-    var reValue = /(?!\s*$)\s*(?:D([^D\\]*(?:\\[\S\s][^D\\]*)*)D|([^SD\s\\]*(?:\s+[^SD\s\\]+)*))\s*(?:S|$)/g;
-    reValue = RegExp(reValue.source.replace(/S/g, separator), 'g');
-    reValue = RegExp(reValue.source.replace(/D/g, delimiter), 'g');
+    var reValue = /(?!\s*$)\s*(?:Y([^YZ]*(?:ZY[^YZ]*)*)Y|([^XYZ\s]*(?:\s+[^XYZ\s]+)*))\s*(?:X|$)/g;
+    reValue = RegExp(reValue.source.replace(/X/g, separator), 'g');
+    reValue = RegExp(reValue.source.replace(/Y/g, delimiter), 'g');
+    reValue = RegExp(reValue.source.replace(/Z/g, escaper), 'g');
 
     // Return NULL if input string is not well formed CSV string.
     if (!reValid.test(csv)) {
@@ -72,11 +85,12 @@
     var output = [];
     csv.replace(reValue, function(m0, m1, m2) {
       // Remove backslash from any delimiters in the value
-      if (m1 !== undefined) {
-        var reDelimiterUnescape = /\\D/g;              
+      if(m1 !== undefined) {
+        var reDelimiterUnescape = /ED/g;
+        reDelimiterUnescape = RegExp(reDelimiterUnescape.source.replace(/E/, escaper), 'g');
         reDelimiterUnescape = RegExp(reDelimiterUnescape.source.replace(/D/, delimiter), 'g');
         output.push(m1.replace(reDelimiterUnescape, delimiter));
-      } else if (m2 !== undefined) { 
+      } else if(m2 !== undefined) {
         output.push(m2);
       }
       return '';
@@ -88,7 +102,7 @@
     if (reEmptyLast.test(csv)) {
       output.push('');
     }
-    
+
     return output;
   };
 
@@ -97,9 +111,10 @@
    * Converts a javascript array to a CSV String.
    *
    * @param {Array} array The array containing the CSV data.
-   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter) are defined. Defaults to an empty object ({}).
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, escaper) are defined.
    * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
-   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote(').
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
+   * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
    *
    * This method deals with simple CSV arrays only. It's useful if you only
    * need to convert a single entry. If you need to convert more than one line,
@@ -109,12 +124,13 @@
     var meta = (meta !== undefined ? meta : {});
     var separator = 'separator' in meta ? meta.separator : $.csvDefaults.separator;
     var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
-    
-    var output = [] 
+    var escaper = 'escaper' in meta ? meta.escaper : $.csvDefaults.escaper;
+
+    var output = []
     for(i in array) {
       output.push(array[i]);
     }
-    
+
     return output;
   };
 
@@ -123,24 +139,108 @@
    * Converts a CSV string to a javascript array.
    *
    * @param {String} csv The string containing the raw CSV data.
-   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, skip) are defined. Defaults to an empty object ({}).
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, escaper, skip) are defined.
    * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
-   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote(').
-   * @param {Integer} [skip] The number of lines that need to be skipped before the parser starts. Defaults to 0. 
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
+   * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
+   * @param {Integer} [skip] The number of lines that need to be skipped before the parser starts. Defaults to 0.
    *
    * This method deals with multi-line CSV. The breakdown is simple. The first
    * dimension of the array represents the line (or entry/row) while the second
    * dimension contains the values (or values/columns).
-	 */
+   */
   $.csv2Array = function(csv, meta) {
     var meta = (meta !== undefined ? meta : {});
     var separator = 'separator' in meta ? meta.separator : $.csvDefaults.separator;
     var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
+    var escaper = 'escaper' in meta ? meta.escaper : $.csvDefaults.escaper;
     var skip = 'skip' in meta ? meta.skip : $.csvDefaults.skip;
 
-    // process by line
-    var lines = csv.split(/\r\n|\r|\n/g);
+// Experimental line splitter, used to skip newline chars contained in entries 
+//    var StateMachine = {
+//      state:'',
+//      char:'',
+//      prevChar:'',
+//      quoted:false,
+//      init: function(separator, delimiter, escaper) {
+//        this.separator = separator;        
+//        this.delimiter = delimiter;
+//        this.escaper = escaper;
+//      },
+//      input: function(char) {
+//        this.char = char;
+//        if(this.quoted && char == this.delimiter) {
+//          this.quoted = false;
+//          this.increment();
+//          return;
+//        }
+//        if(!this.quoted) {
+//          if(char == '\r\n' || char == '\r' || char == '\n' ) {
+//            if(char != '') {
+//              this.flush();
+//            }
+//          }
+//          if(char == this.delimiter) {
+//            if(this.prevChar != this.escaper) {
+//              this.quoted = true;
+//              this.increment();
+//              return;
+//            }
+//          } else {
+//            this.increment();
+//            return;
+//          }
+//        }
+//      },
+//      increment: function() {
+//        this.state += this.char;
+//        this.char = this.prevChar;
+//      },
+//      flush: function() {
+//        console.log(this.state);
+//        this.process();
+//        this.state = '';
+//        this.char = '';
+//        this.prevChar = '';
+//        this.quoted = false;
+//      },
+//      process: function() {
+//        var entry = $.csvEntry2Array(this.state, {
+//          delimiter: this.delimiter,
+//          separator: this.separator,
+//          escaper: this.escaper,
+//        });
+//        output.push(entry);
+//      }
+//    }
+
+//    var output = [];
+//    StateMachine.init(separator, delimiter, escaper);
+//    var i = csv.length;
+//    while (i--) {
+//      StateMachine.input(csv[i]);
+//    }
+
+//    // process by line
+//    var reLineBreak = /((?:"(?:\\.|[^"\\])*"|[^/"\\,]*)*[\r](?:[\n]))/g;
+//    //var reLineBreak = /(.*[\r](?:[\n]))|(.[^\r](?:[^\n])*)/g; // good shit
+//    reLineBreak = RegExp(reLineBreak.source.replace(/D/g, delimiter), 'g');
+//    var output = [];
+//    csv.replace(reLineBreak, function(m0) {
+//      if(m0 !== undefined) {
+//        var line = m0;
+//        // process each value
+//        var entry = $.csvEntry2Array(line, {
+//          delimiter: delimiter,
+//          separator: separator,
+//          escaper: escaper,
+//        });
+//        output.push(entry);
+//      }
+//    });
+
     var output = [];
+    var lines = csv.split(/\r\n|\r|\n/g);
     for(var i in lines) {
       if(i < skip) {
         continue;
@@ -148,7 +248,8 @@
       // process each value
       var line = $.csvEntry2Array(lines[i], {
         delimiter: delimiter,
-        separator: separator
+        separator: separator,
+        escaper: escaper,
       });
       output.push(line);
     }
@@ -161,15 +262,16 @@
    * Converts a CSV array to a javascript string.
    *
    * @param {Array} csv The array containing the CSV data.
-   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, skip) are defined. Defaults to an empty object ({}).
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, escaper, skip) are defined.
    * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
-   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote(').
-   * @param {Integer} [skip] The number of lines that need to be skipped before the parser starts. Defaults to 0. 
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
+   * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
+   * @param {Integer} [skip] The number of lines that need to be skipped before the parser starts. Defaults to 0.
    *
    * This method dimensional multi-line CSV arrays. The breakdown is simple.
    * The first dimension of the array gets mapped to rows, the second dimension
    * gets mapped to data within those rows.
-	 */
+   */
   //$.array2CSV = function(array, meta) {
   //  alert('Not implemented yet'); // TODO: implement this
   //};
@@ -178,9 +280,10 @@
    * jQuery.csv2Dictionary(csv)
    * Converts a CSV string to a javascript dictionary.
    * @param {String} csv The string containing the raw CSV data.
-   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, headerLine, dataLine) are defined. Defaults to an empty object ({}).
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, escaper, headerLine, dataLine) are defined.
    * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
-   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote('). 
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
+   * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
    * @param {Integer} [headerLine] The line in the file that contains the header data. Defaults to 1 (1-based counting).
    * @param {Integer} [dataLine] The line where the data values start. Defaults to 2 (1-based counting).
    *
@@ -191,13 +294,14 @@
     var meta = (meta !== undefined ? meta : {});
     var separator = 'separator' in meta ? meta.separator : $.csvDefaults.separator;
     var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
+    var escaper = 'escaper' in meta ? meta.escaper : $.csvDefaults.escaper;
     var headerLine = 'headerLine' in meta ? meta.headerLine : $.csvDefaults.headerLine;
     var dataLine = 'dataLine' in meta ? meta.dataLine : $.csvDefaults.dataLine;
 
     // process data into lines
     var lines = csv.split(/\r\n|\r|\n/g);
     // fetch the headers
-    var headers = $.csvEntry2Array(lines[(headerLine - 1)]);    
+    var headers = $.csvEntry2Array(lines[(headerLine - 1)]);
     // process the data
     var output = [];
     for(var i in lines) {
@@ -206,8 +310,9 @@
       }
       // process each value
       var line = $.csvEntry2Array(lines[i], {
-        delimiter: delimiter, 
-        separator: separator
+        delimiter: delimiter,
+        separator: separator,
+        escaper: escaper
       });
       var lineDict = {};
       for(var j in headers) {
@@ -223,19 +328,20 @@
    * jQuery.dictionary2CSV(dictionary)
    * Converts a javascript dictionary to a CSV string.
    * @param {Object} dictionary The dictionary containing the CSV data.
-   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, headerLine, dataLine) are defined. Defaults to an empty object ({}).
+   * @param {Object} [meta] The dictionary where the meta variables (ie separator, delimiter, escaper, headerLine, dataLine) are defined.
    * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
-   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a quote('). 
+   * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
+   * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
    * @param {Integer} [headerLine] The line in the file that contains the header data. Defaults to 1 (1-based counting).
    * @param {Integer} [dataLine] The line where the data values start. Defaults to 2 (1-based counting).
    *
    * This method generates a CSV file from a javascript dictionary structure.
-   * It starts by detecting the headers and adding them as the first line of 
+   * It starts by detecting the headers and adding them as the first line of
    * the CSV file, followed by a structured dump of the data.
    */
   //$.dictionary2CSV = function(dictionary, meta) {
   //  alert('Not implemented yet'); // TODO: implement this
-  //};  
-  
+  //};
+
 })( jQuery );
 
