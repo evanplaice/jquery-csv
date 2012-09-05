@@ -76,6 +76,9 @@ RegExp.escape= function(s) {
     reValue = RegExp(reValue.source.replace(/Y/g, delimiter), 'g');
     reValue = RegExp(reValue.source.replace(/Z/g, escaper), 'g');
 
+    if (csv === "") {
+        return [""];
+    }
     // Return NULL if input string is not well formed CSV string.
     if (!reValid.test(csv)) {
       return null;
@@ -85,7 +88,7 @@ RegExp.escape= function(s) {
     var output = [];
     csv.replace(reValue, function(m0, m1, m2) {
       // Remove backslash from any delimiters in the value
-      if(m1 !== undefined) {
+    if(typeof m1 === 'string' && m1.length) {        // Fix: evaluates to false for both empty strings and undefined
         var reDelimiterUnescape = /ED/g;
         reDelimiterUnescape = RegExp(reDelimiterUnescape.source.replace(/E/, escaper), 'g');
         reDelimiterUnescape = RegExp(reDelimiterUnescape.source.replace(/D/, delimiter), 'g');
