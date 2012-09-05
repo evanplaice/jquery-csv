@@ -14,7 +14,7 @@
  *
  * For legal purposes I'll include the "NO WARRANTY EXPRESSED OR IMPLIED.
  * USE AT YOUR OWN RISK.". Which, in 'layman's terms' means, by using this
- * library you are accepting responsability if it breaks your code.
+ * library you are accepting responsibility if it breaks your code.
  *
  * Legal jargon aside, I will do my best to provide a useful and stable core
  * that can effectively be built on.
@@ -23,7 +23,7 @@
  */
 
 RegExp.escape= function(s) {
-    return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
 
 (function( $ ) {
@@ -126,7 +126,7 @@ RegExp.escape= function(s) {
     var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
     var escaper = 'escaper' in meta ? meta.escaper : $.csvDefaults.escaper;
 
-    var output = []
+    var output = [];
     for(i in array) {
       output.push(array[i]);
     }
@@ -249,7 +249,7 @@ RegExp.escape= function(s) {
       var line = $.csvEntry2Array(lines[i], {
         delimiter: delimiter,
         separator: separator,
-        escaper: escaper,
+        escaper: escaper
       });
       output.push(line);
     }
