@@ -1,4 +1,4 @@
-﻿/**
+/**
  * jQuery-csv (jQuery Plugin)
  * version: 0.61 (2012-07-04)
  *
