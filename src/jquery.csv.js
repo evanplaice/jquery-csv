@@ -66,15 +66,19 @@ RegExp.escape= function(s) {
 
     // build the CSV validator regex
     var reValid = /^\s*(?:Y[^YZ]*(?:ZY[^YZ]*)*Y|[^XYZ\s]*(?:\s+[^XYZ\s]+)*)\s*(?:X\s*(?:Y[^YZ]*(?:ZY[^YZ]*)*Y|[^XYZ\s]*(?:\s+[^XYZ\s]+)*)\s*)*$/;
-    reValid = RegExp(reValid.source.replace(/X/g, separator));
-    reValid = RegExp(reValid.source.replace(/Y/g, delimiter));
-    reValid = RegExp(reValid.source.replace(/Z/g, escaper));
+    var reValidSrc = reValid.source;    
+    reValidSrc = reValidSrc.replace(/X/g, separator);
+    reValidSrc = reValidSrc.replace(/Y/g, delimiter);
+    reValidSrc = reValidSrc.replace(/Z/g, escaper);
+    reValid = RegExp(reValidSrc);
 
     // build the CSV line parser regex
-    var reValue = /(?!\s*$)\s*(?:Y([^YZ]*(?:ZY[^YZ]*)*)Y|([^XYZ\s]*(?:\s+[^XYZ\s]+)*))\s*(?:X|$)/g;
-    reValue = RegExp(reValue.source.replace(/X/g, separator), 'g');
-    reValue = RegExp(reValue.source.replace(/Y/g, delimiter), 'g');
-    reValue = RegExp(reValue.source.replace(/Z/g, escaper), 'g');
+    var reValue = /(?!\s*$)\s*(?:Y([^YZ]*(?:ZY[^YZ]*)*)Y|([^XYZ\s]*(?:\s+[^XYZ\s]+)*))\s*(?:X|$)/;
+    var reValueSrc = reValue.source;
+    reValueSrc = reValueSrc.replace(/X/g, separator);
+    reValueSrc = reValueSrc.replace(/Y/g, delimiter);
+    reValueSrc = reValueSrc.replace(/Z/g, escaper);
+    reValue = RegExp(reValueSrc, 'g');
 
     if (csv === "") {
         return [""];
@@ -89,9 +93,11 @@ RegExp.escape= function(s) {
     csv.replace(reValue, function(m0, m1, m2) {
       // Remove backslash from any delimiters in the value
     if(typeof m1 === 'string' && m1.length) {        // Fix: evaluates to false for both empty strings and undefined
-        var reDelimiterUnescape = /ED/g;
-        reDelimiterUnescape = RegExp(reDelimiterUnescape.source.replace(/E/, escaper), 'g');
-        reDelimiterUnescape = RegExp(reDelimiterUnescape.source.replace(/D/, delimiter), 'g');
+        var reDelimiterUnescape = /ED/;
+        var reDelimiterUnescapeSrc = reDelimiterUnescape.source;
+        reDelimiterUnescapeSrc = reDelimiterUnescapeSrc.replace(/E/, escaper);
+        reDelimiterUnescapeSrc = reDelimiterUnescapeSrc.replace(/D/, delimiter);
+        reDelimiterUnescape = RegExp(reDelimiterUnescapeSrc, 'g');
         output.push(m1.replace(reDelimiterUnescape, delimiter));
       } else if(m2 !== undefined) {
         output.push(m2);
@@ -347,4 +353,3 @@ RegExp.escape= function(s) {
   //};
 
 })( jQuery );
-
