@@ -45,7 +45,7 @@ RegExp.escape= function(s) {
     var newline = /\r\n|\r|\n/;
     var lines = [];
     for(var i=0, len=csv.length, position=0, entryLen = 0, quoted=false, endPos=(len-1); i < len; i++, entryLen++) {
-      console.log("CSV:" + i + "; Position:" + position + "; Length:" + entryLen + "; Quoted:" + quoted);
+      //console.log("CSV:" + i + "; Position:" + position + "; Length:" + entryLen + "; Quoted:" + quoted);
       // check if delimiters exist
       if(csv[i] == delimiter){
         quoted = !quoted;
