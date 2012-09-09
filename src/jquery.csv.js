@@ -39,6 +39,42 @@ RegExp.escape= function(s) {
     headerLine:1,
     dataLine:2
   };
+  
+  $.csvLineSplit = function(csv, delimiter) {
+    //Experimental line splitter, used to skip newline chars contained in entries
+    var newline = /\r\n|\r|\n/;
+    var lines = [];
+    for(var i=0, len=csv.length, position=0, entryLen = 0, quoted=false, skipNewLine=false, endPos=(len-1); i < len; i++, entryLen++) {
+      if(skipNewLine) {
+        skipNewLine = !skipNewLine;
+        continue;
+      }
+      // Process the entry when a newline is found
+      if(newline.test(csv[i])) {
+        if(!quoted){
+          var line = csv.substring(position, (position + entryLen));
+          lines.push(line);
+          position = i + 1;
+          entryLen = 0;
+          skipNewLine = true;
+          continue;
+        } else {
+          continue;
+        }
+      }
+      // check if delimiters exist
+      if(csv[i] == delimiter){
+        quoted = !quoted;
+        continue;
+      }
+      // process the last entry
+      if(i == endPos){
+        var line = csv.substring(position, (position + entryLen));
+        lines.push(line);
+      }
+    }
+    return lines;
+  };
 
   /**
    * jQuery.csvEntry2Array(csv)
@@ -164,103 +200,28 @@ RegExp.escape= function(s) {
     var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
     var escaper = 'escaper' in meta ? meta.escaper : $.csvDefaults.escaper;
     var skip = 'skip' in meta ? meta.skip : $.csvDefaults.skip;
+    var experimental = 'experimental' in meta ? meta.experimantal : false;
 
-// Experimental line splitter, used to skip newline chars contained in entries 
-//    var StateMachine = {
-//      state:'',
-//      char:'',
-//      prevChar:'',
-//      quoted:false,
-//      init: function(separator, delimiter, escaper) {
-//        this.separator = separator;        
-//        this.delimiter = delimiter;
-//        this.escaper = escaper;
-//      },
-//      input: function(char) {
-//        this.char = char;
-//        if(this.quoted && char == this.delimiter) {
-//          this.quoted = false;
-//          this.increment();
-//          return;
-//        }
-//        if(!this.quoted) {
-//          if(char == '\r\n' || char == '\r' || char == '\n' ) {
-//            if(char != '') {
-//              this.flush();
-//            }
-//          }
-//          if(char == this.delimiter) {
-//            if(this.prevChar != this.escaper) {
-//              this.quoted = true;
-//              this.increment();
-//              return;
-//            }
-//          } else {
-//            this.increment();
-//            return;
-//          }
-//        }
-//      },
-//      increment: function() {
-//        this.state += this.char;
-//        this.char = this.prevChar;
-//      },
-//      flush: function() {
-//        console.log(this.state);
-//        this.process();
-//        this.state = '';
-//        this.char = '';
-//        this.prevChar = '';
-//        this.quoted = false;
-//      },
-//      process: function() {
-//        var entry = $.csvEntry2Array(this.state, {
-//          delimiter: this.delimiter,
-//          separator: this.separator,
-//          escaper: this.escaper,
-//        });
-//        output.push(entry);
-//      }
-//    }
-
-//    var output = [];
-//    StateMachine.init(separator, delimiter, escaper);
-//    var i = csv.length;
-//    while (i--) {
-//      StateMachine.input(csv[i]);
-//    }
-
-//    // process by line
-//    var reLineBreak = /((?:"(?:\\.|[^"\\])*"|[^/"\\,]*)*[\r](?:[\n]))/g;
-//    //var reLineBreak = /(.*[\r](?:[\n]))|(.[^\r](?:[^\n])*)/g; // good shit
-//    reLineBreak = RegExp(reLineBreak.source.replace(/D/g, delimiter), 'g');
-//    var output = [];
-//    csv.replace(reLineBreak, function(m0) {
-//      if(m0 !== undefined) {
-//        var line = m0;
-//        // process each value
-//        var entry = $.csvEntry2Array(line, {
-//          delimiter: delimiter,
-//          separator: separator,
-//          escaper: escaper,
-//        });
-//        output.push(entry);
-//      }
-//    });
-
+    var lines = [];
     var output = [];
-    var lines = csv.split(/\r\n|\r|\n/g);
+    
+    if(!experimental) {
+      lines = csv.split(/\r\n|\r|\n/g);
+    } else {
+      lines = $.csvLineSplit(csv, delimiter);
+    }
+
     for(var i in lines) {
       if(i < skip) {
         continue;
       }
       // process each value
-      var line = $.csvEntry2Array(lines[i], {
+      var entry = $.csvEntry2Array(lines[i], {
         delimiter: delimiter,
         separator: separator,
         escaper: escaper
       });
-      output.push(line);
+      output.push(entry);
     }
 
     return output;
@@ -306,7 +267,14 @@ RegExp.escape= function(s) {
     var escaper = 'escaper' in meta ? meta.escaper : $.csvDefaults.escaper;
     var headerLine = 'headerLine' in meta ? meta.headerLine : $.csvDefaults.headerLine;
     var dataLine = 'dataLine' in meta ? meta.dataLine : $.csvDefaults.dataLine;
-
+    var experimental = 'experimental' in meta ? meta.experimantal : false;
+    
+    if(!experimental) {
+      lines = csv.split(/\r\n|\r|\n/g);
+    } else {
+      lines = $.csvLineSplit(csv, delimiter);
+    }
+    
     // process data into lines
     var lines = csv.split(/\r\n|\r|\n/g);
     // fetch the headers
@@ -318,16 +286,16 @@ RegExp.escape= function(s) {
         continue;
       }
       // process each value
-      var line = $.csvEntry2Array(lines[i], {
+      var entry = $.csvEntry2Array(lines[i], {
         delimiter: delimiter,
         separator: separator,
         escaper: escaper
       });
-      var lineDict = {};
+      var object = {};
       for(var j in headers) {
-        lineDict[headers[j]] = line[j];
+        object[headers[j]] = entry[j];
       }
-      output.push(lineDict);
+      output.push(object);
     }
 
     return output;
