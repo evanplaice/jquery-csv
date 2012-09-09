@@ -69,17 +69,25 @@ $(document).ready(function() {
     resultEscaping.push(['5', 'he said "you are crazy"', 'one ", two ", three "']);
 
     testNewLines = '';
-    testNewLines += '"-1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"\r\n';
-    testNewLines += '"0", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"\r\n';
-    testNewLines += '"1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"\r\n';
-    testNewLines += '"2", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"\r\n';
-    testNewLines += '"3", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB"\r\n';
+    testNewLines += '"-1", "Evans & Sutherland", "230\r-132-111AA", "", "Visual", "PCB"\r';
+    testNewLines += '"-1", "Evans & Sutherland", "230\n-132-111AA", "", "Visual", "PCB"\r';
+    testNewLines += '"-1", "Evans & Sutherland", "230\r\n-132-111AA", "", "Visual", "PCB"\r';
+    testNewLines += '"0", "Evans & \rSutherland", "230-132-111AA", "", "Visual", "PCB"\n';
+    testNewLines += '"0", "Evans & \nSutherland", "230-132-111AA", "", "Visual", "PCB"\n';
+    testNewLines += '"0", "Evans & \r\nSutherland", "230-132-111AA", "", "Visual", "PCB"\n';
+    testNewLines += '"1", "Evans & Sutherland", "230-132-111AA", "", "Vis\rual", "PCB"\r\n';
+    testNewLines += '"1", "Evans & Sutherland", "230-132-111AA", "", "Vis\nual", "PCB"\r\n';
+    testNewLines += '"1", "Evans & Sutherland", "230-132-111AA", "", "Vis\r\nual", "PCB"\r\n';
     resultNewLines = [];
-    resultNewLines.push(["-1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"]);
-    resultNewLines.push(["0", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB"]);
-    resultNewLines.push(["1", "Evans & Sutherland", "230\r\n-132-111AA", "", "Visual", "PCB"]);
-    resultNewLines.push(["2", "Evans & Sutherland", "230\r-132-111AA", "", "Visual", "PCB"]);
-    resultNewLines.push(["3", "Evans & Sutherland", "230\n-120-112AC", "", "Visual", "PCB"]);
+    resultNewLines.push(["-1", "Evans & Sutherland", "230\r-132-111AA", "", "Visual", "PCB"]);
+    resultNewLines.push(["-1", "Evans & Sutherland", "230\n-132-111AA", "", "Visual", "PCB"]);
+    resultNewLines.push(["-1", "Evans & Sutherland", "230\r\n-132-111AA", "", "Visual", "PCB"]);
+    resultNewLines.push(["0", "Evans & \rSutherland", "230-132-111AA", "", "Visual", "PCB"]);
+    resultNewLines.push(["0", "Evans & \nSutherland", "230-132-111AA", "", "Visual", "PCB"]);
+    resultNewLines.push(["0", "Evans & \r\nSutherland", "230-132-111AA", "", "Visual", "PCB"]);
+    resultNewLines.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Vis\rual", "PCB"]);
+    resultNewLines.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Vis\nual", "PCB"]);
+    resultNewLines.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Vis\r\nual", "PCB"]);
   }
 
   module("core", { setup:function(){ coreDataSetUp() }});
@@ -151,13 +159,15 @@ $(document).ready(function() {
     deepEqual(output, resultEscaping[4], "regex special char");
   });
 
-//  test("Edge Cases", function() {
-//    expect(1);
-//    stop();
-//    var output = $.csv2Array(testNewLines);
-//    start();
-//    deepEqual(output, resultNewLines, "parsing fields that contain newline chars");
-//  });
+  test("Edge Cases", function() {
+    expect(1);
+    stop();
+    var output = $.csv2Array(testNewLines, {
+      experimental:true
+    });
+    start();
+    deepEqual(output, resultNewLines, "CSV values containing newlines");
+  });
 });
 </script>
 </head>
