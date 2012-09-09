@@ -200,7 +200,7 @@ RegExp.escape= function(s) {
     var delimiter = 'delimiter' in meta ? meta.delimiter : $.csvDefaults.delimiter;
     var escaper = 'escaper' in meta ? meta.escaper : $.csvDefaults.escaper;
     var skip = 'skip' in meta ? meta.skip : $.csvDefaults.skip;
-    var experimental = 'experimental' in meta ? meta.experimantal : false;
+    var experimental = 'experimental' in meta ? meta.experimental : false;
 
     var lines = [];
     var output = [];
@@ -267,8 +267,8 @@ RegExp.escape= function(s) {
     var escaper = 'escaper' in meta ? meta.escaper : $.csvDefaults.escaper;
     var headerLine = 'headerLine' in meta ? meta.headerLine : $.csvDefaults.headerLine;
     var dataLine = 'dataLine' in meta ? meta.dataLine : $.csvDefaults.dataLine;
-    var experimental = 'experimental' in meta ? meta.experimantal : false;
-    
+    var experimental = 'experimental' in meta ? meta.experimental : false;
+
     if(!experimental) {
       lines = csv.split(/\r\n|\r|\n/g);
     } else {
