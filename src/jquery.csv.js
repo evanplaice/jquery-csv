@@ -44,28 +44,31 @@ RegExp.escape= function(s) {
     //Experimental line splitter, used to skip newline chars contained in entries
     var newline = /\r\n|\r|\n/;
     var lines = [];
-    for(var i=0, len=csv.length, position=0, entryLen = 0, quoted=false, skipNewLine=false, endPos=(len-1); i < len; i++, entryLen++) {
-      if(skipNewLine) {
-        skipNewLine = !skipNewLine;
+    for(var i=0, len=csv.length, position=0, entryLen = 0, quoted=false, endPos=(len-1); i < len; i++, entryLen++) {
+      console.log("CSV:" + i + "; Position:" + position + "; Length:" + entryLen + "; Quoted:" + quoted);
+      // check if delimiters exist
+      if(csv[i] == delimiter){
+        quoted = !quoted;
         continue;
       }
       // Process the entry when a newline is found
       if(newline.test(csv[i])) {
         if(!quoted){
-          var line = csv.substring(position, (position + entryLen));
+          // handle 2 char newlines
+          if(newline.test(csv[i+1])) {
+            var line = csv.substring(position, (position + entryLen + 1));
+            position = i + 2;
+            i++;
+          } else {
+            var line = csv.substring(position, (position + entryLen));
+            position = i + 1;
+          }
           lines.push(line);
-          position = i + 1;
           entryLen = 0;
-          skipNewLine = true;
           continue;
         } else {
           continue;
         }
-      }
-      // check if delimiters exist
-      if(csv[i] == delimiter){
-        quoted = !quoted;
-        continue;
       }
       // process the last entry
       if(i == endPos){
@@ -101,12 +104,12 @@ RegExp.escape= function(s) {
     escaper = RegExp.escape(escaper);
 
     // build the CSV validator regex
-    var reValid = /^\s*(?:Y[^YZ]*(?:ZY[^YZ]*)*Y|[^XYZ\s]*(?:\s+[^XYZ\s]+)*)\s*(?:X\s*(?:Y[^YZ]*(?:ZY[^YZ]*)*Y|[^XYZ\s]*(?:\s+[^XYZ\s]+)*)\s*)*$/;
-    var reValidSrc = reValid.source;    
-    reValidSrc = reValidSrc.replace(/X/g, separator);
-    reValidSrc = reValidSrc.replace(/Y/g, delimiter);
-    reValidSrc = reValidSrc.replace(/Z/g, escaper);
-    reValid = RegExp(reValidSrc);
+    //var reValid = /^\s*(?:Y[^YZ]*(?:ZY[^YZ]*)*Y|[^XYZ\s]*(?:\s+[^XYZ\s]+)*)\s*(?:X\s*(?:Y[^YZ]*(?:ZY[^YZ]*)*Y|[^XYZ\s]*(?:\s+[^XYZ\s]+)*)\s*)*$/;
+    //var reValidSrc = reValid.source;    
+    //reValidSrc = reValidSrc.replace(/X/g, separator);
+    //reValidSrc = reValidSrc.replace(/Y/g, delimiter);
+    //reValidSrc = reValidSrc.replace(/Z/g, escaper);
+    //reValid = RegExp(reValidSrc);
 
     // build the CSV line parser regex
     var reValue = /(?!\s*$)\s*(?:Y([^YZ]*(?:ZY[^YZ]*)*)Y|([^XYZ\s]*(?:\s+[^XYZ\s]+)*))\s*(?:X|$)/;
@@ -120,9 +123,9 @@ RegExp.escape= function(s) {
         return [""];
     }
     // Return NULL if input string is not well formed CSV string.
-    if (!reValid.test(csv)) {
-      return null;
-    }
+    //if (!reValid.test(csv)) {
+    //  return null;
+    //}
 
     // "Walk" the string using replace with callback.
     var output = [];
