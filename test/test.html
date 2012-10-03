@@ -14,7 +14,8 @@ $(document).ready(function() {
   // initialize the data for the 'core' module
   function coreDataSetUp() {
     testCSVEntry = '1,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",';
-
+    testEntryArray = ["1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB", "", "1", "Offsite", ""];
+    
     testCSV = '';
     testCSV += 'ID,iManufacturer,iMPartNumber,iSerialNumber,iSimCategory,iPartType,iDescription,iGroup,iLocation,iSold\r\n';
     testCSV += '1,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",\r\n';
@@ -27,8 +28,6 @@ $(document).ready(function() {
     testCSV += '8,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
     testCSV += '9,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
     testCSV += '10,"Evans & Sutherland","230-121-150AC",,"Visual","PCB",,1,"Offsite",';
-
-    testEntryArray = ["1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB", "", "1", "Offsite", ""];
 
     testArray = [];
     testArray.push(["ID", "iManufacturer", "iMPartNumber", "iSerialNumber", "iSimCategory", "iPartType", "iDescription", "iGroup", "iLocation", "iSold"]);
@@ -78,6 +77,13 @@ $(document).ready(function() {
     resultNewLines.push(["0", "Evans & \r\nSutherland", "230-132-111AA", "", "Visual", "PCB"]);
     resultNewLines.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Vis\nual", "PCB"]);
     resultNewLines.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Vis\r\nual", "PCB"]);
+    
+    testNullValue = '';
+    testNullValue += '"Are you thinking what I\'m thinking?",,"aim for the bushes"\r\n';
+    testNullValue += '"Are you thinking what I\'m thinking?","","aim for the bushes"';
+    resultNullValue = [];
+    resultNullValue.push(["Are you thinking what I'm thinking?","","aim for the bushes"]);
+    resultNullValue.push(["Are you thinking what I'm thinking?","","aim for the bushes"]);
   }
 
   module("core", { setup:function(){ coreDataSetUp() }});
@@ -150,13 +156,17 @@ $(document).ready(function() {
   });
 
   test("Edge Cases", function() {
-    expect(1);
+    expect(2);
     stop();
     var output = $.csv2Array(testNewLines, {
       experimental:true
     });
     start();
     deepEqual(output, resultNewLines, "CSV values containing newlines");
+    stop();
+    var output = $.csv.toArrays(testNullValue);
+    start();
+    deepEqual(output, resultNullValue, "null value entry test");
   });
 });
 </script>
