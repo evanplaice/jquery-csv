@@ -1,17 +1,29 @@
 /**
  * jQuery-csv (jQuery Plugin)
- * version: 0.62 (2012-09-05)
+ * version: 0.63 (2012-10-02)
  *
  * This document is licensed as free software under the terms of the
  * MIT License: http://www.opensource.org/licenses/mit-license.php
  *
+ * Acknowledgements:
  * This plugin was originally designed to assist in parsing CSV files loaded
  * from client-side javascript. It's influenced by jQuery.json and the original
- * core RegEx comes directly from the following answer posted by a
+ *
+ * The original core RegEx comes directly from the following answer posted by a
  * StackOverflow.com user named Ridgerunner.
  * Source:
  * - http://stackoverflow.com/q/8493195/290340
  *
+ * A special thanks goes out to rwk@acm.org for providing a lot of valuable
+ * feedback to the project including the core for the new FSM
+ * (Finite State Machine) parser. If you're looking for a stable TSV parser
+ * take a look at jquery-tsv (http://code.google.com/p/jquery-tsv/).
+ *
+ * Experimental:
+ * A new line splitting function has been added that can properly handle values
+ * that contain newlines. To enable it, set the experimental parameter to true
+ * in the options.
+
  * For legal purposes I'll include the "NO WARRANTY EXPRESSED OR IMPLIED.
  * USE AT YOUR OWN RISK.". Which, in 'layman's terms' means, by using this
  * library you are accepting responsibility if it breaks your code.
@@ -32,7 +44,7 @@ RegExp.escape= function(s) {
    * jQuery.csv.defaults
    * Encapsulates the method paramater defaults for the CSV plugin module.
    */
-   
+
   $.csv = {
     defaults: {
       separator:',',
@@ -42,9 +54,9 @@ RegExp.escape= function(s) {
       headerLine:1,
       dataLine:2
     },
-    
+
     configure: function(options) {
-      // clone the defaults to avoid global definition
+      // clone the defaults options object
       var defaults = $.extend({__copy: true}, $.csv.defaults);
       return $.extend(defaults, options);
     },
@@ -68,11 +80,10 @@ RegExp.escape= function(s) {
             } else if (m0 === "\n") {
               endOfRow();
             } else if (/^\r$/.test(m0)) {
-              // Ignored
+              // carriage returns are ignored
             } else {
               if (value) {
-                // We shouldn't get here
-                throw new Error("Internal error: we have a value already.");
+                throw new Error("Illegal initial state");
               }
               value = m0;
               state = 3;
@@ -109,7 +120,7 @@ RegExp.escape= function(s) {
           // un-delimited input
           case 3:
             if (m1 === "\"") {
-              throw new Error("Unquoted delimiter in string");
+              throw new Error("Unquoted delimiter found in string");
             } else if (m0 === "\n") {
               endOfRow();
             } else if (m0 === "\r") {
@@ -153,14 +164,6 @@ RegExp.escape= function(s) {
       delimiter = RegExp.escape(delimiter);
       escaper = RegExp.escape(escaper);
 
-      // build the CSV validator regex
-      //var reValid = /^\s*(?:Y[^YZ]*(?:ZY[^YZ]*)*Y|[^XYZ\s]*(?:\s+[^XYZ\s]+)*)\s*(?:X\s*(?:Y[^YZ]*(?:ZY[^YZ]*)*Y|[^XYZ\s]*(?:\s+[^XYZ\s]+)*)\s*)*$/;
-      //var reValidSrc = reValid.source;    
-      //reValidSrc = reValidSrc.replace(/X/g, separator);
-      //reValidSrc = reValidSrc.replace(/Y/g, delimiter);
-      //reValidSrc = reValidSrc.replace(/Z/g, escaper);
-      //reValid = RegExp(reValidSrc);
-
       // build the CSV line parser regex
       var reValue = /(?!\s*$)\s*(?:Y([^YZ]*(?:ZY[^YZ]*)*)Y|([^XYZ\s]*(?:\s+[^XYZ\s]+)*))\s*(?:X|$)/;
       var reValueSrc = reValue.source;
@@ -169,18 +172,14 @@ RegExp.escape= function(s) {
       reValueSrc = reValueSrc.replace(/Z/g, escaper);
       reValue = RegExp(reValueSrc, 'g');
 
+      // return an empty string for empty values
       if (csv === "") {
           return [""];
       }
-      // Return NULL if input string is not well formed CSV string.
-      //if (!reValid.test(csv)) {
-      //  return null;
-      //}
 
-      // "Walk" the string using replace with callback.
+      // "Walk" the string and extract the data
       var output = [];
       csv.replace(reValue, function(m0, m1, m2) {
-        // Remove backslash from any delimiters in the value
       if(typeof m1 === 'string' && m1.length) {        // Fix: evaluates to false for both empty strings and undefined
           var reDelimiterUnescape = /ED/;
           var reDelimiterUnescapeSrc = reDelimiterUnescape.source;
@@ -194,7 +193,7 @@ RegExp.escape= function(s) {
         return '';
       });
 
-      // Handle special case of empty last value.
+      // Handle special case of empty last value
       var reEmptyLast = /S\s*$/;
       reEmptyLast = RegExp(reEmptyLast.source.replace(/S/, separator));
       if (reEmptyLast.test(csv)) {
@@ -311,25 +310,28 @@ RegExp.escape= function(s) {
      * $.csv.fromArrays(arrays)
      * Converts a javascript array to a CSV String.
      *
-     * @param {Array} array An array of arrays containing CSV entries.
+     * @param {Array} array An array containing an array of CSV entries.
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
      * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
      *
-     * This method deals with simple CSV arrays only. It's useful if you only
-     * need to convert a single entry. If you need to convert more than one line,
-     * use $.csv2Array instead.
+     * This method generates a CSV file from an array of arrays (representing entries).
      */
-    fromArray: function(arrays, options) {
+    fromArrays: function(arrays, options) {
       var options = (options !== undefined ? options : {});
       var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
+      var experimental = 'experimental' in options ? options.experimental : false;
 
+      if(!experimental) {
+        throw new Error("not implemented");
+      }
+      
       var output = [];
-      for(i in array) {
-        output.push(array[i]);
+      for(i in arrays) {
+        output.push(arrays[i]);
       }
 
       return output;
@@ -343,15 +345,27 @@ RegExp.escape= function(s) {
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
      * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
-     * @param {Integer} [headerLine] The line in the file that contains the header data. Defaults to 1 (1-based counting).
-     * @param {Integer} [dataLine] The line where the data values start. Defaults to 2 (1-based counting).
      *
-     * This method generates a CSV file from a javascript dictionary structure.
+     * This method generates a CSV file from an array of objects (name:value pairs).
      * It starts by detecting the headers and adding them as the first line of
      * the CSV file, followed by a structured dump of the data.
      */
-    fromObjects2CSV: function(dictionary, options) {
-      alert('Not implemented yet'); // TODO: implement this
+    fromObjects2CSV: function(objects, options) {
+      var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
+      var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
+      var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
+      var experimental = 'experimental' in options ? options.experimental : false;
+
+      if(!experimental) {
+        throw new Error("not implemented");
+      }
+      
+      var output = [];
+      for(i in objects) {
+        output.push(arrays[i]);
+      }
+
+      return output;
     }
   };
 
