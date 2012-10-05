@@ -154,8 +154,9 @@ RegExp.escape= function(s) {
      * need to parse a single entry. If you need to parse more than one line,
      * use $.csv2Array instead.
      */
-    toArray: function(csv, options) {
+    toArray: function(csv, options, callback) {
       var options = (options !== undefined ? options : {});
+      var callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
@@ -163,7 +164,7 @@ RegExp.escape= function(s) {
       separator = RegExp.escape(separator);
       delimiter = RegExp.escape(delimiter);
       escaper = RegExp.escape(escaper);
-
+      
       // build the CSV line parser regex
       var reValue = /(?!\s*$)\s*(?:Y([^YZ]*(?:ZY[^YZ]*)*)Y|([^XYZ\s]*(?:\s+[^XYZ\s]+)*))\s*(?:X|$)/;
       var reValueSrc = reValue.source;
@@ -174,7 +175,11 @@ RegExp.escape= function(s) {
 
       // return an empty string for empty values
       if (csv === "") {
-          return [""];
+        if(!callback) {
+          return output;
+        } else {
+          callback('', output);
+        }
       }
 
       // "Walk" the string and extract the data
@@ -200,7 +205,11 @@ RegExp.escape= function(s) {
         output.push('');
       }
 
-      return output;
+      if(!callback) {
+        return output;
+      } else {
+        callback('', output);
+      }
     },
 
     /**
@@ -218,8 +227,9 @@ RegExp.escape= function(s) {
      * dimension of the array represents the line (or entry/row) while the second
      * dimension contains the values (or values/columns).
      */
-    toArrays: function(csv, options) {
+    toArrays: function(csv, options, callback) {
       var options = (options !== undefined ? options : {});
+      var callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
@@ -248,7 +258,11 @@ RegExp.escape= function(s) {
         output.push(entry);
       }
 
-      return output;
+      if(!callback) {
+        return output;
+      } else {
+        callback("", output);
+      }
     },
 
     /**
@@ -265,8 +279,9 @@ RegExp.escape= function(s) {
      * This method deals with multi-line CSV strings. Where the headers line is
      * used as the key for each value per entry.
      */
-    toObjects: function(csv, options) {
+    toObjects: function(csv, options, callback) {
       var options = (options !== undefined ? options : {});
+      var callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
@@ -303,7 +318,11 @@ RegExp.escape= function(s) {
         output.push(object);
       }
 
-      return output;
+      if(!callback) {
+        return output;
+      } else {
+        callback("", output);
+      }
     },
 
      /**
@@ -318,8 +337,9 @@ RegExp.escape= function(s) {
      *
      * This method generates a CSV file from an array of arrays (representing entries).
      */
-    fromArrays: function(arrays, options) {
+    fromArrays: function(arrays, options, callback) {
       var options = (options !== undefined ? options : {});
+      var callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
@@ -334,7 +354,11 @@ RegExp.escape= function(s) {
         output.push(arrays[i]);
       }
 
-      return output;
+      if(!callback) {
+        return output;
+      } else {
+        callback("", output);
+      }
     },
 
     /**
@@ -350,7 +374,9 @@ RegExp.escape= function(s) {
      * It starts by detecting the headers and adding them as the first line of
      * the CSV file, followed by a structured dump of the data.
      */
-    fromObjects2CSV: function(objects, options) {
+    fromObjects2CSV: function(objects, options, callback) {
+      var options = (options !== undefined ? options : {});
+      var callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
@@ -365,7 +391,11 @@ RegExp.escape= function(s) {
         output.push(arrays[i]);
       }
 
-      return output;
+      if(!callback) {
+        return output;
+      } else {
+        callback("", output);
+      }
     }
   };
 
