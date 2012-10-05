@@ -84,6 +84,14 @@ $(document).ready(function() {
     resultNullValue = [];
     resultNullValue.push(["Are you thinking what I'm thinking?","","aim for the bushes"]);
     resultNullValue.push(["Are you thinking what I'm thinking?","","aim for the bushes"]);
+    
+    testNodeCallbacks = '';
+    testNodeCallbacks += '"What are you","knittin\' a f*&%ing sweater"\n';
+    testNodeCallbacks += '"I\'m trying to put some","tigers balm","on this jungle\'s nuts"';
+    resultNodeCallbacks = [];
+    resultNodeCallbacks.push(["What are you","knittin' a f*&%ing sweater"]);
+    resultNodeCallbacks.push(["I'm trying to put some","tigers balm","on this jungle's nuts"])
+    
   }
 
   module("core", { setup:function(){ coreDataSetUp() }});
@@ -167,6 +175,15 @@ $(document).ready(function() {
     var output = $.csv.toArrays(testNullValue);
     start();
     deepEqual(output, resultNullValue, "null value entry test");
+  });
+  
+  test("Node.js", function() {
+    expect(1);
+    stop();
+    $.csv2Array(testNodeCallbacks, {}, function(err, output) {
+      deepEqual(output, resultNodeCallbacks, "Check Node.js-style callback support");
+    });
+    start(); 
   });
 });
 </script>
