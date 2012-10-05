@@ -1,0 +1,390 @@
+ID,iManufacturer,iMPartNumber,iSerialNumber,iSimCategory,iPartType,iDescription,iGroup,iLocation,iSold
+1,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",
+2,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",
+3,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",
+4,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",
+5,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",
+6,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",
+7,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",
+8,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",
+9,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",
+10,"Evans & Sutherland","230-121-150AC",,"Visual","PCB",,1,"Offsite",
+11,"Evans & Sutherland","230-121-150AC",,"Visual","PCB",,1,"Offsite",
+12,"Evans & Sutherland","230-121-150AC",,"Visual","PCB",,1,"Offsite",
+13,"Evans & Sutherland","230-121-150AC",,"Visual","PCB",,1,"Offsite",
+14,"Evans & Sutherland","230-121-150AC",,"Visual","PCB",,1,"Offsite",
+15,"Evans & Sutherland","230-140-110DA",,"Visual","PCB",,1,"Offsite",
+16,"Evans & Sutherland","230-140-110DA",,"Visual","PCB",,1,"Offsite",
+17,"Evans & Sutherland","230-140-110DA",,"Visual","PCB",,1,"Offsite",
+18,"Evans & Sutherland","230-140-110DA",,"Visual","PCB",,1,"Offsite",
+19,"Evans & Sutherland","230-140-110DA",,"Visual","PCB",,1,"Offsite",
+20,"Evans & Sutherland","230-140-110DA",,"Visual","PCB",,1,"Offsite",
+21,"Evans & Sutherland","230-140-110DA",,"Visual","PCB",,1,"Offsite",
+22,"Evans & Sutherland","230-140-110DA",,"Visual","PCB",,1,"Offsite",
+23,"Evans & Sutherland","230-120-112AB",,"Visual","PCB",,1,"Offsite",
+24,"Evans & Sutherland","230-120-112AB",,"Visual","PCB",,1,"Offsite",
+25,"Evans & Sutherland","230-120-112AB",,"Visual","PCB",,1,"Offsite",
+26,"Evans & Sutherland","230-113-130CF",,"Visual","PCB",,1,"Offsite",
+27,"Evans & Sutherland","230-114-111AA",,"Visual","PCB",,1,"Offsite",
+28,"Evans & Sutherland","230-114-111AA",,"Visual","PCB",,1,"Offsite",
+29,"Evans & Sutherland","230-110-130AC",,"Visual","PCB",,1,"Offsite",
+30,"Evans & Sutherland","230-116-121AA",,"Visual","PCB",,1,"Offsite",
+31,"Evans & Sutherland","230-116-121AA",,"Visual","PCB",,1,"Offsite",
+32,"Evans & Sutherland","230-116-121AA",,"Visual","PCB",,1,"Offsite",
+33,"Evans & Sutherland","230-116-121AA",,"Visual","PCB",,1,"Offsite",
+34,"Evans & Sutherland","230-116-121AA",,"Visual","PCB",,1,"Offsite",
+35,"Evans & Sutherland","230-116-121AA",,"Visual","PCB",,1,"Offsite",
+36,"Evans & Sutherland","230-116-121AA",,"Visual","PCB",,1,"Offsite",
+37,"Evans & Sutherland","230-116-121AA",,"Visual","PCB",,1,"Offsite",
+38,"Evans & Sutherland","230-116-121AA",,"Visual","PCB",,1,"Offsite",
+39,"Evans & Sutherland","230-116-121AA",,"Visual","PCB",,1,"Offsite",
+40,"Evans & Sutherland","230-132-111AB",,"Visual","PCB",,1,"Offsite",
+41,"Evans & Sutherland","230-121-150AB",,"Visual","PCB",,1,"Offsite",
+42,"Evans & Sutherland","230-121-150AB",,"Visual","PCB",,1,"Offsite",
+43,"Evans & Sutherland","230-121-150AB",,"Visual","PCB",,1,"Offsite",
+44,"Evans & Sutherland","230-113-130CD",,"Visual","PCB",,1,"Offsite",
+45,"Evans & Sutherland","230-113-130CD",,"Visual","PCB",,1,"Offsite",
+46,"Evans & Sutherland","230-111-207AA",,"Visual","PCB",,1,"Offsite",
+47,"Evans & Sutherland","230-111-207AA",,"Visual","PCB",,1,"Offsite",
+48,"Evans & Sutherland","230040-146AD",,"Visual","Backplane Chassis",,1,"Offsite",
+49,"Evans & Sutherland","230040-146AD",,"Visual","Backplane Chassis",,1,"Offsite",
+50,"Evans & Sutherland","230040-146AD",,"Visual","Backplane Chassis",,1,"Offsite",
+51,"Pioneer Magnetics","801966-105XA",,"Visual","Power Supply","5v 300A  208/230  50/60  Model # 250LB-2-3P",1,"Offsite",
+52,"Pioneer Magnetics","801966-105XA",,"Visual","Power Supply","5v 300A  208/230  50/60  Model # 250LB-2-3P",1,"Offsite",
+53,"Pioneer Magnetics","801966-105XA",,"Visual","Power Supply","5v 300A  208/230  50/60  Model # 250LB-2-3P",1,"Offsite",
+54,"Evans & Sutherland",,,"Visual","Misc","Cabinet Fan Assembly",1,"Offsite",
+55,"Evans & Sutherland",,,"Visual","Misc","Power Controller",1,"Offsite",
+56,"Varia Datamachines",,,"Visual",,"Sperry Univac V77 - Upper Memory Board",2,"Offsite",0
+57,"Varia Datamachines",,,"Visual",,"Sperry Univac V77 - Lower Memory Board",2,"Offsite",0
+58,"Varia Datamachines",,,"Visual",,"Sperry Univac V77 - Processor Board",2,"Offsite",0
+59,"Varia Datamachines",,,"Visual",,"Sperry Univac V77 - Memory Map Board",2,"Offsite",0
+60,"Varia Datamachines",,,"Visual",,"Sperry Univac V77 - Option Board",2,"Offsite",0
+61,"Varia Datamachines",,,"Visual",,"Sperry Univac V77 - I/O Port Board",2,"Offsite",0
+62,"Varia Datamachines",,,"Visual",,"Sperry Univac V77 - I/O Extension Power Supply",2,"Offsite",0
+63,"Varia Datamachines",,,"Visual",,"Sperry Univac V77 - Disk Unit w/ HDD and 8” FDD",2,"Offsite",0
+64,"Varia Datamachines",,,"Visual",,"Sperry Univac V77 - CPU Power Supply",2,"Offsite",0
+65,"Varia Datamachines",,,"Visual",,"Sperry Univac V77 - Memory Power Supply",2,"Offsite",0
+66,"VITAL",,,"Visual",,"Vital IV Interface - Peddle",2,"Offsite",0
+67,"VITAL",,,"Visual",,"Vital IV Interface - Terminator Shoe",2,"Offsite",0
+68,"VITAL",,,"Visual",,"Vital IV Interface - I/O Expander",2,"Offsite",0
+69,"VITAL",,,"Visual",,"Vital IV Interface - I/O Expander Paddele",2,"Offsite",0
+70,"VITAL",,,"Visual",,"Vital IV Interface - S-Bus Controller",2,"Offsite",0
+71,"VITAL",,,"Visual",,"Vital IV Interface - PIM #1",2,"Offsite",0
+72,"VITAL",,,"Visual",,"Vital IV Interface - PIM #2",2,"Offsite",0
+73,"VITAL",,,"Visual",,"Vital IV Interface - BIC #1",2,"Offsite",0
+74,"VITAL",,,"Visual",,"Vital IV Interface – PMAC",2,"Offsite",0
+75,"VITAL",,,"Visual",,"Vital IV Interface - DIOC",2,"Offsite",0
+76,"VITAL",,,"Visual",,"Vital IV Interface - BIC #3",2,"Offsite",0
+77,"VITAL",,,"Visual",,"Vital IV Interface - Matrix Multiplier",2,"Offsite",0
+78,"VITAL",,,"Visual",,"Vital IV TASK - A1A1 FOV",2,"Offsite",0
+79,"VITAL",,,"Visual",,"Vital IV TASK - A1A2 MM",2,"Offsite",0
+80,"VITAL",,,"Visual",,"Vital IV TASK - A1A3 ACC",2,"Offsite",0
+81,"VITAL",,,"Visual",,"Vital IV TASK - A1A4 IS",2,"Offsite",0
+82,"VITAL",,,"Visual",,"Vital IV TASK - A1A5 PD",2,"Offsite",0
+83,"VITAL",,,"Visual",,"Vital IV TASK - A1A6 Int/Def",2,"Offsite",0
+84,"VITAL",,,"Visual",,"Vital IV TASK - A1A7 OB",2,"Offsite",0
+85,"VITAL",,,"Visual",,"Vital IV TASK - A1A9 SB",2,"Offsite",0
+86,"VITAL",,,"Visual",,"Vital IV TASK - A1A10 SF",2,"Offsite",0
+87,"VITAL",,,"Visual",,"Vital IV RBOS - A2A1-A5 OL",2,"Offsite",0
+88,"VITAL",,,"Visual",,"Vital IV RBOS - A2A6 OC/DEF",2,"Offsite",0
+89,"VITAL",,,"Visual",,"Vital IV RBOS - A2A8 D/A",2,"Offsite",0
+90,"VITAL",,,"Visual",,"Vital IV RBOS - A2A9 XC",2,"Offsite",0
+91,"VITAL",,,"Visual",,"Vital IV RBOS - A2A10 CL",2,"Offsite",0
+92,"VITAL",,,"Visual",,"Vital IV RBOS - A2A11 YC",2,"Offsite",0
+93,"VITAL",,,"Visual",,"Vital IV RBOS - A2A12 LLS",2,"Offsite",0
+94,"VITAL",,,"Visual",,"Vital IV RBOS - A2A13 ZC",2,"Offsite",0
+95,"CITRONIX","H06G2072-4",,"Visual",,"VITAL Monitor Power Supply",2,"Offsite",0
+96,,,,"Visual",,"VT220 Terminal",2,"Offsite",0
+97,,,,"Visual",,"VT220 Terminal",2,"Offsite",0
+98,"Mannisman","MT88",,"Visual",,"Tally Matrix Printer",2,"Offsite",0
+99,,,,"Visual",,"DIGITAL Laserwriter Printer",2,"Offsite",0
+100,,,,"Visual",,"DIGITAL Laserwriter Printer",2,"Offsite",0
+101,,,,"Visual",,"Signal Cable - IG <-> Monitor",2,"Offsite",0
+102,,,,"Visual",,"Signal Cable - IG <-> Monitor",2,"Offsite",0
+103,,,,"Visual",,"Signal Cable - IG <-> Monitor",2,"Offsite",0
+104,,,,"Visual",,"One Short Signal Cable",2,"Offsite",0
+105,"VITAL","H06G2033-1",,"Visual",,"Interface Unit",2,"Offsite",0
+106,,,,"Visual",,"Two Channel Main Power Cable",2,"Offsite",0
+107,,,,"Visual",,"One Monitor Main Power Cable",2,"Offsite",0
+108,,,,"Visual",,"One Interface Power Cable",2,"Offsite",0
+109,"Gould-Encore","160-103025-001",79292031,"Host Computer","PCB","ADS MOD 9122",3,"1A1",0
+110,"Gould-Encore","160-103109-001K","TNP 20985","Host Computer","PCB","Real Time Option Module MOD 2345",3,"1A1",0
+111,"Gould-Encore","160-103175-001K","SMP 24421","Host Computer","PCB","Terminal, Line Printer, Console Controller MOD 9005",3,"1A1",0
+112,"Gould-Encore","160-103478-005D","PB 191078","Host Computer","PCB","IMM",3,"1A2",0
+113,"Gould-Encore","160-103196-001F","LFP 6830","Host Computer","PCB","Control Panel, Serial",3,"1A2",0
+114,"Gould-Encore","160-103210-001C","SMP 18186","Host Computer","PCB","MTC",3,"1A2",0
+115,"Gould-Encore","160-103249-005A","NHP 16162","Host Computer","PCB","MMB Set A 1-2 For Dynamic Test",3,"1A3",0
+116,"Gould-Encore","160-103249-005A","NHP 16305","Host Computer","PCB","MMB Set A 2-2",3,"1A3",0
+117,"Gould-Encore","160-103249-005A","HE 411146","Host Computer","PCB","MMB Set B 1-2",3,"1A3",0
+118,"Gould-Encore","160-103249-005A","NHP 16194","Host Computer","PCB","MMB Set B 2-2",3,"1A3",0
+119,"Gould-Encore","160-103249-005A","NHP 16163","Host Computer","PCB","MMB Set C 1-2",3,"1A3",0
+120,"Gould-Encore","160-103249-005A",49053,"Host Computer","PCB","MMB Set C 2-2",3,"1A3",0
+121,"Gould-Encore","160-103249-005A","ES 391119","Host Computer","PCB","MMB Set D 1-2",3,"1A4",0
+122,"Gould-Encore","160-103249-005A","WA 241207","Host Computer","PCB","MMB Set D 2-2 For Dynamic Test",3,"1A4",0
+123,"Gould-Encore","160-103265-002H","HE 421214","Host Computer","PCB","MBC Set 1-3",3,"1A4",0
+124,"Gould-Encore","160-103265-002H","NR 121278","Host Computer","PCB","MBC Set 2-3",3,"1A4",0
+125,"Gould-Encore","160-103265-002H","BR 451344","Host Computer","PCB","MBC Set 3-3 For Dynamic Test",3,"1A4",0
+126,"Gould-Encore","EPOCH90  Rev K",1083,"Host Computer","PCB","Epoch Processor ",3,"1A4",0
+127,"Gould-Encore","160-103308-001N","WA 261194","Host Computer","PCB","Floating Point Processor MOD 2341 Set A 1-2",3,"1B1",0
+128,"Gould-Encore","160-103309-001R","NHP 15821","Host Computer","PCB","Floating Point Processor MOD 2341 Set A 2-2",3,"1B1",0
+129,"Gould-Encore","160-103308-001L","KA 141748","Host Computer","PCB","Floating Point Processor MOD 2341 Set B 1-2",3,"1B1",0
+130,"Gould-Encore","160-103309-001M","CW 071508","Host Computer","PCB","Floating Point Processor MOD 2341 Set B 2-2",3,"1B1",0
+131,"Gould-Encore","160-103308-001N","BR 461072","Host Computer","PCB","Floating Point Processor MOD 2341 Set A 1-2",3,"1B1",0
+132,"Gould-Encore","160-103309-001P","BR 471385","Host Computer","PCB","Floating Point Processor MOD 2341 Set A 2-2",3,"1B1",0
+133,"Gould-Encore","160-103308-001N","FAP 3297","Host Computer","PCB","Floating Point Processor Set B 1-2",3,"1B2",0
+134,"Gould-Encore","160-103309-001R","FAP 3247","Host Computer","PCB","Floating Point Processor Set B 2-2",3,"1B2",0
+135,"Gould-Encore","160-103436-001F","SMP 19282","Host Computer","PCB","CPU Processor Set A 1-3 ",3,"1B2",0
+136,"Gould-Encore","160-103437-001E","SMP 19289","Host Computer","PCB","CPU Processor Set A 2-3",3,"1B2",0
+137,"Gould-Encore","160-103438-001D","SMP 19305","Host Computer","PCB","CPU Processor Set A 3-3",3,"1B2",0
+138,"Gould-Encore","160-103436-001F","SMP 16517","Host Computer","PCB","CPU Processor Set B 1-3",3,"1B2",0
+139,"Gould-Encore","160-103437-001E","SMP 16552","Host Computer","PCB","CPU Processor Set B 2-3",3,"1B2",0
+140,"Gould-Encore","160-103438-001A","AS 361101","Host Computer","PCB","CPU Processor Set B 3-3",3,"1B2",0
+141,"Gould-Encore","160-103436-001F","PM 331697","Host Computer","PCB","CPU Processor Set C 1-3",3,"1B3",0
+142,"Gould-Encore","160-103437-001E","PM 331638","Host Computer","PCB","CPU Processor Set C 2-3",3,"1B3",0
+143,"Gould-Encore","160-103438-001D","PM 331611","Host Computer","PCB","CPU Processor Set C 3-3",3,"1B3",0
+144,"Gould-Encore","160-103436-001B","ATZ 90063","Host Computer","PCB","CPU Processor MOD 2005 Set 1-3",3,"1B4",0
+145,"Gould-Encore","160-103437-001B","TC 470118","Host Computer","PCB","CPU Processor MOD 2005 Set 2-3",3,"1B4",0
+146,"Gould-Encore","160-103438-001D","SMP 19319","Host Computer","PCB","CPU Processor MOD 2005 Set 3-3",3,"1B4",0
+147,"Gould-Encore","160-103509-001H",501,"Host Computer","PCB","PCB Set 1-3 - IOP/DI",3,"1B4",0
+148,"Gould-Encore","160-103519-001H","A642","Host Computer","PCB","PCB Set 2-3 - IOP",3,"1B4",0
+149,"Gould-Encore","160-103998-001",2192880,"Host Computer","PCB","PCB Set 3-3 - Module DE, Interface PC",3,"1B4",0
+150,"Gould-Encore","160-103554-001C","PWP 01208","Host Computer","PCB","HSD",3,"1B4",0
+151,"LH Research","845293-051","8331441AC","Host Computer","Power Supply","5v 40a, 15v 11a, 15v 5a, 5v 1a   115vac",3,"1C1",0
+152,"LH Research","845293-051","8353670AD","Host Computer","Power Supply","5v 40a, 15v 11a, 15v 5a, 5v 1a   115vac",3,"1C1",0
+153,"LH Research","845293-051","8353660AD","Host Computer","Power Supply","5v 40a, 15v 11a, 15v 5a, 5v 1a   115vac",3,"1C1",0
+154,"LH Research","845293-051","8372000AF","Host Computer","Power Supply","5v 40a, 15v 11a, 15v 5a, 5v 1a   115vac",3,"1C1",0
+155,"LH Research","845293-051","8235235Y","Host Computer","Power Supply","5v 40a, 15v 11a, 15v 5a, 5v 1a   115vac",3,"1C2",0
+156,"LH Research","846764-002","P8303164U","Host Computer","Power Supply","5v 200a",3,"1C2",0
+157,"Powertec","9K5-200-17",11118,"Host Computer","Power Supply","5v 200a  115/230 vac",3,"1C2",0
+158,"Powertec","9K5-200-17",12264,"Host Computer","Power Supply","5v 200a  115/230 vac",3,"1C2",0
+159,"Powertec","9K5-200-17",9703,"Host Computer","Power Supply","5v 200a  115/230 vac",3,"1C3",0
+160,"Powertec","9N5-150-17",2296,"Host Computer","Power Supply","5v 150a  115/230 vac",3,"1C3",0
+161,"Powertec","9N5-150-17",7274,"Host Computer","Power Supply","5v 150a  115/230 vac",3,"1C3",0
+162,"Powertec","9K5-200-17",3476,"Host Computer","Power Supply","5v 200a  115/230 vac",3,"1C3",0
+163,"Powertec","9K5-200-17",1132,"Host Computer","Power Supply","5v 200a  115/230 vac",3,"1C4",0
+164,"Powertec","9N5-150-17",27356,"Host Computer","Power Supply","26v 6a  115vac",3,"1C4",0
+165,"Powertec","9N5-150-17",22174,"Host Computer","Power Supply","26v 6a  115vac",3,"1C4",0
+166,"Secur-A-Stor",400976,17746,"Host Computer","Disc Drive","SCSI Host Disc Drive",3,"1C5",0
+167,"Crown","Model D75",22208,"Linkage","Amplifier","240 Watts  120 vac",3,"Offshelf",0
+168,"Crown","Model D75",22210,"Linkage","Amplifier","240 Watts  120 vac",3,"Offshelf",0
+169,"Singer Link","2010839-04","C005","Linkage","PCB","Fail Safe Force Amp. Card",4,"Prepacked",0
+170,"Singer Link","2010846-03",22,"Linkage","PCB","Logic 1 Card (Serviceable)",4,"Prepacked",0
+171,"Singer Link","2010859-02","0264P","Linkage","PCB","I/O Card",4,"Prepacked",0
+172,"Singer Link","2010861-02",1203,"Linkage","PCB","Lamp Driver Card",4,"Prepacked",0
+173,"Singer Link","2010862-02","0191P","Linkage","PCB","Sequence 2 Card",4,"Prepacked",0
+174,"Singer Link","2010863-09",36378,"Linkage","PCB","DC Power Fault Dect",4,"Prepacked",0
+175,"Singer Link",2010864,"C0012","Linkage","PCB","Hybrid Card. Condition - Repairable",4,"Prepacked",0
+176,"Singer Link","2010864-02",2,"Linkage","PCB","Hybrid Card",4,"Prepacked",0
+177,"Singer Link","2010864-02",10,"Linkage","PCB","Hybrid Card",4,"Prepacked",0
+178,"Singer Link","2010881-02","R10976","Linkage","PCB","AO/AI Card",4,"Prepacked",0
+179,"Singer Link","2010919-01","C0002","Linkage","PCB","Power Sequence Card",4,"Prepacked",0
+180,"Singer Link","2010928-01","C0059","Linkage","PCB","Terminator Card Subcontroller",4,"Prepacked",0
+181,"Singer Link","2010959-01","0029P","Linkage","PCB","Pump Logic Hyd",4,"Prepacked",0
+182,"Singer Link","2010975-03",910,"Linkage","PCB","Subcontroller Card",4,"Prepacked",0
+183,"Singer Link","2010975-03",422,"Linkage","PCB","Subcontroller Card",4,"Prepacked",0
+184,"Singer Link","2010975-03",425,"Linkage","PCB","Subcontroller Card",4,"Prepacked",0
+185,"Singer Link","2010975-03",399,"Linkage","PCB","Subcontroller Card. Condition - Repairable",4,"Prepacked",0
+186,"Singer Link","2010975-03",430,"Linkage","PCB","Subcontroller Card",4,"Prepacked",0
+187,"Singer Link","2010983-01",24,"Linkage","PCB","Logic II Card",4,"Prepacked",0
+188,"Singer Link","2010983-01",31,"Linkage","PCB","Logic II Card",4,"Prepacked",0
+189,"Singer Link","2014047-001",89,"Linkage","PCB","Memory Card",4,"Prepacked",0
+190,"Singer Link","2018509-01",19,"Linkage","PCB","Master Controller Panel",4,"Prepacked",0
+191,"Singer Link","2058402-001","0013P","Linkage","PCB","Sel DMA No. 2",4,"Prepacked",0
+192,"Singer Link","2058404-001","C0012","Linkage","PCB","Sel DMA No. 1",4,"Prepacked",0
+193,"Singer Link","2062361-02","C0003","Linkage","PCB","Isolator Aural Cue Card",4,"Prepacked",0
+194,"Singer Link","2062442-01","C0728","Linkage","PCB","I/O Card (Solid State Relay)",4,"Prepacked",0
+195,"Singer Link","2070213-01","C0108","Linkage","PCB","I/O Card (Circuit Breaker)",4,"Prepacked",0
+196,"Singer Link","2070215-02","R0010","Linkage","PCB","Syncro Output Card",4,"Prepacked",0
+197,"Singer Link","2070216-01",107,"Linkage","PCB","I/O Card (System Card 2)",4,"Prepacked",0
+198,"Singer Link","2070217-01",192,"Linkage","PCB","I/O Card (System Card 3)",4,"Prepacked",0
+199,"Singer Link","2070218-01",533,"Linkage","PCB","I/O Card (Relay Card). Condition - Repairable",4,"Prepacked",0
+200,"Singer Link","2070230-02","0013P","Linkage","PCB","Lamp Dimmer Card",4,"Prepacked",0
+201,"Singer Link","2070881-01","C0007","Linkage","PCB","Relay Floor Air Conditioning",4,"Prepacked",0
+202,"Singer Link","2071073-002",62,"Linkage","PCB","Servo Control Card",4,"Prepacked",0
+203,"Singer Link","2071078-002","C0005","Linkage","PCB","Power Control Card",4,"Prepacked",0
+204,"Singer Link","2080723-001",2,"Linkage","PCB","Circuit Board",4,"Prepacked",0
+205,"Singer Link","2080723-001",1,"Linkage","PCB","Circuit Board",4,"Prepacked",0
+206,"Singer Link","2090599-01",34,"Linkage","PCB","RA Drive & Compass Amp. Card. Condition Unserviceable",4,"Prepacked",0
+207,"Singer Link","2092708-01","C0004","Linkage","PCB","IRCU Lamp Due Card",4,"Prepacked",0
+208,"Singer Link","2092713-01","0004C","Linkage","PCB","Digital Test Card",4,"Prepacked",0
+209,"Singer Link","2114719-006","C1009D","Linkage","PCB","Force / Servo Amp. Card",4,"Prepacked",0
+210,"Singer Link","2114719-006","C0001","Linkage","PCB","Force / Servo Amp. Card",4,"Prepacked",0
+211,"Singer Link","2114719-006","1008P","Linkage","PCB","Force / Servo Amp. Card",4,"Prepacked",0
+212,"Singer Link","2114719-006","0005P","Linkage","PCB","Force / Servo Amp. Card",4,"Prepacked",0
+213,"Singer Link","2114726-001","C0014","Linkage","PCB","Latency Test Filter & Buffer Card",4,"Prepacked",0
+214,"Singer Link","2123081-001",391,"Linkage","PCB","I/O Card",4,"Prepacked",0
+215,"Singer Link","2123081-001",392,"Linkage","PCB","I/O Card",4,"Prepacked",0
+216,"Singer Link","2123081-001","0784P","Linkage","PCB","I/O Card",4,"Prepacked",0
+217,"Singer Link","2123081-001",399,"Linkage","PCB","I/O Card",4,"Prepacked",0
+218,"Singer Link","2128702-004",1,"Linkage","PCB","Aileron Control Loading Card",4,"Prepacked",0
+219,"Singer Link","2128702-005",35378,"Linkage","PCB","Elevator Control Loading Card",4,"Prepacked",0
+220,"Singer Link","2128702-006","C0001","Linkage","PCB","Rudder Control Loading Card",4,"Prepacked",0
+221,"Singer Link","2128704-001","C0003","Linkage","PCB","Input Message Assembler Card",4,"Prepacked",0
+222,"Singer Link","2128706-001","C0002","Linkage","PCB","Input Message Control Card",4,"Prepacked",0
+223,"Singer Link","2128707-001",36378,"Linkage","PCB","Output Message Assembler Card. Condition - Repairable",4,"Prepacked",0
+224,"Singer Link","2128708-001","C0004","Linkage","PCB","Memory Control Card",4,"Prepacked",0
+225,"Singer Link","2128709-001","C0003","Linkage","PCB","Pointer Data Control Card",4,"Prepacked",0
+226,"Singer Link","2128710-001","C0005","Linkage","PCB","Test Message Control 1 Card",4,"Prepacked",0
+227,"Singer Link","2128711-001","C0002","Linkage","PCB","Output Port Card",4,"Prepacked",0
+228,"Singer Link","2128712-001","C0003","Linkage","PCB","Test Message Control 2 Card",4,"Prepacked",0
+229,"Singer Link","2131555-003","C0003","Linkage","PCB","Component Misc. Flt. Director Card",4,"Prepacked",0
+230,"Singer Link","2131556-001","C0001","Linkage","PCB","GPWS Misc. Card",4,"Prepacked",0
+231,"Singer Link","2131559-001","A2584","Linkage","PCB","Circuit Card. Condition - ??",4,"Prepacked",0
+232,"Singer Link","2131563-001","C0004","Linkage","PCB","Control Loading Misc. Card",4,"Prepacked",0
+233,"Singer Link","3015626-001",4,"Linkage","PCB","Serial Data IRCU Interface",4,"Prepacked",0
+234,"Singer Link","3099328-001",24,"Linkage","PCB","D/S ESRD Card",4,"Prepacked",0
+235,"Singer Link","3099328-001",25,"Linkage","PCB","D/S ESRD Card. Condition - Unserviceable",4,"Prepacked",0
+236,"Singer Link","3099328-001",57,"Linkage","PCB","D/S ESRD Card",4,"Prepacked",0
+237,"Singer Link","7464814-30","C0195","Linkage","PCB","I/O Card",4,"Prepacked",0
+238,"Singer Link","7464848-10","C0142","Linkage","PCB","Monitor and Briefing Audio Card",4,"Prepacked",0
+239,"Singer Link","2010975-03",429,"Linkage","PCB",,4,"Box 8",0
+240,"Singer Link","2010859-02",1130,"Linkage","PCB",,4,"Box 8",0
+241,"Singer Link","2010859-02",1121,"Linkage","PCB",,4,"Box 8",0
+242,"Singer Link","2010213-01",220,"Linkage","PCB",,4,"Box 8",0
+243,"Singer Link","2010213-01",224,"Linkage","PCB",,4,"Box 8",0
+244,"Singer Link","2010859-02",1123,"Linkage","PCB",,4,"Box 8",0
+245,"Singer Link","2010859-02",1122,"Linkage","PCB",,4,"Box 8",0
+246,"Singer Link","2010859-02",1126,"Linkage","PCB",,4,"Box 8",0
+247,"Singer Link","2070213-01",222,"Linkage","PCB",,4,"Box 8",0
+248,"Singer Link","2070218-01",530,"Linkage","PCB",,4,"Box 8",0
+249,"Singer Link","2010859-02",1128,"Linkage","PCB",,4,"Box 8",0
+250,"Singer Link","2062444-03","No SN","Linkage","PCB",,4,"Box 8",0
+251,"Singer Link","2062444-02",56,"Linkage","PCB",,4,"Box9",0
+252,"Singer Link","3015628-001",17,"Linkage","PCB",,4,"Box9",0
+253,"Singer Link","2010975-03",421,"Linkage","PCB",,4,"Box9",0
+254,"Singer Link","2062436-01",470,"Linkage","PCB",,4,"Box9",0
+255,"Singer Link","2062436-01",465,"Linkage","PCB",,4,"Box9",0
+256,"Singer Link","2090598-01",9,"Linkage","PCB",,4,"Box9",0
+257,"Singer Link","2062436-01",469,"Linkage","PCB",,4,"Box9",0
+258,"Singer Link","2062436-01",468,"Linkage","PCB",,4,"Box9",0
+259,"Singer Link","2062436-01",466,"Linkage","PCB",,4,"Box9",0
+260,"Singer Link","2123081-001",408,"Linkage","PCB",,4,"Box9",0
+261,"Singer Link","2062422-01",49,"Linkage","PCB",,4,"Box9",0
+262,"Singer Link","2092706-02",1,"Linkage","PCB",,4,"Box9",0
+263,"Singer Link","7464848-10",125,"Linkage","PCB",,4,"BFB",0
+264,"Singer Link","2090607-01",1,"Linkage","PCB",,4,"BFB",0
+265,"Singer Link","2010975-03",426,"Linkage","PCB",,4,"BFB",0
+266,"Singer Link","2010837-02",435,"Linkage","PCB",,4,"BFB",0
+267,"Singer Link","2010834-02",103,"Linkage","PCB",,4,"BFB",0
+268,"Singer Link","2010837-02",434,"Linkage","PCB",,4,"BFB",0
+269,"Singer Link","2010833-02",63,"Linkage","PCB",,4,"BFB",0
+270,"Singer Link","2090603-02",128,"Linkage","PCB",,4,"BFB",0
+271,"Singer Link","2090603-01",127,"Linkage","PCB",,4,"BFB",0
+272,"Singer Link","2010837-02",433,"Linkage","PCB",,4,"BFB",0
+273,"Singer Link","2010834-03",132,"Linkage","PCB",,4,"BFB",0
+274,"Singer Link","2010836-02",145,"Linkage","PCB",,4,"BFB",0
+275,"Singer Link","2010949-01",158,"Linkage","PCB",,4,"BFB",0
+276,"Singer Link","2090601-01",116,"Linkage","PCB",,4,"BFB",0
+277,"Singer Link","2082590-01",4,"Linkage","PCB",,4,"BFB",0
+278,"Singer Link","2124345-001",910,"Linkage","PCB",,4,"BFB",0
+279,"Singer Link","2070218-01",528,"Linkage","PCB",,4,"BFB",0
+280,"Singer Link","2062436-01",467,"Linkage","PCB",,4,"BFB",0
+281,"Singer Link","2010975-03",427,"Linkage","PCB",,4,"BFB",0
+282,"Singer Link","2010861-02",209,"Linkage","PCB",,4,"BFB",0
+283,"Singer Link","2123081-001",332,"Linkage","PCB",,4,"BFB",0
+284,"Singer Link","2123081-001",414,"Linkage","PCB",,4,"BFB",0
+285,"Singer Link","2123081-001",400,"Linkage","PCB",,4,"BFB",0
+286,"Singer Link","2070213-01",218,"Linkage","PCB",,4,"BFB",0
+287,"Singer Link","2070218-01","No SN","Linkage","PCB",,4,"BFB",0
+288,"Singer Link","2070218-01",529,"Linkage","PCB",,4,"BFB",0
+289,"Singer Link","3099328-001",44,"Linkage","PCB",,4,"BFB",0
+290,"Singer Link","3099328-001",33,"Linkage","PCB",,4,"BFB",0
+291,"Singer Link","3099328-001",23,"Linkage","PCB",,4,"BFB",0
+292,"Singer Link","2070219-01",174,"Linkage","PCB",,4,"BFB",0
+293,"Singer Link","3015626-001",9,"Linkage","PCB",,4,"BFB",0
+294,"Singer Link","3015626-001",8,"Linkage","PCB",,4,"BFB",0
+295,"Singer Link","2070218-01",526,"Linkage","PCB",,4,"BFB",0
+296,"Singer Link","2010975-03",417,"Linkage","PCB",,4,"Box1",0
+297,"Singer Link","2010861-02",1110,"Linkage","PCB",,4,"Box1",0
+298,"Singer Link","2010861-02",1204,"Linkage","PCB",,4,"Box1",0
+299,"Singer Link","2062442-01",604,"Linkage","PCB",,4,"Box1",0
+300,"Singer Link","2062442-01",603,"Linkage","PCB",,4,"Box1",0
+301,"Singer Link","2062442-01",602,"Linkage","PCB",,4,"Box1",0
+302,"Singer Link","2070213-01","No SN","Linkage","PCB",,4,"Box1",0
+303,"Singer Link","2010859-02",1125,"Linkage","PCB",,4,"Box1",0
+304,"Singer Link","2010859-02",1129,"Linkage","PCB",,4,"Box1",0
+305,"Singer Link","2123081-001",404,"Linkage","PCB",,4,"Box1",0
+306,"Singer Link","2123081-001",396,"Linkage","PCB",,4,"Box1",0
+307,"Singer Link","2123081-001",397,"Linkage","PCB",,4,"Box1",0
+308,"Singer Link","2070218-01",539,"Linkage","PCB",,4,"Box1",0
+309,"Singer Link","2070218-01",531,"Linkage","PCB",,4,"Box1",0
+310,"Singer Link","2070218-01",510,"Linkage","PCB",,4,"Box1",0
+311,"Singer Link","2123081-001",412,"Linkage","PCB",,4,"Box2",0
+312,"Singer Link","2087685-02",1000,"Linkage","PCB",,4,"Box2",0
+313,"Singer Link","2010975-03","No SN","Linkage","PCB",,4,"Box2",0
+314,"Singer Link","3099328-001",30,"Linkage","PCB",,4,"Box2",0
+315,"Singer Link","3099328-001",10,"Linkage","PCB",,4,"Box2",0
+316,"Singer Link","3099328-001",43,"Linkage","PCB",,4,"Box2",0
+317,"Singer Link","2070218-01",527,"Linkage","PCB",,4,"Box2",0
+318,"Singer Link","2070216-01",252,"Linkage","PCB",,4,"Box2",0
+319,"Singer Link","2070218-01",536,"Linkage","PCB",,4,"Box2",0
+320,"Singer Link","2070219-01",175,"Linkage","PCB",,4,"Box2",0
+321,"Singer Link","2123081-001",407,"Linkage","PCB",,4,"Box2",0
+322,"Singer Link","2123081-001",402,"Linkage","PCB",,4,"Box3",0
+323,"Singer Link","2090599-01","No SN","Linkage","PCB",,4,"Box3",0
+324,"Singer Link","2131563-001",3,"Linkage","PCB",,4,"Box3",0
+325,"Singer Link","2080723-01",,"Linkage","PCB",,4,"Box3",0
+326,"Singer Link","2123081-001",393,"Linkage","PCB",,4,"Box3",0
+327,"Singer Link","2123081-001",403,"Linkage","PCB",,4,"Box3",0
+328,"Singer Link","2128702-006",1000,"Linkage","PCB",,4,"Box3",0
+329,"Singer Link","2128702-005","0003P","Linkage","PCB",,4,"Box3",0
+330,"Singer Link","2128702-004","C0003","Linkage","PCB",,4,"Box3",0
+331,"Singer Link","2123081-001",394,"Linkage","PCB",,4,"Box3",0
+332,"Singer Link","2123081-001",398,"Linkage","PCB",,4,"Box3",0
+333,"Singer Link","2070213-01","No SN","Linkage","PCB",,4,"Box3",0
+334,"Singer Link","2010975-03",448,"Linkage","PCB",,4,"Box3",0
+335,"Singer Link","2123081-001",415,"Linkage","PCB",,4,"Box4",0
+336,"Singer Link","2123081-001",416,"Linkage","PCB",,4,"Box4",0
+337,"Singer Link","2123081-001",405,"Linkage","PCB",,4,"Box4",0
+338,"Singer Link","2123081-001",395,"Linkage","PCB",,4,"Box4",0
+339,"Singer Link","2123081-001",401,"Linkage","PCB",,4,"Box4",0
+340,"Singer Link","2010860-02",204,"Linkage","PCB",,4,"Box4",0
+341,"Singer Link","2010861-02",1113,"Linkage","PCB",,4,"Box4",0
+342,"Singer Link","2010975-03",423,"Linkage","PCB",,4,"Box4",0
+343,"Singer Link","3099328-001",41,"Linkage","PCB",,4,"Box4",0
+344,"Singer Link","3099328-001",40,"Linkage","PCB",,4,"Box4",0
+345,"Singer Link","3099328-001",34,"Linkage","PCB",,4,"Box4",0
+346,"Singer Link","3099328-001",6,"Linkage","PCB",,4,"Box4",0
+347,"Singer Link","3099328-001",42,"Linkage","PCB",,4,"Box5",0
+348,"Singer Link","3099328-001",66,"Linkage","PCB",,4,"Box5",0
+349,"Singer Link","3099328-001",26,"Linkage","PCB",,4,"Box5",0
+350,"Singer Link","2070216-01",253,"Linkage","PCB",,4,"Box5",0
+351,"Singer Link","2070218-01",525,"Linkage","PCB",,4,"Box5",0
+352,"Singer Link","2123081-01",413,"Linkage","PCB",,4,"Box5",0
+353,"Singer Link","2070219-01",171,"Linkage","PCB",,4,"Box5",0
+354,"Singer Link","2070219-01",176,"Linkage","PCB",,4,"Box5",0
+355,"Singer Link","2123081-001",409,"Linkage","PCB",,4,"Box5",0
+356,"Singer Link","2090599-01","0042P","Linkage","PCB",,4,"Box5",0
+357,"Singer Link","2010975-03",420,"Linkage","PCB",,4,"Box5",0
+358,"Singer Link","2010975-03",419,"Linkage","PCB",,4,"Box5",0
+359,"Singer Link","7464834-10",36,"Linkage","PCB",,4,"Box6",0
+360,"Singer Link","7464834-10",35,"Linkage","PCB",,4,"Box6",0
+361,"Singer Link","7464834-10",32,"Linkage","PCB",,4,"Box6",0
+362,"Singer Link","7464834-10","No SN","Linkage","PCB",,4,"Box6",0
+363,"Singer Link","2070218-01",566,"Linkage","PCB",,4,"Box6",0
+364,"Singer Link","2070216-01",106,"Linkage","PCB",,4,"Box6",0
+365,"Singer Link","2070219-01",177,"Linkage","PCB",,4,"Box6",0
+366,"Singer Link","2070218-01",534,"Linkage","PCB",,4,"Box6",0
+367,"Singer Link","2062442-01",601,"Linkage","PCB",,4,"Box6",0
+368,"Singer Link","2010861-02",1064,"Linkage","PCB",,4,"Box6",0
+369,"Singer Link","2010861-02",1107,"Linkage","PCB",,4,"Box6",0
+370,"Singer Link","7464814-30",180,"Linkage","PCB",,4,"Box6",0
+371,"Singer Link","2070217-01","No SN","Linkage","PCB",,4,"Box6",0
+372,"Singer Link","2010861-02",1108,"Linkage","PCB",,4,"Box7",0
+373,"Singer Link","2010861-02",1109,"Linkage","PCB",,4,"Box7",0
+374,"Singer Link","2010975-03",424,"Linkage","PCB",,4,"Box7",0
+375,"Singer Link","2010859-02",1120,"Linkage","PCB",,4,"Box7",0
+376,"Singer Link","2010859-02",1127,"Linkage","PCB",,4,"Box7",0
+377,"Singer Link","2070219-01",172,"Linkage","PCB",,4,"Box7",0
+378,"Singer Link","2070218-01",538,"Linkage","PCB",,4,"Box7",0
+379,"Singer Link","2123081-001",411,"Linkage","PCB",,4,"Box7",0
+380,"Singer Link","2123081-001",410,"Linkage","PCB",,4,"Box7",0
+381,"Singer Link","2070215-01",126,"Linkage","PCB",,4,"Box7",0
+382,"Singer Link","2070219-01",182,"Linkage","PCB",,4,"Box7",0
+383,"Singer Link","2070215-01",168,"Linkage","PCB",,4,"Box7",0
+384,"Singer Link","2010859-02",1124,"Linkage","PCB",,4,"Box7",0
+385,"Singer Link","2010218-01",537,"Linkage","PCB",,4,"Box 8",0
+386,"Singer Link","2010975-03",161,"Linkage","PCB",,4,"Box 8",0
+387,"Singer Link","2070213-01",219,"Linkage","PCB",,4,"Box 8",0
+388,"Singer Link","2070245-01/2145549-001",11,"Linkage","PCB","Lighting/Power Distribution Cards",4,"Box 9",0
+389,"Singer Link","2070245-01/2145549-001",22,"Linkage","PCB","Lighting/Power Distribution Cards",4,"Box 9",
