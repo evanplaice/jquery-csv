@@ -55,12 +55,6 @@ RegExp.escape= function(s) {
       dataLine:2
     },
 
-    configure: function(options) {
-      // clone the defaults options object
-      var defaults = $.extend({__copy: true}, $.csv.defaults);
-      return $.extend(defaults, options);
-    },
-
     splitLines: function(csv, delimiter) {
       var state = 0;
       var value = "";
@@ -156,22 +150,31 @@ RegExp.escape= function(s) {
      */
     toArray: function(csv, options, callback) {
       var options = (options !== undefined ? options : {});
-      var callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
-      var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
-      var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
-      var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
+      var config = {};
+      config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
+      config.separator = 'separator' in options ? RegExp.escape(options.separator) : $.csv.defaults.separator;
+      config.delimiter = 'delimiter' in options ? RegExp.escape(options.delimiter) : $.csv.defaults.delimiter;
+      config.escaper = 'escaper' in options ? RegExp.escape(options.escaper) : $.csv.defaults.escaper;
 
-      separator = RegExp.escape(separator);
-      delimiter = RegExp.escape(delimiter);
-      escaper = RegExp.escape(escaper);
-      
-      // build the CSV line parser regex
+      // parse a csv entry into values
+      // matches 1. empty values | 2. delimited values | non-delimited values
       var reValue = /(?!\s*$)\s*(?:Y([^YZ]*(?:ZY[^YZ]*)*)Y|([^XYZ\s]*(?:\s+[^XYZ\s]+)*))\s*(?:X|$)/;
       var reValueSrc = reValue.source;
-      reValueSrc = reValueSrc.replace(/X/g, separator);
-      reValueSrc = reValueSrc.replace(/Y/g, delimiter);
-      reValueSrc = reValueSrc.replace(/Z/g, escaper);
+      reValueSrc = reValueSrc.replace(/X/g, config.separator);
+      reValueSrc = reValueSrc.replace(/Y/g, config.delimiter);
+      reValueSrc = reValueSrc.replace(/Z/g, config.escaper);
       reValue = RegExp(reValueSrc, 'g');
+
+      // matches escaped delimiters, the default being double-double quotes (ex "")
+      var reUnescape = /ED/;
+      var reUnescapeSrc = reUnescape.source;
+      reUnescapeSrc = reUnescapeSrc.replace(/E/, config.escaper);
+      reUnescapeSrc = reUnescapeSrc.replace(/D/, config.delimiter);
+      reUnescape = RegExp(reUnescapeSrc, 'g');
+
+      // matches empty last values (ex "val",)
+      var reEmptyLast = /S\s*$/;
+      reEmptyLast = RegExp(reEmptyLast.source.replace(/S/, config.separator));
 
       // return an empty string for empty values
       if (csv === "") {
@@ -185,13 +188,10 @@ RegExp.escape= function(s) {
       // "Walk" the string and extract the data
       var output = [];
       csv.replace(reValue, function(m0, m1, m2) {
-      if(typeof m1 === 'string' && m1.length) {        // Fix: evaluates to false for both empty strings and undefined
-          var reDelimiterUnescape = /ED/;
-          var reDelimiterUnescapeSrc = reDelimiterUnescape.source;
-          reDelimiterUnescapeSrc = reDelimiterUnescapeSrc.replace(/E/, escaper);
-          reDelimiterUnescapeSrc = reDelimiterUnescapeSrc.replace(/D/, delimiter);
-          reDelimiterUnescape = RegExp(reDelimiterUnescapeSrc, 'g');
-          output.push(m1.replace(reDelimiterUnescape, delimiter));
+        if(typeof m1 === 'string' && m1.length) { // Fix: evaluates to false for both empty strings and undefined
+          output.push(m1.replace(reUnescape, config.delimiter));
+        } else if (typeof m1 === 'string' && m1.length === 0) { // Fix: handles empty delimited strings
+          output.push('');
         } else if(m2 !== undefined) {
           output.push(m2);
         }
@@ -199,8 +199,6 @@ RegExp.escape= function(s) {
       });
 
       // Handle special case of empty last value
-      var reEmptyLast = /S\s*$/;
-      reEmptyLast = RegExp(reEmptyLast.source.replace(/S/, separator));
       if (reEmptyLast.test(csv)) {
         output.push('');
       }
