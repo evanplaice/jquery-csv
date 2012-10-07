@@ -55,6 +55,26 @@ RegExp.escape= function(s) {
       dataLine:2
     },
 
+    hooks: {
+      castToScalar: function(value) {
+        var isNumber = /^[\d\.]+$/;
+        var hasDot = /\./;
+        if (value.length) {
+          if (isNaN(value)) {
+            return value;
+          } else if (isNumber.test(value)){
+            if (hasDot.test(value)) {
+              return parseFloat(value);
+            } else {
+              return parseInt(value);
+            }
+          } else {
+            return undefined;
+          }
+        }
+      }
+    },
+    
     splitLines: function(csv, delimiter) {
       var state = 0;
       var value = "";
@@ -199,11 +219,26 @@ RegExp.escape= function(s) {
       var output = [];
       csv.replace(reValue, function(m0, m1, m2) {
         if(typeof m1 === 'string' && m1.length) { // Fix: evaluates to false for both empty strings and undefined
-          output.push(m1.replace(reUnescape, config.delimiter));
+          var value = m1.replace(reUnescape, config.delimiter);
+          if(options.onParseValue === undefined) {          
+            output.push(value);
+          } else {
+            output.push(options.onParseValue(value));
+          }
         } else if (typeof m1 === 'string' && m1.length === 0) { // Fix: handles empty delimited strings
-          output.push('');
+          var value = '';
+          if(options.onParseValue === undefined) {          
+            output.push(value);
+          } else {
+            output.push(options.onParseValue(value));
+          }
         } else if(m2 !== undefined) {
-          output.push(m2);
+          var value = m2;
+          if(options.onParseValue === undefined) {          
+            output.push(value);
+          } else {
+            output.push(options.onParseValue(value));
+          }
         }
         return '';
       });
@@ -251,6 +286,7 @@ RegExp.escape= function(s) {
         delimiter: config.delimiter,
         separator: config.separator,
         escaper: config.escaper,
+        onParseValue: options.onParseValue
       };
 
       if(!config.experimental) {
@@ -306,6 +342,7 @@ RegExp.escape= function(s) {
         delimiter: config.delimiter,
         separator: config.separator,
         escaper: config.escaper,
+        onParseValue: options.onParseValue
       };
 
       if(!config.experimental) {

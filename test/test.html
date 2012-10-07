@@ -67,6 +67,11 @@ $(document).ready(function() {
     resultEscaping.push(['4', 'he said "you are crazy"', 'one ", two ", three "']);
     resultEscaping.push(['5', 'he said "you are crazy"', 'one ", two ", three "']);
 
+    testHooks = '';
+    testHooks += '734,4.5,sda,"555","4523.35","af323"';
+    resultHooks = [];
+    resultHooks.push([734,4.5,"sda",555,4523.35,"af323"]);
+    
     testNewLines = '';
     testNewLines += '"0","Evans & \nSutherland","230-132-111AA","","Visual","PCB"\n';
     testNewLines += '"0","Evans & \r\nSutherland","230-132-111AA","","Visual","PCB"\n';
@@ -163,6 +168,16 @@ $(document).ready(function() {
     deepEqual(output, resultEscaping[4], "regex special char");
   });
 
+  test("Hooks", function() {
+    expect(1);
+    stop();
+    var output = $.csv2Array(testHooks, {
+      onParseValue: $.csv.hooks.castToScalar
+    });
+    start();
+    deepEqual(output, resultHooks, "onParseValue hook test - cast to scalar");
+  });
+  
   test("Edge Cases", function() {
     expect(2);
     stop();
