@@ -158,33 +158,43 @@ RegExp.escape= function(s) {
 
       // parse a csv entry into values
       // matches 1. empty values | 2. delimited values | non-delimited values
-      var reValue = /(?!\s*$)\s*(?:Y([^YZ]*(?:ZY[^YZ]*)*)Y|([^XYZ\s]*(?:\s+[^XYZ\s]+)*))\s*(?:X|$)/;
-      var reValueSrc = reValue.source;
-      reValueSrc = reValueSrc.replace(/X/g, config.separator);
-      reValueSrc = reValueSrc.replace(/Y/g, config.delimiter);
-      reValueSrc = reValueSrc.replace(/Z/g, config.escaper);
-      reValue = RegExp(reValueSrc, 'g');
-
+      if(options.reValue === undefined){
+        var reValue = /(?!\s*$)\s*(?:Y([^YZ]*(?:ZY[^YZ]*)*)Y|([^XYZ\s]*(?:\s+[^XYZ\s]+)*))\s*(?:X|$)/;
+        var reValueSrc = reValue.source;
+        reValueSrc = reValueSrc.replace(/X/g, config.separator);
+        reValueSrc = reValueSrc.replace(/Y/g, config.delimiter);
+        reValueSrc = reValueSrc.replace(/Z/g, config.escaper);
+        options.reValue = RegExp(reValueSrc, 'g');
+      }
+      
       // matches escaped delimiters, the default being double-double quotes (ex "")
-      var reUnescape = /ED/;
-      var reUnescapeSrc = reUnescape.source;
-      reUnescapeSrc = reUnescapeSrc.replace(/E/, config.escaper);
-      reUnescapeSrc = reUnescapeSrc.replace(/D/, config.delimiter);
-      reUnescape = RegExp(reUnescapeSrc, 'g');
-
+      if(options.reUnescape === undefined) {
+        var reUnescape = /ED/;
+        var reUnescapeSrc = reUnescape.source;
+        reUnescapeSrc = reUnescapeSrc.replace(/E/, config.escaper);
+        reUnescapeSrc = reUnescapeSrc.replace(/D/, config.delimiter);
+        options.reUnescape = RegExp(reUnescapeSrc, 'g');
+      }
+      
       // matches empty last values (ex "val",)
-      var reEmptyLast = /S\s*$/;
-      reEmptyLast = RegExp(reEmptyLast.source.replace(/S/, config.separator));
-
+      if(options.reEmptyLast === undefined) {
+        var reEmptyLast = /S\s*$/;
+        options.reEmptyLast = RegExp(reEmptyLast.source.replace(/S/, config.separator));
+      }
+      
       // return an empty string for empty values
       if (csv === "") {
-        if(!callback) {
+        if(!config.callback) {
           return output;
         } else {
-          callback('', output);
+          config.callback('', output);
         }
       }
 
+      var reValue = options.reValue;
+      var reUnescape = options.reUnescape;
+      var reEmptyLast = options.reEmptyLast;
+      
       // "Walk" the string and extract the data
       var output = [];
       csv.replace(reValue, function(m0, m1, m2) {
@@ -203,10 +213,10 @@ RegExp.escape= function(s) {
         output.push('');
       }
 
-      if(!callback) {
+      if(!config.callback) {
         return output;
       } else {
-        callback('', output);
+        config.callback('', output);
       }
     },
 
@@ -227,39 +237,41 @@ RegExp.escape= function(s) {
      */
     toArrays: function(csv, options, callback) {
       var options = (options !== undefined ? options : {});
-      var callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
-      var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
-      var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
-      var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
-      var skip = 'skip' in options ? options.skip : $.csv.defaults.skip;
-      var experimental = 'experimental' in options ? options.experimental : false;
+      var config = {};
+      config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
+      config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
+      config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
+      config.escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
+      config.skip = 'skip' in options ? options.skip : $.csv.defaults.skip;
+      config.experimental = 'experimental' in options ? options.experimental : false;
 
       var lines = [];
       var output = [];
+      var options = {
+        delimiter: config.delimiter,
+        separator: config.separator,
+        escaper: config.escaper,
+      };
 
-      if(!experimental) {
+      if(!config.experimental) {
         lines = csv.split(/\r\n|\r|\n/g);
       } else {
-        lines = $.csv.splitLines(csv, delimiter);
+        lines = $.csv.splitLines(csv, config.delimiter);
       }
 
       for(var i in lines) {
-        if(i < skip) {
+        if(i < config.skip) {
           continue;
         }
         // process each value
-        var entry = $.csvEntry2Array(lines[i], {
-          delimiter: delimiter,
-          separator: separator,
-          escaper: escaper
-        });
+        var entry = $.csv.toArray(lines[i], options);
         output.push(entry);
       }
 
-      if(!callback) {
+      if(!config.callback) {
         return output;
       } else {
-        callback("", output);
+        config.callback("", output);
       }
     },
 
@@ -279,36 +291,38 @@ RegExp.escape= function(s) {
      */
     toObjects: function(csv, options, callback) {
       var options = (options !== undefined ? options : {});
-      var callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
-      var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
-      var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
-      var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
-      var headerLine = 'headerLine' in options ? options.headerLine : $.csv.defaults.headerLine;
-      var dataLine = 'dataLine' in options ? options.dataLine : $.csv.defaults.dataLine;
-      var experimental = 'experimental' in options ? options.experimental : false;
+      var config = {};
+      config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
+      config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
+      config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
+      config.escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
+      config.headerLine = 'headerLine' in options ? options.headerLine : $.csv.defaults.headerLine;
+      config.dataLine = 'dataLine' in options ? options.dataLine : $.csv.defaults.dataLine;
+      config.experimental = 'experimental' in options ? options.experimental : false;
 
       var lines = [];
       var output = [];
-      
-      if(!experimental) {
+      var options = {
+        delimiter: config.delimiter,
+        separator: config.separator,
+        escaper: config.escaper,
+      };
+
+      if(!config.experimental) {
         lines = csv.split(/\r\n|\r|\n/g);
       } else {
-        lines = this.splitLines(csv, delimiter);
+        lines = this.splitLines(csv, config.delimiter);
       }
 
       // fetch the headers
-      var headers = $.csvEntry2Array(lines[(headerLine - 1)]);
+      var headers = $.csv.toArray(lines[(config.headerLine - 1)]);
       // process the data
       for(var i in lines) {
-        if(i < (dataLine - 1)) {
+        if(i < (config.dataLine - 1)) {
           continue;
         }
         // process each value
-        var entry = $.csvEntry2Array(lines[i], {
-          delimiter: delimiter,
-          separator: separator,
-          escaper: escaper
-        });
+        var entry = $.csv.toArray(lines[i], options);
         var object = {};
         for(var j in headers) {
           object[headers[j]] = entry[j];
@@ -316,10 +330,10 @@ RegExp.escape= function(s) {
         output.push(object);
       }
 
-      if(!callback) {
+      if(!config.callback) {
         return output;
       } else {
-        callback("", output);
+        config.callback("", output);
       }
     },
 
@@ -337,25 +351,26 @@ RegExp.escape= function(s) {
      */
     fromArrays: function(arrays, options, callback) {
       var options = (options !== undefined ? options : {});
-      var callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
-      var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
-      var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
-      var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
-      var experimental = 'experimental' in options ? options.experimental : false;
+      var config = {};
+      config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
+      config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
+      config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
+      config.escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
+      config.experimental = 'experimental' in options ? options.experimental : false;
 
-      if(!experimental) {
+      if(!config.experimental) {
         throw new Error("not implemented");
       }
-      
+
       var output = [];
       for(i in arrays) {
         output.push(arrays[i]);
       }
 
-      if(!callback) {
+      if(!config.callback) {
         return output;
       } else {
-        callback("", output);
+        config.callback("", output);
       }
     },
 
@@ -374,25 +389,26 @@ RegExp.escape= function(s) {
      */
     fromObjects2CSV: function(objects, options, callback) {
       var options = (options !== undefined ? options : {});
-      var callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
-      var separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
-      var delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
-      var escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
-      var experimental = 'experimental' in options ? options.experimental : false;
+      var config = {};
+      config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
+      config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
+      config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
+      config.escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
+      config.experimental = 'experimental' in options ? options.experimental : false;
 
-      if(!experimental) {
+      if(!config.experimental) {
         throw new Error("not implemented");
       }
-      
+
       var output = [];
       for(i in objects) {
         output.push(arrays[i]);
       }
 
-      if(!callback) {
+      if(!config.callback) {
         return output;
       } else {
-        callback("", output);
+        config.callback("", output);
       }
     }
   };
