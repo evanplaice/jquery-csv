@@ -12,47 +12,57 @@
 $(document).ready(function() {
 
   // initialize the data for the 'core' module
-  function coreDataSetUp() {
-    testCSVEntry = '1,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",';
-    testEntryArray = ["1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB", "", "1", "Offsite", ""];
-    
-    testCSV = '';
-    testCSV += 'ID,iManufacturer,iMPartNumber,iSerialNumber,iSimCategory,iPartType,iDescription,iGroup,iLocation,iSold\r\n';
-    testCSV += '1,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",\r\n';
-    testCSV += '2,"Evans & Sutherland","230-132-111AA",,"Visual","PCB",,1,"Offsite",\r\n';
-    testCSV += '3,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
-    testCSV += '4,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
-    testCSV += '5,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
-    testCSV += '6,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
-    testCSV += '7,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
-    testCSV += '8,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
-    testCSV += '9,"Evans & Sutherland","230-120-112AC",,"Visual","PCB",,1,"Offsite",\r\n';
-    testCSV += '10,"Evans & Sutherland","230-121-150AC",,"Visual","PCB",,1,"Offsite",';
+  function coreDataInit() {
+    toArray = '"You will come back stronger then ever","like Lance Armstrong","but with two balls"';
+    fromArray = ["You will come back stronger then ever","like Lance Armstrong","but with two balls"];
 
-    testArray = [];
-    testArray.push(["ID", "iManufacturer", "iMPartNumber", "iSerialNumber", "iSimCategory", "iPartType", "iDescription", "iGroup", "iLocation", "iSold"]);
-    testArray.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB", "", "1", "Offsite", ""]);
-    testArray.push(["2", "Evans & Sutherland", "230-132-111AA", "", "Visual", "PCB", "", "1", "Offsite", ""]);
-    testArray.push(["3", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
-    testArray.push(["4", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
-    testArray.push(["5", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
-    testArray.push(["6", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
-    testArray.push(["7", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
-    testArray.push(["8", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
-    testArray.push(["9", "Evans & Sutherland", "230-120-112AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
-    testArray.push(["10", "Evans & Sutherland", "230-121-150AC", "", "Visual", "PCB", "", "1", "Offsite", ""]);
+    toArrays = '';
+    toArrays += '"All work","and no play","makes Jack","a dull boy..."\n';
+    toArrays += '"All work","and no play","makes Jack","a dull boy..."\n';
+    toArrays += '"All work","and no play","makes Jack","a dull boy..."\n';
+    toArrays += '"All work","and no play","makes Jack","a dull boy..."\n';
+    toArrays += '"All work","and no play","makes Jack","a dull boy..."\n';
+    toArrays += '"All work","and no play","makes Jack","a dull boy..."\n';
+    toArrays += '"All work","and no play","makes Jack","a dull boy..."\n';
+    toArrays += '"All work","and no play","makes Jack","a dull boy..."\n';
+    toArrays += '"All work","and no play","makes Jack","a dull boy..."\n';
+    toArrays += '"All work","and no play","makes Jack","a dull boy..."';
 
-    testDictionary = [];
-    testDictionary.push({ ID:"1",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-132-111AA", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
-    testDictionary.push({ ID:"2",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-132-111AA", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
-    testDictionary.push({ ID:"3",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
-    testDictionary.push({ ID:"4",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
-    testDictionary.push({ ID:"5",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
-    testDictionary.push({ ID:"6",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
-    testDictionary.push({ ID:"7",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
-    testDictionary.push({ ID:"8",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
-    testDictionary.push({ ID:"9",   iManufacturer:"Evans & Sutherland", iMPartNumber:"230-120-112AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
-    testDictionary.push({ ID:"10",  iManufacturer:"Evans & Sutherland", iMPartNumber:"230-121-150AC", iSerialNumber:"", iSimCategory:"Visual",  iPartType:"PCB",  iDescription:"",  iGroup:"1", iLocation:"Offsite",  iSold:"" });
+    fromArrays = [];
+    fromArrays.push(["All work","and no play","makes Jack","a dull boy..."]);
+    fromArrays.push(["All work","and no play","makes Jack","a dull boy..."]);
+    fromArrays.push(["All work","and no play","makes Jack","a dull boy..."]);
+    fromArrays.push(["All work","and no play","makes Jack","a dull boy..."]);
+    fromArrays.push(["All work","and no play","makes Jack","a dull boy..."]);
+    fromArrays.push(["All work","and no play","makes Jack","a dull boy..."]);
+    fromArrays.push(["All work","and no play","makes Jack","a dull boy..."]);
+    fromArrays.push(["All work","and no play","makes Jack","a dull boy..."]);
+    fromArrays.push(["All work","and no play","makes Jack","a dull boy..."]);
+    fromArrays.push(["All work","and no play","makes Jack","a dull boy..."]);
+
+    toObjects = '"ID","iManufacturer","iMPartNumber","iSerialNumber","iSimCategory","iPartType","iDescription","iGroup","iLocation","iSold"\n';
+    toObjects += '"1","Evans & Sutherland","230-132-111AA","","Visual","PCB","","1","Offsite",""\n';
+    toObjects += '"2","Evans & Sutherland","230-132-111AA","","Visual","PCB","","1","Offsite",""\n';
+    toObjects += '"3","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""\n';
+    toObjects += '"4","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""\n';
+    toObjects += '"5","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""\n';
+    toObjects += '"6","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""\n';
+    toObjects += '"7","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""\n';
+    toObjects += '"8","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""\n';
+    toObjects += '"9","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""\n';
+    toObjects += '"10","Evans & Sutherland","230-121-150AC","","Visual","PCB","","1","Offsite",""';
+
+    fromObjects = [];
+    fromObjects.push({ID:"1",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-132-111AA",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
+    fromObjects.push({ID:"2",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-132-111AA",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
+    fromObjects.push({ID:"3",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-120-112AC",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
+    fromObjects.push({ID:"4",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-120-112AC",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
+    fromObjects.push({ID:"5",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-120-112AC",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
+    fromObjects.push({ID:"6",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-120-112AC",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
+    fromObjects.push({ID:"7",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-120-112AC",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
+    fromObjects.push({ID:"8",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-120-112AC",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
+    fromObjects.push({ID:"9",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-120-112AC",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
+    fromObjects.push({ID:"10",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-121-150AC",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
 
     testEscaping = [];
     testEscaping.push('1,"he said ""you are crazy""", "one "", two "", three """');
@@ -71,7 +81,7 @@ $(document).ready(function() {
     testHooks += '734,4.5,sda,"555","4523.35","af323"';
     resultHooks = [];
     resultHooks.push([734,4.5,"sda",555,4523.35,"af323"]);
-    
+
     testNewLines = '';
     testNewLines += '"0","Evans & \nSutherland","230-132-111AA","","Visual","PCB"\n';
     testNewLines += '"0","Evans & \r\nSutherland","230-132-111AA","","Visual","PCB"\n';
@@ -82,106 +92,104 @@ $(document).ready(function() {
     resultNewLines.push(["0", "Evans & \r\nSutherland", "230-132-111AA", "", "Visual", "PCB"]);
     resultNewLines.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Vis\nual", "PCB"]);
     resultNewLines.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Vis\r\nual", "PCB"]);
-    
+
     testNullValue = '';
     testNullValue += '"Are you thinking what I\'m thinking?",,"aim for the bushes"\r\n';
     testNullValue += '"Are you thinking what I\'m thinking?","","aim for the bushes"';
     resultNullValue = [];
     resultNullValue.push(["Are you thinking what I'm thinking?","","aim for the bushes"]);
     resultNullValue.push(["Are you thinking what I'm thinking?","","aim for the bushes"]);
-    
+
     testNodeCallbacks = '';
     testNodeCallbacks += '"What are you","knittin\' a f*&%ing sweater"\n';
     testNodeCallbacks += '"I\'m trying to put some","tigers balm","on this jungle\'s nuts"';
     resultNodeCallbacks = [];
     resultNodeCallbacks.push(["What are you","knittin' a f*&%ing sweater"]);
-    resultNodeCallbacks.push(["I'm trying to put some","tigers balm","on this jungle's nuts"])
-    
+    resultNodeCallbacks.push(["I'm trying to put some","tigers balm","on this jungle's nuts"]);
   }
 
-  module("core", { setup:function(){ coreDataSetUp() }});
-  test("CSV Entry Parsing", function() {
-    expect(1);
+  module("core", { setup:function(){ coreDataInit() }});
+
+  test("Parsing - to Array(s)", function() {
+    expect(2);
     stop();
-    var output = $.csvEntry2Array(testCSVEntry);
+    var output = $.csv.toArray(toArray);
     start();
-    deepEqual(output, testEntryArray, "csvEntry2Array()");
+    deepEqual(output, fromArray, "$csv.toArray() parsing");
+    stop();
+    var output = $.csv.toArrays(toArrays);
+    start();
+    deepEqual(output, fromArrays, "$.csv.toArrays() parsing");
+    // TODO: Add tests
     //stop();
-    //var output = $.array2CSVEntry(testEntryArray);
+    //var output = $.fromArray(fromArray);
     //start();
-    //equal(output, testCSVEntry, "array2CSVEntry()");
-  });
-
-  test("CSV Array Parsing", function() {
-    expect(1);
-    stop();
-    var output = $.csv2Array(testCSV);
-    start();
-    deepEqual(output, testArray, "csv2Array()");
-    //stop()
-    //var output = $.array2CSV(testArray);
-    //start()
-    // TODO: Add test
-  });
-
-  test("Dictionary Parsing", function() {
-    expect(1);
-    stop();
-    var output = $.csv2Dictionary(testCSV);
-    start();
-    deepEqual(output, testDictionary, "csv2Dictionary()");
+    //deepEqual(output, toArray, "$.csv.fromArray() parsing");
     //stop();
-    //var output = $.dictionary2CSV(testDictionary);
+    //var output = $.fromArrays(fromArrays);
     //start();
-    // TODO: Add test
+    //deepEqual(output, toArrays, "$.csv.fromArrays() parsing");
   });
 
-  test("Custom Delimiter, Separator, and Escaper Characters", function() {
+  test("Parsing - to Objects", function() {
+    expect(1);
+    stop();
+    var output = $.csv.toObjects(toObjects);
+    start();
+    deepEqual(output, fromObjects, "$.csv.toObjects() parsing");
+    // TODO: Add test
+    //stop();
+    //var output = $.fromObjects(fromObjects);
+    //start();
+    //deepEqual(output, fromObjects, "$.csv.fromObjects() parsing");
+  });
+
+  test("Escaping - Custom Delimiter, Separator, and Escaper Characters", function() {
     expect(5);
     stop();
-    var output = $.csvEntry2Array(testEscaping[0]);
+    var output = $.csv.toArray(testEscaping[0]);
     start();
     deepEqual(output, resultEscaping[0], "standard delimiter/separator/escaper");
     stop();
-    var output = $.csvEntry2Array(testEscaping[1], {
+    var output = $.csv.toArray(testEscaping[1], {
       delimiter:"'"
     });
     start();
     deepEqual(output, resultEscaping[1], "custom delimiter");
     stop();
-    var output = $.csvEntry2Array(testEscaping[2], {
+    var output = $.csv.toArray(testEscaping[2], {
       separator:';'
     });
     start();
     deepEqual(output, resultEscaping[2], "custom separator");
     stop();
-    var output = $.csvEntry2Array(testEscaping[3], {
+    var output = $.csv.toArray(testEscaping[3], {
       escaper:'\\'
     });
     start();
     deepEqual(output, resultEscaping[3], "custom escaper");
     stop();
-    var output = $.csvEntry2Array(testEscaping[4], {
+    var output = $.csv.toArray(testEscaping[4], {
       separator:'|'
     });
     start();
     deepEqual(output, resultEscaping[4], "regex special char");
   });
 
-  test("Hooks", function() {
+  test("Hooks & User-Defined Callbacks", function() {
     expect(1);
     stop();
-    var output = $.csv2Array(testHooks, {
+    var output = $.csv.toArrays(testHooks, {
       onParseValue: $.csv.hooks.castToScalar
     });
     start();
     deepEqual(output, resultHooks, "onParseValue hook test - cast to scalar");
   });
-  
+
   test("Edge Cases", function() {
     expect(2);
     stop();
-    var output = $.csv2Array(testNewLines, {
+    var output = $.csv.toArrays(testNewLines, {
       experimental:true
     });
     start();
@@ -191,14 +199,14 @@ $(document).ready(function() {
     start();
     deepEqual(output, resultNullValue, "null value entry test");
   });
-  
+
   test("Node.js", function() {
     expect(1);
     stop();
-    $.csv2Array(testNodeCallbacks, {}, function(err, output) {
+    $.csv.toArrays(testNodeCallbacks, {}, function(err, output) {
       deepEqual(output, resultNodeCallbacks, "Check Node.js-style callback support");
     });
-    start(); 
+    start();
   });
 });
 </script>
