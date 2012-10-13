@@ -162,7 +162,7 @@ RegExp.escape= function(s) {
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
-     * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
+     * @param {Character} [escaper] An override for the escape character. Defaults to a double-quote(").
      *
      * This method deals with simple CSV strings only. It's useful if you only
      * need to parse a single entry. If you need to parse more than one line,
@@ -263,7 +263,7 @@ RegExp.escape= function(s) {
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
-     * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
+     * @param {Character} [escaper] An override for the escape character. Defaults to a double-quote(").
      * @param {Integer} [skip] The number of lines that need to be skipped before the parser starts. Defaults to 0.
      *
      * This method deals with multi-line CSV. The breakdown is simple. The first
@@ -318,7 +318,7 @@ RegExp.escape= function(s) {
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
-     * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
+     * @param {Character} [escaper] An override for the escape character. Defaults to a double-quote(").
      * @param {Integer} [headerLine] The line in the file that contains the header data. Defaults to 1 (1-based counting).
      * @param {Integer} [dataLine] The line where the data values start. Defaults to 2 (1-based counting).
      *
@@ -382,7 +382,7 @@ RegExp.escape= function(s) {
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
-     * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
+     * @param {Character} [escaper] An override for the escape character. Defaults to a double-quote(").
      *
      * This method generates a CSV file from an array of arrays (representing entries).
      */
@@ -418,7 +418,7 @@ RegExp.escape= function(s) {
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
-     * @param {Character} [escaper] An override for the escaper character. Defaults to a a double-quote(").
+     * @param {Character} [escaper] An override for the escape character. Defaults to a double-quote(").
      *
      * This method generates a CSV file from an array of objects (name:value pairs).
      * It starts by detecting the headers and adding them as the first line of
