@@ -93,12 +93,14 @@ $(document).ready(function() {
     resultNewLines.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Vis\nual", "PCB"]);
     resultNewLines.push(["1", "Evans & Sutherland", "230-132-111AA", "", "Vis\r\nual", "PCB"]);
 
-    testNullValue = '';
-    testNullValue += '"Are you thinking what I\'m thinking?",,"aim for the bushes"\r\n';
-    testNullValue += '"Are you thinking what I\'m thinking?","","aim for the bushes"';
-    resultNullValue = [];
-    resultNullValue.push(["Are you thinking what I'm thinking?","","aim for the bushes"]);
-    resultNullValue.push(["Are you thinking what I'm thinking?","","aim for the bushes"]);
+    testNullEntry = '';
+    testNullEntry = '"Highsmith","Danson"\n'
+    testNullEntry += '"You thinking what I\'m thinking partner?","aim for the bushes"\n';
+    resultNullEntryArr = [];
+    resultNullEntryArr.push(["Highsmith","Danson"]);
+    resultNullEntryArr.push(["You thinking what I'm thinking partner?","aim for the bushes"]);
+    resultNullEntryObj = [];
+    resultNullEntryObj.push({Highsmith:"You thinking what I\'m thinking partner?",Danson:"aim for the bushes"});
 
     testNodeCallbacks = '';
     testNodeCallbacks += '"What are you","knittin\' a f*&%ing sweater"\n';
@@ -115,20 +117,20 @@ $(document).ready(function() {
     stop();
     var output = $.csv.toArray(toArray);
     start();
-    deepEqual(output, fromArray, "$csv.toArray() parsing");
+    deepEqual(output, fromArray, "$csv.toArray()");
     stop();
     var output = $.csv.toArrays(toArrays);
     start();
-    deepEqual(output, fromArrays, "$.csv.toArrays() parsing");
+    deepEqual(output, fromArrays, "$.csv.toArrays()");
     // TODO: Add tests
     //stop();
     //var output = $.fromArray(fromArray);
     //start();
-    //deepEqual(output, toArray, "$.csv.fromArray() parsing");
+    //deepEqual(output, toArray, "$.csv.fromArray()");
     //stop();
     //var output = $.fromArrays(fromArrays);
     //start();
-    //deepEqual(output, toArrays, "$.csv.fromArrays() parsing");
+    //deepEqual(output, toArrays, "$.csv.fromArrays()");
   });
 
   test("Parsing - to Objects", function() {
@@ -136,12 +138,12 @@ $(document).ready(function() {
     stop();
     var output = $.csv.toObjects(toObjects);
     start();
-    deepEqual(output, fromObjects, "$.csv.toObjects() parsing");
+    deepEqual(output, fromObjects, "$.csv.toObjects()");
     // TODO: Add test
     //stop();
     //var output = $.fromObjects(fromObjects);
     //start();
-    //deepEqual(output, fromObjects, "$.csv.fromObjects() parsing");
+    //deepEqual(output, fromObjects, "$.csv.fromObjects()");
   });
 
   test("Escaping - Custom Delimiter, Separator, and Escaper Characters", function() {
@@ -173,7 +175,7 @@ $(document).ready(function() {
       separator:'|'
     });
     start();
-    deepEqual(output, resultEscaping[4], "regex special char");
+    deepEqual(output, resultEscaping[4], "regex escaping");
   });
 
   test("Hooks & User-Defined Callbacks", function() {
@@ -183,28 +185,32 @@ $(document).ready(function() {
       onParseValue: $.csv.hooks.castToScalar
     });
     start();
-    deepEqual(output, resultHooks, "onParseValue hook test - cast to scalar");
+    deepEqual(output, resultHooks, "onParseValue hook - casting values to scalar types");
   });
 
   test("Edge Cases", function() {
-    expect(2);
+    expect(3);
     stop();
     var output = $.csv.toArrays(testNewLines, {
       experimental:true
     });
     start();
-    deepEqual(output, resultNewLines, "CSV values containing newlines");
+    deepEqual(output, resultNewLines, "values containing newline chars");
     stop();
-    var output = $.csv.toArrays(testNullValue);
+    var output = $.csv.toArrays(testNullEntry);
     start();
-    deepEqual(output, resultNullValue, "null value entry test");
+    deepEqual(output, resultNullEntryArr, "null last entry - toArrays()");
+    stop();
+    var output = $.csv.toObjects(testNullEntry);
+    start();
+    deepEqual(output, resultNullEntryObj, "null last entry - toObjects()");
   });
 
   test("Node.js", function() {
     expect(1);
     stop();
     $.csv.toArrays(testNodeCallbacks, {}, function(err, output) {
-      deepEqual(output, resultNodeCallbacks, "Check Node.js-style callback support");
+      deepEqual(output, resultNodeCallbacks, "Node.js-style callback support");
     });
     start();
   });
