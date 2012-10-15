@@ -295,9 +295,13 @@ RegExp.escape= function(s) {
         lines = $.csv.splitLines(csv, config.delimiter);
       }
 
-      for(var i in lines) {
+      for(var i=0, len=lines.length; i<len; i++) {
         if(i < config.skip) {
           continue;
+        }
+        // check for empty last line, ignore if found
+        if(i === (len - 1) && lines[i] === '') {
+          break;
         }
         // process each value
         var entry = $.csv.toArray(lines[i], options);
@@ -354,9 +358,13 @@ RegExp.escape= function(s) {
       // fetch the headers
       var headers = $.csv.toArray(lines[(config.headerLine - 1)]);
       // process the data
-      for(var i in lines) {
+      for(var i=0, len=lines.length; i<len; i++) {
         if(i < (config.dataLine - 1)) {
           continue;
+        }
+        // check for empty last line, ignore if found
+        if(i === (len - 1) && lines[i] === '') {
+          break;
         }
         // process each value
         var entry = $.csv.toArray(lines[i], options);
