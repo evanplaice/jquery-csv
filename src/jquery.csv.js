@@ -85,9 +85,9 @@ RegExp.escape= function(s) {
         value = "";
         state = 0;
       };
-      csv.replace(/(\"|\n|\r|[^\"\r\n]+)/gm, function (m0){
+      csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0){
         switch (state) {
-          // the start of an entry
+          // the start of a value/entry
           case 0:
             if (m0 === "\"") {
               state = 1;
@@ -96,10 +96,7 @@ RegExp.escape= function(s) {
             } else if (/^\r$/.test(m0)) {
               // carriage returns are ignored
             } else {
-              if (value) {
-                throw new Error("Illegal initial state");
-              }
-              value = m0;
+              value += m0;
               state = 3;
             }
             break;
@@ -107,9 +104,6 @@ RegExp.escape= function(s) {
           case 1:
             if (m0 === "\"") {
               state = 2;
-            } else if ((m0 === "\n") || (m0 === "\r")) {
-              value += m0;
-              state = 1;
             } else {
               value += m0;
               state = 1;
@@ -133,14 +127,17 @@ RegExp.escape= function(s) {
             break;
           // un-delimited input
           case 3:
-            if (m1 === "\"") {
-              throw new Error("Unquoted delimiter found in string");
+            if (m0 === ",") {
+              value += m0;
+              state = 0;
+            } else if (m0 === "\"") {
+              throw new Error("Unquoted delimiter found");
             } else if (m0 === "\n") {
               endOfRow();
             } else if (m0 === "\r") {
               // Ignore
             } else {
-              throw new Error("Two values, no separator?");
+              throw new Error("Illegal data");
             }
               break;
           default:
