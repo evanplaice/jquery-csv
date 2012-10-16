@@ -52,14 +52,16 @@
         lines: { show: true },
         points: { show: true }
       }
-    };
+    }
 
-    var data = [];
-    data[0] = $.csv.toArrays($('#textInput').val(), {
+    var data1 = [];
+    data1[0] = $.csv.toArrays($('#textInput').val(), {
       onParseValue: $.csv.hooks.castToScalar
     });
+    flot1 = $.plot($('#flot1'), data1, options);
 
-    var plot = $.plot($('#flot1'), data, options);
+    var data2 = [];
+    flot2 = $.plot($('#flot2'), data2, options);
   }
 
   // displays a warning if the browser doesn't support the HTML5 File API
@@ -90,31 +92,27 @@
   function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
 
-    var data = [];
-
+    // reset the flot dataset
+    flot2.setData([]);
     for(var i=0, len=files.length; i<len; i++) {
-      // read the file contents
-      data[i] = flotFileData(files[i]);
+      flotFileData(files[i], i);
     }
-
-    var options = {
-      series: {
-        lines: { show: true },
-        points: { show: true }
-      }
-    };
-    var plot2 = $.plot($("#flot2"), data, options);
   }
 
-  function flotFileData(file) {
+  function flotFileData(file, i) {
     var reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function(event){
       var csv = event.target.result;
-      var data = $.csv.toArrays(csv, {
+      var data = flot2.getData();
+      var newData = $.csv.toArrays(csv, {
         onParseValue:$.csv.hooks.castToScalar
       });
-      return data;
+      // append to the existing dataset
+      data[i] = newData;
+      flot2.setData(data);
+      flot2.setupGrid();
+      flot2.draw();
     };
     reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
   }
@@ -249,7 +247,7 @@ width:100%;
     <hr />
     <input type=file id=fileInput name=files[] multiple />
     <hr />
-    <div id=flot2 style="width:600px;height:300px;"></div>
+    <div id=flot2 style="width:600px;height:300px;margin:0 auto;"></div>
   </div>
 </body>
 </html>
