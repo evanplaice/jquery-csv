@@ -92,7 +92,7 @@
 
     var data = [];
 
-    for(var i in files) {
+    for(var i=0, len=files.length; i<len; i++) {
       // read the file contents
       data[i] = flotFileData(files[i]);
     }
