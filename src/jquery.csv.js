@@ -178,10 +178,10 @@ RegExp.escape= function(s) {
       // parse a csv entry into values
       // matches 1. empty values | 2. delimited values | non-delimited values
       if(options.reValue === undefined){
-        var reValue = /(?!\s*$)\s*(?:Y([^YZ]*(?:ZY[^YZ]*)*)Y|([^XYZ\s]*(?:\s+[^XYZ\s]+)*))\s*(?:X|$)/;
+        var reValue = /(?!\s*$)\s*(?:Q([^QZ]*(?:ZQ[^QZ]*)*)Q|([^DQZ\s]*(?:\s+[^DQZ\s]+)*))\s*(?:D|$)/;
         var reValueSrc = reValue.source;
-        reValueSrc = reValueSrc.replace(/X/g, config.separator);
-        reValueSrc = reValueSrc.replace(/Y/g, config.delimiter);
+        reValueSrc = reValueSrc.replace(/D/g, config.separator);
+        reValueSrc = reValueSrc.replace(/Q/g, config.delimiter);
         reValueSrc = reValueSrc.replace(/Z/g, config.escaper);
         options.reValue = RegExp(reValueSrc, 'g');
       }
