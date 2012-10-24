@@ -231,7 +231,7 @@ RegExp.escape= function(s) {
         } else if (typeof m1 === 'string' && m1.length === 0) { // Fix: handles empty delimited strings
           var value = '';
           push(value);
-        } else if(m2 !== undefined) {
+        } else if(typeof m2 === 'string') {
           var value = m2;
           push(value);
         }
