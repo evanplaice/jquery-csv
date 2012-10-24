@@ -213,31 +213,27 @@ RegExp.escape= function(s) {
       var reValue = options.reValue;
       var reUnescape = options.reUnescape;
       var reEmptyLast = options.reEmptyLast;
-      
+
+      function push(value) {
+        if(options.onParseValue === undefined) {          
+          output.push(value);
+        } else {
+          output.push(options.onParseValue(value));
+        }
+      }
+
       // "Walk" the string and extract the data
       var output = [];
       csv.replace(reValue, function(m0, m1, m2) {
         if(typeof m1 === 'string' && m1.length) { // Fix: evaluates to false for both empty strings and undefined
           var value = m1.replace(reUnescape, config.delimiter);
-          if(options.onParseValue === undefined) {          
-            output.push(value);
-          } else {
-            output.push(options.onParseValue(value));
-          }
+          push(value);
         } else if (typeof m1 === 'string' && m1.length === 0) { // Fix: handles empty delimited strings
           var value = '';
-          if(options.onParseValue === undefined) {          
-            output.push(value);
-          } else {
-            output.push(options.onParseValue(value));
-          }
+          push(value);
         } else if(m2 !== undefined) {
           var value = m2;
-          if(options.onParseValue === undefined) {          
-            output.push(value);
-          } else {
-            output.push(options.onParseValue(value));
-          }
+          push(value);
         }
         return '';
       });
