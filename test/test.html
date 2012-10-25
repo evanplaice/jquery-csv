@@ -127,10 +127,22 @@ $(document).ready(function() {
     resultRFCComplianceA3 = [];
     resultRFCComplianceA3.push(['aaa','bbb','']);
 
-    testHooks = '';
-    testHooks += '734,4.5,sda,"555","4523.35","af323"';
-    resultHooks = [];
-    resultHooks.push([734,4.5,"sda",555,4523.35,"af323"]);
+    testHook1 = '';
+    testHook1 += '734,4.5,sda,"555","4523.35","af323"';
+    resultHook1 = [];
+    resultHook1.push([734,4.5,"sda",555,4523.35,"af323"]);
+    testHook2 = '';
+    testHook2 += '"You have the right","to remain silent","but","I\'m gonna make","ya scream!"';
+    resultHook2 = [];
+    resultHook2.push(["I\'m gonna make","ya scream!"]);
+    testHook3 = '';
+    testHook3 += 'fluffy\n';
+    testHook3 += 'nutter\n';
+    testHook3 += 'funny\n';
+    testHook3 += 'fuffer\n';
+    resultHook3 = [];
+    resultHook3.push(['funny']);
+    resultHook3.push(['fuffer']);
 
     testNodeCallbacks = '';
     testNodeCallbacks += '"What are you","knittin\' a f*&%ing sweater"\n';
@@ -250,13 +262,41 @@ $(document).ready(function() {
   });
 
   test("Hooks & User-Defined Callbacks", function() {
-    expect(1);
+    expect(3);
     stop();
-    var output = $.csv.toArrays(testHooks, {
+    var output = $.csv.toArrays(testHook1, {
       onParseValue: $.csv.hooks.castToScalar
     });
     start();
-    deepEqual(output, resultHooks, "onParseValue hook - casting values to scalar types");
+    deepEqual(output, resultHook1, "onParseValue - casting values to scalar types");
+    stop();
+    var columnRange = function(value, state) {
+      var start = 4;
+      var end = 5;
+      if(state.colNum >= start && state.colNum <= end) {
+        return value;
+      }
+      return false;
+    }    
+    var output = $.csv.toArrays(testHook2, {
+      onParseValue: columnRange
+    });
+    start();
+    deepEqual(output, resultHook2, "onParseValue - selecting a column range");
+    stop();
+    var rowRange = function(entry, state) {
+      var start = 3;
+      var end = 4;
+      if(state.rowNum >= start && state.rowNum <= end) {
+        return entry;
+      }
+      return false;
+    }  
+    var output = $.csv.toArrays(testHook3, {
+      onParseEntry: rowRange
+    });
+    start();
+    deepEqual(output, resultHook3, "onParseEntry - selecting a row range");
   });
 
   test("Node.js", function() {

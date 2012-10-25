@@ -54,7 +54,7 @@ RegExp.escape= function(s) {
     },
 
     hooks: {
-      castToScalar: function(value) {
+      castToScalar: function(value, state) {
         var isNumber = /^[\d\.]+$/;
         var hasDot = /\./;
         if (value.length) {
@@ -82,15 +82,20 @@ RegExp.escape= function(s) {
 
         function endOfLine() {
           // push out the parsed entry
-          if(options.onParseEntry === undefined) {         
+          if(options.onParseEntry === undefined) {
             entries.push(entry);
           } else {
-            entries.push(options.onParseEntry(entry));  // onParseEntry Hook
+            var hookVal = options.onParseEntry(entry, options.state); // onParseEntry Hook
+            if(hookVal) {
+              entries.push(hookVal);
+            }
           }
+          // clear the state
           entry = "";
           state = 0;
+          options.state.rowNum++;
         }
-        
+
         csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0){
           switch (state) {
             // the start of a value/entry
@@ -171,6 +176,94 @@ RegExp.escape= function(s) {
 
         return entries;
       },
+      
+      parseEntry: function(csv, options) {
+        // set the initial state
+        var entry = [];
+        var state = 0;
+        var value = "";
+        
+        function endOfValue() {
+          // push out the parsed value
+          if(options.onParseValue === undefined) {       
+            entry.push(value);
+          } else {
+            var hook = options.onParseValue(value, options.state); // onParseValue Hook
+            if(hook) {
+              entry.push(hook);
+            }
+          }
+          // clear the state
+          value = "";
+          state = 0;
+          options.state.colNum++;
+        }
+
+        csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0){
+          switch (state) {
+            // the start of a value
+            case 0:
+              if (m0 === ",") {
+                value += '';
+                endOfValue();
+              } else if (m0 === "\"") {
+                state = 1;
+              } else if (m0 === "\n" || /^\r$/.test(m0)) {
+                return '';
+              } else {
+                value += m0;
+                state = 3;
+              }
+              break;
+            // delimited input  
+            case 1:
+              if (m0 === "\"") {
+                state = 2;
+              } else {
+                value += m0;
+                state = 1;
+              }
+              break;
+            // delimiter found in delimited input
+            case 2:
+              // is the delimiter escaped?
+              if (m0 === "\"") {
+                value += m0;
+                state = 1;
+              } else if (m0 === ",") {
+                endOfValue();
+              } else if (m0 === "\r" || m0 === "\n") {
+                return '';
+              } else {
+                throw new Error("Illegal state");
+              }
+              break;
+            // un-delimited input
+            case 3:
+              if (m0 === ",") {
+                endOfValue();
+              } else if (m0 === "\"") {
+                throw new Error("Un-matched quote found");
+              } else if (m0 === "\n" || m0 === "\r") {
+                return '';
+              } else {
+                throw new Error("Illegal data");
+              }
+                break;
+            default:
+              throw new Error("Unknown state");
+          }
+          //console.log("val:" + m0 + " state:" + state);
+          return "";
+        });
+
+        // submit the last value of an entry
+        if (state != 0) {
+          endOfValue();
+        }
+
+        return entry;
+      }
     },
 
     /**
@@ -192,86 +285,17 @@ RegExp.escape= function(s) {
       config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       config.separator = 'separator' in options ? RegExp.escape(options.separator) : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? RegExp.escape(options.delimiter) : $.csv.defaults.delimiter;
+      var state = (options.state !== undefined ? options.state : {});
 
-      // set the initial state
-      var entry = [];
-      var state = 0;
-      var value = "";
-
-      function endOfValue() {
-        // push out the parsed value
-        if(options.onParseValue === undefined) {         
-          entry.push(value);
-        } else {
-          entry.push(options.onParseValue(value));  // onParseValue Hook
-        }
-        // clear the state
-        value = "";
-        state = 0;
+      var options = {
+        delimiter: config.delimiter,
+        separator: config.separator,
+        onParseEntry: options.onParseEntry,
+        onParseValue: options.onParseValue,
+        state: state
       }
 
-      csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0){
-        switch (state) {
-          // the start of a value
-          case 0:
-            if (m0 === ",") {
-              value += '';
-              endOfValue();
-            } else if (m0 === "\"") {
-              state = 1;
-            } else if (m0 === "\n" || /^\r$/.test(m0)) {
-              return '';
-            } else {
-              value += m0;
-              state = 3;
-            }
-            break;
-          // delimited input  
-          case 1:
-            if (m0 === "\"") {
-              state = 2;
-            } else {
-              value += m0;
-              state = 1;
-            }
-            break;
-          // delimiter found in delimited input
-          case 2:
-            // is the delimiter escaped?
-            if (m0 === "\"") {
-              value += m0;
-              state = 1;
-            } else if (m0 === ",") {
-              endOfValue();
-            } else if (m0 === "\r" || m0 === "\n") {
-              return '';
-            } else {
-              throw new Error("Illegal state");
-            }
-            break;
-          // un-delimited input
-          case 3:
-            if (m0 === ",") {
-              endOfValue();
-            } else if (m0 === "\"") {
-              throw new Error("Un-matched quote found");
-            } else if (m0 === "\n" || m0 === "\r") {
-              return '';
-            } else {
-              throw new Error("Illegal data");
-            }
-              break;
-          default:
-            throw new Error("Unknown state");
-        }
-        //console.log("val:" + m0 + " state:" + state);
-        return "";
-      });
-
-      // submit the last value of an entry
-      if (state != 0) {
-        endOfValue();
-      }
+      var entry = $.csv.parsers.parseEntry(csv, options);
 
       // push the value to a callback if one is defined
       if(!config.callback) {
@@ -303,17 +327,24 @@ RegExp.escape= function(s) {
 
       var lines = [];
       var output = [];
+
+      var state = {
+        rowNum:1,
+        colNum:1,
+      }
+
       var options = {
         delimiter: config.delimiter,
         separator: config.separator,
         onParseEntry: options.onParseEntry,
-        onParseValue: options.onParseValue
+        onParseValue: options.onParseValue,
+        state: state
       };
-      
+
       // break the data down to lines
       lines = $.csv.parsers.splitLines(csv, options);
       //console.log(lines);
-      
+
       for(var i=0, len=lines.length; i<len; i++) {
         // check for empty last line, ignore if found
         if(i === (len - 1) && lines[i] === '') {
@@ -353,15 +384,21 @@ RegExp.escape= function(s) {
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       config.headerLine = 'headerLine' in options ? options.headerLine : $.csv.defaults.headerLine;
       config.dataLine = 'dataLine' in options ? options.dataLine : $.csv.defaults.dataLine;
-      config.experimental = 'experimental' in options ? options.experimental : false;
 
       var lines = [];
       var output = [];
+
+      var state = {
+        rowNum:1,
+        colNum:2,
+      };
+
       var options = {
         delimiter: config.delimiter,
         separator: config.separator,
         onParseEntry: options.onParseEntry,
-        onParseValue: options.onParseValue
+        onParseValue: options.onParseValue,
+        state: state
       };
 
       // break the data down to lines
