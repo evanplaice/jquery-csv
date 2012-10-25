@@ -114,6 +114,18 @@ $(document).ready(function() {
     testRFCCompliance7 += '"aaa","b""bb","ccc"';
     resultRFCCompliance7 = [];
     resultRFCCompliance7.push(['aaa','b"bb','ccc']);
+    testRFCComplianceA1 = '';
+    testRFCComplianceA1 += 'aaa,,ccc';
+    resultRFCComplianceA1 = [];
+    resultRFCComplianceA1.push(['aaa','','ccc']);
+    testRFCComplianceA2 = '';
+    testRFCComplianceA2 += '"aaa","","ccc"';
+    resultRFCComplianceA2 = [];
+    resultRFCComplianceA2.push(['aaa','','ccc']);
+    testRFCComplianceA3 = '';
+    testRFCComplianceA3 += '"aaa","bbb",';
+    resultRFCComplianceA3 = [];
+    resultRFCComplianceA3.push(['aaa','bbb','']);
 
     testHooks = '';
     testHooks += '734,4.5,sda,"555","4523.35","af323"';
@@ -168,7 +180,7 @@ $(document).ready(function() {
   });
 
   test("RFC 4801 Compliance", function() {
-    expect(7);
+    expect(10);
     stop();
     var output = $.csv.toArrays(testRFCCompliance1);
     start();
@@ -197,6 +209,18 @@ $(document).ready(function() {
     var output = $.csv.toArrays(testRFCCompliance7);
     start();
     deepEqual(output, resultRFCCompliance7, "Rule #7 - If double-quotes are used to enclose fields, then a double-quote appearing inside a field must be escaped by preceding it with another double quote");
+    stop();
+    var output = $.csv.toArrays(testRFCComplianceA1);
+    start();
+    deepEqual(output, resultRFCComplianceA1, "Amendment #1 - An unquoted field may or may not contain a null value");
+    stop();
+    var output = $.csv.toArrays(testRFCComplianceA2);
+    start();
+    deepEqual(output, resultRFCComplianceA2, "Amendment #2 - A quoted field may or may not contain a null value");
+    stop();
+    var output = $.csv.toArrays(testRFCComplianceA3);
+    start();
+    deepEqual(output, resultRFCComplianceA3, "Amendment #3 - The last field in an entry may or may not contain a null value");
   });
 
   test("Custom Control Chars - Delimiter, Separator", function() {

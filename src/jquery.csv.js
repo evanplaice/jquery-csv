@@ -96,7 +96,10 @@ RegExp.escape= function(s) {
           switch (state) {
             // the start of a value/entry
             case 0:
-              if (m0 === "\"") {
+              if (m0 === ",") {
+                entry += m0;
+                state = 0;
+              } else if (m0 === "\"") {
                 entry += m0;
                 state = 1;
               } else if (m0 === "\n") {
@@ -141,7 +144,7 @@ RegExp.escape= function(s) {
                 entry += m0;
                 state = 0;
               } else if (m0 === "\"") {
-                throw new Error("Unquoted quote found");
+                throw new Error("Illegal quote");
               } else if (m0 === "\n") {
                 endOfLine();
               } else if (m0 === "\r") {
@@ -155,9 +158,15 @@ RegExp.escape= function(s) {
           }
           return "";
         });
-        
+
         // submit the last entry
         if (state != 0) {
+          endOfLine();
+        }
+
+        // handle null last value
+        if (entry !== '') {
+          entry += ','
           endOfLine();
         }
 
@@ -207,6 +216,7 @@ RegExp.escape= function(s) {
           // the start of a value
           case 0:
             if (m0 === ",") {
+              value += '';
               endOfValue();
             } else if (m0 === "\"") {
               state = 1;
