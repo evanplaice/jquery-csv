@@ -227,8 +227,7 @@ RegExp.escape= function(s) {
           // delimiter found in delimited input
           case 2:
             // is the delimiter escaped?
-              var prevChar = value.substr(value.length - 1);
-            if (m0 === "\"" && prevChar === "\"") {
+            if (m0 === "\"") {
               value += m0;
               state = 1;
             } else if (m0 === ",") {
