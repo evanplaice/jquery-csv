@@ -49,7 +49,6 @@ RegExp.escape= function(s) {
     defaults: {
       separator:',',
       delimiter:'"',
-      escaper:'"',
       skip:0,
       headerLine:1,
       dataLine:2
@@ -76,51 +75,61 @@ RegExp.escape= function(s) {
     },
 
     parsers: {
-      splitLines: function(csv, delimiter) {
+      splitLines: function(csv, options) {
+        // set the initial state
+        var entries = [];
         var state = 0;
-        var value = "";
-        var line = "";
-        var lines = [];
-        function endOfRow() {
-          lines.push(value);
-          value = "";
+        var entry = "";
+
+        function endOfLine() {
+          // push out the parsed entry
+          if(options.onParseEntry === undefined) {         
+            entries.push(entry);
+          } else {
+            entries.push(options.onParseEntry(entry));  // onParseEntry Hook
+          }
+          entry = "";
           state = 0;
-        };
+        }
+        
         csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0){
           switch (state) {
             // the start of a value/entry
             case 0:
               if (m0 === "\"") {
+                entry += m0;
                 state = 1;
               } else if (m0 === "\n") {
-                endOfRow();
+                endOfLine();
               } else if (/^\r$/.test(m0)) {
                 // carriage returns are ignored
               } else {
-                value += m0;
+                entry += m0;
                 state = 3;
               }
               break;
-            // delimited input  
+            // delimited input
             case 1:
               if (m0 === "\"") {
+                entry += m0;
                 state = 2;
               } else {
-                value += m0;
+                entry += m0;
                 state = 1;
               }
               break;
             // delimiter found in delimited input
             case 2:
               // is the delimiter escaped?
-              if (m0 === "\"" && value.substr(value.length - 1) === "\"") {
-                value += m0;
+              var prevChar = entry.substr(entry.length - 1);
+              if (m0 === "\"" && prevChar === "\"") {
+                entry += m0;
                 state = 1;
               } else if (m0 === ",") {
-                value += m0;
+                entry += m0;
                 state = 0;
               } else if (m0 === "\n") {
-                endOfRow();
+                endOfLine();
               } else if (m0 === "\r") {
               } else {
                 throw new Error("Illegal state");
@@ -129,12 +138,12 @@ RegExp.escape= function(s) {
             // un-delimited input
             case 3:
               if (m0 === ",") {
-                value += m0;
+                entry += m0;
                 state = 0;
               } else if (m0 === "\"") {
-                throw new Error("Unquoted delimiter found");
+                throw new Error("Unquoted quote found");
               } else if (m0 === "\n") {
-                endOfRow();
+                endOfLine();
               } else if (m0 === "\r") {
                 // Ignore
               } else {
@@ -146,10 +155,13 @@ RegExp.escape= function(s) {
           }
           return "";
         });
+        
+        // submit the last entry
         if (state != 0) {
-          endOfRow();
+          endOfLine();
         }
-        return lines;
+
+        return entries;
       },
     },
 
@@ -161,7 +173,6 @@ RegExp.escape= function(s) {
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
-     * @param {Character} [escaper] An override for the escape character. Defaults to a double-quote(").
      *
      * This method deals with simple CSV strings only. It's useful if you only
      * need to parse a single entry. If you need to parse more than one line,
@@ -173,80 +184,90 @@ RegExp.escape= function(s) {
       config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       config.separator = 'separator' in options ? RegExp.escape(options.separator) : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? RegExp.escape(options.delimiter) : $.csv.defaults.delimiter;
-      config.escaper = 'escaper' in options ? RegExp.escape(options.escaper) : $.csv.defaults.escaper;
 
-      // parse a csv entry into values
-      // matches 1. empty values | 2. delimited values | non-delimited values
-      if(options.reValue === undefined){
-        var reValue = /(?!\s*$)\s*(?:Q([^QZ]*(?:ZQ[^QZ]*)*)Q|([^DQZ\s]*(?:\s+[^DQZ\s]+)*))\s*(?:D|$)/;
-        var reValueSrc = reValue.source;
-        reValueSrc = reValueSrc.replace(/D/g, config.separator);
-        reValueSrc = reValueSrc.replace(/Q/g, config.delimiter);
-        reValueSrc = reValueSrc.replace(/Z/g, config.escaper);
-        options.reValue = RegExp(reValueSrc, 'g');
-      }
-      
-      // matches escaped delimiters, the default being double-double quotes (ex "")
-      if(options.reUnescape === undefined) {
-        var reUnescape = /ED/;
-        var reUnescapeSrc = reUnescape.source;
-        reUnescapeSrc = reUnescapeSrc.replace(/E/, config.escaper);
-        reUnescapeSrc = reUnescapeSrc.replace(/D/, config.delimiter);
-        options.reUnescape = RegExp(reUnescapeSrc, 'g');
-      }
-      
-      // matches empty last values (ex "val",)
-      if(options.reEmptyLast === undefined) {
-        var reEmptyLast = /S\s*$/;
-        options.reEmptyLast = RegExp(reEmptyLast.source.replace(/S/, config.separator));
-      }
-      
-      // return an empty string for empty values
-      if (csv === "") {
-        if(!config.callback) {
-          return output;
+      // set the initial state
+      var entry = [];
+      var state = 0;
+      var value = "";
+
+      function endOfValue() {
+        // push out the parsed value
+        if(options.onParseValue === undefined) {         
+          entry.push(value);
         } else {
-          config.callback('', output);
+          entry.push(options.onParseValue(value));  // onParseValue Hook
         }
+        // clear the state
+        value = "";
+        state = 0;
       }
 
-      var reValue = options.reValue;
-      var reUnescape = options.reUnescape;
-      var reEmptyLast = options.reEmptyLast;
-
-      function push(value) {
-        if(options.onParseValue === undefined) {          
-          output.push(value);
-        } else {
-          output.push(options.onParseValue(value));
+      csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0){
+        switch (state) {
+          // the start of a value
+          case 0:
+            if (m0 === "\"") {
+              state = 1;
+            } else if (m0 === "\n" || /^\r$/.test(m0)) {
+              return '';
+            } else {
+              value += m0;
+              state = 3;
+            }
+            break;
+          // delimited input  
+          case 1:
+            if (m0 === "\"") {
+              state = 2;
+            } else {
+              value += m0;
+              state = 1;
+            }
+            break;
+          // delimiter found in delimited input
+          case 2:
+            // is the delimiter escaped?
+              var prevChar = value.substr(value.length - 1);
+            if (m0 === "\"" && prevChar === "\"") {
+              value += m0;
+              state = 1;
+            } else if (m0 === ",") {
+              endOfValue();
+            } else if (m0 === "\r" || m0 === "\n") {
+              return '';
+            } else {
+              throw new Error("Illegal state");
+            }
+            break;
+          // un-delimited input
+          case 3:
+            if (m0 === ",") {
+              endOfValue();
+            } else if (m0 === "\"") {
+              throw new Error("Un-matched quote found");
+            } else if (m0 === "\n" || m0 === "\r") {
+              return '';
+            } else {
+              throw new Error("Illegal data");
+            }
+              break;
+          default:
+            throw new Error("Unknown state");
         }
-      }
-
-      // "Walk" the string and extract the data
-      var output = [];
-      csv.replace(reValue, function(m0, m1, m2) {
-        if(typeof m1 === 'string' && m1.length) { // Fix: evaluates to false for both empty strings and undefined
-          var value = m1.replace(reUnescape, config.delimiter);
-          push(value);
-        } else if (typeof m1 === 'string' && m1.length === 0) { // Fix: handles empty delimited strings
-          var value = '';
-          push(value);
-        } else if(typeof m2 === 'string') {
-          var value = m2;
-          push(value);
-        }
-        return '';
+        //console.log("val:" + m0 + " state:" + state);
+        return "";
       });
 
-      // Handle special case of empty last value
-      if (reEmptyLast.test(csv)) {
-        output.push('');
+      // submit the last value of an entry
+      if (state != 0) {
+        endOfValue();
       }
 
+      // push the value to a callback if one is defined
       if(!config.callback) {
-        return output;
+        return entry;
       } else {
-        config.callback('', output);
+        config.callback('', entry);
       }
     },
 
@@ -271,22 +292,20 @@ RegExp.escape= function(s) {
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       config.skip = 'skip' in options ? options.skip : $.csv.defaults.skip;
-      config.experimental = 'experimental' in options ? options.experimental : false;
 
       var lines = [];
       var output = [];
       var options = {
         delimiter: config.delimiter,
         separator: config.separator,
+        onParseEntry: options.onParseEntry,
         onParseValue: options.onParseValue
       };
-
-      if(!config.experimental) {
-        lines = csv.split(/\r\n|\r|\n/g);
-      } else {
-        lines = $.csv.parsers.splitLines(csv, config.delimiter);
-      }
-
+      
+      // break the data down to lines
+      lines = $.csv.parsers.splitLines(csv, options);
+      //console.log(lines);
+      
       for(var i=0, len=lines.length; i<len; i++) {
         if(i < config.skip) {
           continue;
@@ -300,6 +319,7 @@ RegExp.escape= function(s) {
         output.push(entry);
       }
 
+      // push the value to a callback if one is defined
       if(!config.callback) {
         return output;
       } else {
@@ -335,14 +355,12 @@ RegExp.escape= function(s) {
       var options = {
         delimiter: config.delimiter,
         separator: config.separator,
+        onParseEntry: options.onParseEntry,
         onParseValue: options.onParseValue
       };
 
-      if(!config.experimental) {
-        lines = csv.split(/\r\n|\r|\n/g);
-      } else {
-        lines = $.csv.parsers.splitLines(csv, config.delimiter);
-      }
+      // break the data down to lines
+      lines = $.csv.parsers.splitLines(csv, options);
 
       // fetch the headers
       var headers = $.csv.toArray(lines[(config.headerLine - 1)]);
@@ -364,6 +382,7 @@ RegExp.escape= function(s) {
         output.push(object);
       }
 
+      // push the value to a callback if one is defined
       if(!config.callback) {
         return output;
       } else {
@@ -400,6 +419,7 @@ RegExp.escape= function(s) {
         output.push(arrays[i]);
       }
 
+      // push the value to a callback if one is defined
       if(!config.callback) {
         return output;
       } else {
@@ -436,6 +456,7 @@ RegExp.escape= function(s) {
         output.push(arrays[i]);
       }
 
+      // push the value to a callback if one is defined
       if(!config.callback) {
         return output;
       } else {
