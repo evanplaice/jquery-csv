@@ -49,7 +49,6 @@ RegExp.escape= function(s) {
     defaults: {
       separator:',',
       delimiter:'"',
-      skip:0,
       headerLine:1,
       dataLine:2
     },
@@ -290,7 +289,6 @@ RegExp.escape= function(s) {
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
-     * @param {Integer} [skip] The number of lines that need to be skipped before the parser starts. Defaults to 0.
      *
      * This method deals with multi-line CSV. The breakdown is simple. The first
      * dimension of the array represents the line (or entry/row) while the second
@@ -302,7 +300,6 @@ RegExp.escape= function(s) {
       config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
-      config.skip = 'skip' in options ? options.skip : $.csv.defaults.skip;
 
       var lines = [];
       var output = [];
@@ -318,9 +315,6 @@ RegExp.escape= function(s) {
       //console.log(lines);
       
       for(var i=0, len=lines.length; i<len; i++) {
-        if(i < config.skip) {
-          continue;
-        }
         // check for empty last line, ignore if found
         if(i === (len - 1) && lines[i] === '') {
           break;
