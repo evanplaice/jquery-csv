@@ -206,7 +206,9 @@ RegExp.escape= function(s) {
         switch (state) {
           // the start of a value
           case 0:
-            if (m0 === "\"") {
+            if (m0 === ",") {
+              endOfValue();
+            } else if (m0 === "\"") {
               state = 1;
             } else if (m0 === "\n" || /^\r$/.test(m0)) {
               return '';
