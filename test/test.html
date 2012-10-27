@@ -136,13 +136,17 @@ $(document).ready(function() {
     resultHook2 = [];
     resultHook2.push(["I\'m gonna make","ya scream!"]);
     testHook3 = '';
-    testHook3 += 'fluffy\n';
-    testHook3 += 'nutter\n';
-    testHook3 += 'funny\n';
-    testHook3 += 'fuffer\n';
+    testHook3 += '5.55555,7.7777777,1.1,0';
     resultHook3 = [];
-    resultHook3.push(['funny']);
-    resultHook3.push(['fuffer']);
+    resultHook3.push(["5.56","7.78","1.10","0.00"]);
+    testHook4 = '';
+    testHook4 += 'fluffy\n';
+    testHook4 += 'nutter\n';
+    testHook4 += 'funny\n';
+    testHook4 += 'fuffer\n';
+    resultHook4 = [];
+    resultHook4.push(['funny']);
+    resultHook4.push(['fuffer']);
 
     testNodeCallbacks = '';
     testNodeCallbacks += '"What are you","knittin\' a f*&%ing sweater"\n';
@@ -262,7 +266,7 @@ $(document).ready(function() {
   });
 
   test("Hooks & User-Defined Callbacks", function() {
-    expect(3);
+    expect(4);
     stop();
     var output = $.csv.toArrays(testHook1, {
       onParseValue: $.csv.hooks.castToScalar
@@ -284,6 +288,25 @@ $(document).ready(function() {
     start();
     deepEqual(output, resultHook2, "onParseValue - selecting a column range");
     stop();
+    var toPrecision = function(value, state) {
+      var isNumber = /^[\d\.]+$/;
+      
+      if (value.length) {
+        if (isNaN(value)) {
+          return value;
+        } else if (isNumber.test(value)){
+          return parseFloat(value).toFixed(2);
+        }
+      } else {
+        return undefined;
+      }
+    }
+    var output = $.csv.toArrays(testHook3, {
+      onParseValue: toPrecision
+    });
+    start();
+    deepEqual(output, resultHook3, "onParseValue - formatting to 2-digit precision");
+    stop();
     var rowRange = function(entry, state) {
       var start = 3;
       var end = 4;
@@ -291,12 +314,12 @@ $(document).ready(function() {
         return entry;
       }
       return false;
-    }  
-    var output = $.csv.toArrays(testHook3, {
+    }
+    var output = $.csv.toArrays(testHook4, {
       onParseEntry: rowRange
     });
     start();
-    deepEqual(output, resultHook3, "onParseEntry - selecting a row range");
+    deepEqual(output, resultHook4, "onParseEntry - selecting a row range");
   });
 
   test("Node.js", function() {
