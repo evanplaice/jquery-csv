@@ -176,16 +176,16 @@ RegExp.escape= function(s) {
 
         return entries;
       },
-      
+
       parseEntry: function(csv, options) {
         // set the initial state
         var entry = [];
         var state = 0;
         var value = "";
-        
+
         function endOfValue() {
           // push out the parsed value
-          if(options.onParseValue === undefined) {       
+          if(options.onParseValue === undefined) {
             entry.push(value);
           } else {
             var hook = options.onParseValue(value, options.state); // onParseValue Hook
@@ -215,7 +215,7 @@ RegExp.escape= function(s) {
                 state = 3;
               }
               break;
-            // delimited input  
+            // delimited input
             case 1:
               if (m0 === "\"") {
                 state = 2;
