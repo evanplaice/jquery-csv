@@ -31,12 +31,20 @@ function isAPIAvailable() {
   }
 }
 
+function chartTextData() {
+  var parsedData = $.csv.toArrays($('#textInput').val(), {
+    onParseValue: $.csv.hooks.castToScalar
+  });
+
+  drawChart(parsedData, 1);
+}
+
 function handleFileSelect(evt) {
   var files = evt.target.files; // FileList object
   var file = files[0];
   // read the file contents and chart the data
   chartFileData(file, function(parsed) {
-    drawChart(parsed);
+    drawChart(parsed, 2);
   });
 }
 
@@ -56,12 +64,12 @@ function chartFileData(fileToParse, callback) {
 }
 
 //draw chart
-function drawChart (setChartData) {
+function drawChart (setChartData, num) {
   var data = new google.visualization.arrayToDataTable(setChartData);
-  var dash = new google.visualization.Dashboard(document.getElementById('dashboard2'));
+  var dash = new google.visualization.Dashboard(document.getElementById('dashboard' + num));
   var control = new google.visualization.ControlWrapper({
     controlType: 'ChartRangeFilter',
-    containerId: 'control2',
+    containerId: 'control' + num,
     options: {
       filterColumnIndex: 0,
       ui: {
@@ -81,7 +89,7 @@ function drawChart (setChartData) {
 
   var chart = new google.visualization.ChartWrapper({
     chartType: 'LineChart',
-    containerId: 'chart2',
+    containerId: 'chart' + num,
   });
 
   function fixOptions(wrapper) {
@@ -98,7 +106,7 @@ function drawChart (setChartData) {
 
   fixOptions(chart);
 
-  document.getElementById('edit2').onclick = function() {
+  document.getElementById('edit' + num).onclick = function() {
     var editor = new google.visualization.ChartEditor();
     google.visualization.events.addListener(editor, 'ok', function() {
       chart = editor.getChartWrapper();
