@@ -120,6 +120,7 @@ function drawChart (setChartData, num) {
 
   dash.bind([control], [chart]);
   dash.draw(data);
+  $('#padding' + num).show();
 }
 </script>
 <style>
@@ -183,7 +184,7 @@ width:100%;
       <div id="dashboard1" style="display:block; margin:0 auto; width:800px;">
         <div id="chart1"></div>
         <div id="control1"></div>
-        <div style="display:block; height:50px; background-color:white;"></div>
+        <div id=padding1 style="display:block; height:50px; background-color:white; visibility:hidden;"></div>
       </div>
     </div>
     <div id="tabs-3" style="height:550px;">
@@ -195,7 +196,7 @@ width:100%;
       <div id="dashboard2" style="display:block; margin:0 auto; width:800px;">
         <div id="chart2"></div>
         <div id="control2"></div>
-        <div style="display:block; height:50px; background-color:white;"></div>
+        <div id=padding2 style="display:block; height:50px; background-color:white; visibility:hidden;"></div>
       </div>
     </div>
   </div>
