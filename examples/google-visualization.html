@@ -134,17 +134,17 @@ width:100%;
 
 
 <body>
-  <div id="tabs">
+  <div id=tabs>
     <ul>
       <li><a href="#tabs-1">Intro</a></li>
       <li><a href="#tabs-2">Load From TextArea</a></li>
       <li><a href="#tabs-3">Load From File</a></li>
     </ul>
-    <div id="tabs-1">
+    <div id=tabs-1>
       <h2> Welcome to the jQuery-CSV + Google Visualization API Demonstration</h2>
       <p></p>
     </div>
-    <div id="tabs-2" style="height:700px;">
+    <div id=tabs-2>
       <p>Text Intro</p>
       <hr />
       <textarea id=textInput style="height:150px;">"TimeStamp (ms)","MID 128|PID 91|Accelerator pedal position (%)","MID 128|PID 92|Engine load(%)","MID 128|PID 100|Engine oil pressure (bar)","MID 128|PID 105|Intake manifold temperature (N0C)","MID 128|PID 110|Engine coolant temperature (N0C)","MID 128|PID 190|Engine speed (r/min)"
@@ -180,24 +180,24 @@ width:100%;
 2698,,,,,,1001
 2767,10.4,,,,,</textarea>
       <hr />
-      <input type=button id=run value="Run" onClick="chartTextData()" />
-      <input type="button" id="edit1" value="Edit Chart" />
+      <input id=run type=button value="Run" />
+      <input id=edit1 type=button value="Edit Chart" />
       <hr />
-      <div id="dashboard1" style="display:block; margin:0 auto; width:800px;">
-        <div id="chart1"></div>
-        <div id="control1"></div>
+      <div id=dashboard1 style="display:block; margin:0 auto; width:800px; height:400px;">
+        <div id=chart1></div>
+        <div id=control1></div>
         <div id=padding1 style="display:block; height:50px; background-color:white; visibility:hidden;"></div>
       </div>
     </div>
-    <div id="tabs-3" style="height:550px;">
+    <div id=tabs-3 style="height:550px;">
       <p>File Intro</p>
       <hr />
-      <input type="file" id="files" name="file" />
-      <input type="button" id="edit2" value="Edit Chart" />
+      <input id=files type=file name="file" />
+      <input id=edit2 type=button value="Edit Chart" />
       <hr />
-      <div id="dashboard2" style="display:block; margin:0 auto; width:800px;">
-        <div id="chart2"></div>
-        <div id="control2"></div>
+      <div id=dashboard2 style="display:block; margin:0 auto; width:800px; height:400px;">
+        <div id=chart2></div>
+        <div id=control2></div>
         <div id=padding2 style="display:block; height:50px; background-color:white; visibility:hidden;"></div>
       </div>
     </div>
