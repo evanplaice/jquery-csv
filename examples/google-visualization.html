@@ -118,9 +118,11 @@ function drawChart (setChartData, num) {
     editor.openDialog(chart);
   };
 
+  $('#padding' + num).attr("visibility", "visible");
+  
   dash.bind([control], [chart]);
   dash.draw(data);
-  $('#padding' + num).attr("visibility", "visible");
+  
 }
 </script>
 <style>
