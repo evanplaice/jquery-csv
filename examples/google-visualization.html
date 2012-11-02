@@ -33,6 +33,7 @@ function isAPIAvailable() {
 }
 
 function chartTextData() {
+  $('#padding1').attr("visibility", "visible");
   var parsedData = $.csv.toArrays($('#textInput').val(), {
     onParseValue: $.csv.hooks.castToScalar
   });
@@ -50,6 +51,7 @@ function handleFileSelect(evt) {
 }
 
 function chartFileData(fileToParse, callback) {
+  $('#padding2').attr("visibility", "visible");
   var reader = new FileReader();
   reader.readAsText(fileToParse);
   reader.onload = function() {
@@ -117,8 +119,6 @@ function drawChart (setChartData, num) {
     });
     editor.openDialog(chart);
   };
-
-  $('#padding' + num).attr("visibility", "visible");
   
   dash.bind([control], [chart]);
   dash.draw(data);
