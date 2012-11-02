@@ -56,19 +56,17 @@ RegExp.escape= function(s) {
     hooks: {
       castToScalar: function(value, state) {
         var hasDot = /\./;
-        if (value.length) {
-          if (isNaN(value)) {
-            return value;
+        if (isNaN(value)) {
+          return value;
+        } else {
+          if (hasDot.test(value)) {
+            return parseFloat(value);
           } else {
-            if (hasDot.test(value)) {
-              return parseFloat(value);
+            var integer = parseInt(value);
+            if(isNaN(integer)) {
+              return 0;
             } else {
-              var integer = parseInt(value);
-              if(isNaN(integer)) {
-                return 0;
-              } else {
-                return integer;
-              }
+              return integer;
             }
           }
         }
