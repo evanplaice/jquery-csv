@@ -55,19 +55,21 @@ RegExp.escape= function(s) {
 
     hooks: {
       castToScalar: function(value, state) {
-        var isNumber = /^[\d\.]+$/;
         var hasDot = /\./;
         if (value.length) {
           if (isNaN(value)) {
             return value;
-          } else if (isNumber.test(value)){
+          } else {
             if (hasDot.test(value)) {
               return parseFloat(value);
             } else {
-              return parseInt(value);
+              var integer = parseInt(value);
+              if(isNaN(integer)) {
+                return 0;
+              } else {
+                return integer;
+              }
             }
-          } else {
-            return undefined;
           }
         }
       }
