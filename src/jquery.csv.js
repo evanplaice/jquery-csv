@@ -86,7 +86,7 @@ RegExp.escape= function(s) {
             entries.push(entry);
           } else {
             var hookVal = options.onParseEntry(entry, options.state); // onParseEntry Hook
-            if(hookVal === false) {
+            if(hookVal !== false) {
               entries.push(hookVal);
             }
           }
@@ -189,7 +189,7 @@ RegExp.escape= function(s) {
             entry.push(value);
           } else {
             var hook = options.onParseValue(value, options.state); // onParseValue Hook
-            if(hook === false) {
+            if(hook !== false) {
               entry.push(hook);
             }
           }
