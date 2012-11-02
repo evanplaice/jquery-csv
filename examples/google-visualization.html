@@ -33,7 +33,7 @@ function isAPIAvailable() {
 }
 
 function chartTextData() {
-  $('#padding1').attr("visibility", "visible");
+  $('#padding1').css({visibility: "visible"});
   var parsedData = $.csv.toArrays($('#textInput').val(), {
     onParseValue: $.csv.hooks.castToScalar
   });
@@ -51,7 +51,7 @@ function handleFileSelect(evt) {
 }
 
 function chartFileData(fileToParse, callback) {
-  $('#padding2').attr("visibility", "visible");
+  $('#padding2').css({visibility: "visible"});
   var reader = new FileReader();
   reader.readAsText(fileToParse);
   reader.onload = function() {
