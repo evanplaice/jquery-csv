@@ -21,6 +21,8 @@
     }
 
     flotTextData();
+    
+    $('#run').bind('click', flotTextData());
   });
 
   // Used to generate the data for the sine wave demo
@@ -105,18 +107,34 @@ width:100%;
 </head>
 
 <body>
-<div id="tabs">
+<div id=tabs>
   <ul>
     <li><a href="#tabs-1">Intro</a></li>
     <li><a href="#tabs-2">Load From TextArea</a></li>
     <li><a href="#tabs-3">Load From File</a></li>
   </ul>
-  <div id="tabs-1">
+  <div id=tabs-1>
     <h2> Welcome to the jQuery-CSV + Flot Demonstration</h2>
-    <p></p>
+      <p>On the adjacent tabs, you will find demonstrations whereby you can load your own data into a fully functional Flot chart.</p>
+      <p>You'll need the HTML5 File Api to use the file loader but no worries, if your browser is lagging behind in HTML5 adoption ::cough::IE::cough:: you can still try out the demos by pasting data into the text area in the first example.</p>
+      <p>If you don't have a dataset of your own feel free to try one of these:</p>
+      <ul>
+        <li><a href="http://jquery-csv.googlecode.com/git/examples/data/analytics1.csv">Google Analytics Data Dump 1</a></li>
+        <li><a href="http://jquery-csv.googlecode.com/git/examples/data/analytics2.csv">Google Analytics Data Dump 2</a>
+        <li><a href="http://jquery-csv.googlecode.com/git/examples/data/sine.csv">Sine Wave</a></li>
+        <li><a href="http://jquery-csv.googlecode.com/git/examples/data/sample2.csv">Auto Data</a></li>
+      </ul>
+      <hr />
+      <p>The main project page can be found on <a href="http://code.google.com/p/jquery-csv/">Google Code</a>
+      <p>If you want the complete documentation. Goto: <a href="http://code.google.com/p/jquery-csv/wiki/API">API Wiki</a></p>
+      <p>If you would like to provide feedback, you may do so on the <a href="http://code.google.com/p/jquery-csv/wiki/Feedback">Feedback Wiki</a>.</p>
+      <p>If you find a bug, report a 'Defect' in the <a href="http://code.google.com/p/jquery-csv/issues/list">Issues</a> section of the project site.</p>
+      <p>If you have a suggestion for a new feature, create a 'Feature Request' in the <a href="http://code.google.com/p/jquery-csv/issues/list">Issues</a> section of the project site.</p>
+      <hr />
+      <h2>Enjoy...</h2>
   </div>
-  <div id="tabs-2">
-    <p>Text Intro</p>
+  <div id=tabs-2>
+    <p>To use this demo, simply paste your dataset into the text area and hit the 'Run' button.</p>
     <hr />
     <textarea id=textInput style="height:150px;">0,0.5
 0.01,0.5313952597646567
@@ -218,14 +236,16 @@ width:100%;
 0.9700000000000006,0.4063093427071337
 0.9800000000000006,0.4373333832178437
 0.9900000000000007,0.46860474023533893</textarea>
-    <input type=button id=run value="Run" onClick="flotTextData();" />
+    <input id=run type=button  value="Run" />
     <hr />
     <div id=flot1 style="width:600px;height:300px;margin:0 auto;"></div>
   </div>
-  <div id="tabs-3">
-    <p>File Intro</p>
+  <div id=tabs-3>
+    <p>To use this demo, just choose a CSV file through the file dialog. Really, it's that easy.</p>
+    <p>Note: This demo is capable of processing and loading multiple data files. Just select more than one file in the dialog.</p>
+    <p>I suggest you try loading the <a href="http://jquery-csv.googlecode.com/git/examples/data/analytics1.csv">analytics1.csv</a> and <a href="http://jquery-csv.googlecode.com/git/examples/data/analytics2.csv">analytics2.csv</a> data sets together.</p>
     <hr />
-    <input type=file id=fileInput name=files[] multiple />
+    <input id=fileInput type=file name=files[] multiple />
     <hr />
     <div id=flot2 style="width:600px;height:300px;margin:0 auto;"></div>
   </div>

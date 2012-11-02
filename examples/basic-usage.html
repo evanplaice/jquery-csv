@@ -18,6 +18,21 @@
     example1();
     example2();
     example3();
+    
+    $('#run1').bind('click', function() {
+      fourtyTwo();
+      example1();
+    });
+    
+    $('#run2').bind('click', function() {
+      fourtyTwo();
+      example2();
+    });
+    
+    $('#run3').bind('click', function() {
+      fourtyTwo();
+      example3();
+    });
   });
 
   function example1() {
@@ -102,7 +117,7 @@ td {
 </head>
 
 <body>
-<div id="tabs">
+<div id=tabs>
   <ul>
     <li><a href="#tabs-1">Intro</a></li>
     <li><a href="#tabs-2">toArray()</a></li>
@@ -111,7 +126,7 @@ td {
     <li><a href="#tabs-5">fromArrays()</a></li>
     <li><a href="#tabs-6">fromObjects()</a></li>
   </ul>
-  <div id="tabs-1">
+  <div id=tabs-1>
     <h2> Welcome to the jQuery-CSV Basic Usage Demonstration</h2>
     <p>On the adjacent tabs, you will find examples demonstrating the usage of the jQuery-CSV library.</p>
     <p>Samples datasets will be provided with each example but if you want, you may insert your own data. Just press the 'Run' button to re-execute the parser.</p>
@@ -124,7 +139,7 @@ td {
     <hr />
     <h2>Enjoy...</h2>
   </div>
-  <div id="tabs-2">
+  <div id=tabs-2>
     <h2>$.csv.toArray()</h2>
     <p>Used to parse a single line of CSV data into an array of values.</p>
     <p>Usage:
@@ -133,14 +148,14 @@ td {
     <hr />
     <h4>Input Data:</h4>
     <textarea id=input1 style="height:25px;">"You will come back stronger then ever","like Lance Armstrong","but with two balls"</textarea>
-    <input type=button id=run2 value="Run" onClick="fourtyTwo();example1();" />
+    <input id=run1 type=button value="Run" />
     <hr />
     <h4>Result:</h4>
     <div class=result>
       <table id=result1 border=1></table>
     </div>
   </div>
-  <div id="tabs-3">
+  <div id=tabs-3>
     <h2>$.csv.toArrays()</h2>
     <p>Used to parse multi-line CSV data into a JavaScript 2D (two-dimensional) array.</p>
     <p>Usage:
@@ -158,14 +173,14 @@ td {
 "All work","and no play","makes Jack","a dull boy..."
 "All work","and no play","makes Jack","a dull boy..."
 "All work","and no play","makes Jack","a dull boy..."</textarea>
-    <input type=button id=run2 value="Run" onClick="fourtyTwo();example2();" />
+    <input id=run2 type=button value="Run" />
     <hr />
     <h4>Result:</h4>
     <div class=result>
       <table id=result2 border=1></table>
     </div>
   </div>
-  <div id="tabs-4">
+  <div id=tabs-4>
     <h2>$.csv.toObjects()</h2>
     <p>Used to convert multi-line CSV data into an array onjects containing the data as key-value (ie header:value) pairs.</p>
     <p>Usage:
@@ -184,14 +199,14 @@ td {
 "8","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""
 "9","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""
 "10","Evans & Sutherland","230-121-150AC","","Visual","PCB","","1","Offsite",""</textarea>
-    <input type=button id=run2 value="Run" onClick="fourtyTwo();example3();" />
+    <input id=run3 type=button value="Run" />
     <hr />
     <h4>Result:</h4>
     <div class=result>
       <table id=result3 border=1></table>
     </div>
   </div>
-  <div id="tabs-5">
+  <div id=tabs-5>
     <h2>$.csv.fromArrays()</h2>
     <hr />
     <h3>This feature has not been implemented yet</h3>
@@ -203,7 +218,7 @@ td {
       <textarea id=result4></textarea>
     </div>-->
   </div>
-  <div id="tabs-6">
+  <div id=tabs-6>
     <h2>$.csv.fromObjects()</h2>
     <hr />
     <h3>This feature has not been implemented yet</h3>
