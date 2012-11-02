@@ -69,7 +69,7 @@ function drawChart (setChartData) {
           height: 50,
           width: 800,
           chartArea: {
-            width: '100%'
+            width: '80%'
           }
         },
         chartView: {
@@ -86,9 +86,9 @@ function drawChart (setChartData) {
 
   function fixOptions(wrapper) {
     // sets the options on the chart wrapper so that it draws correctly
-    wrapper.setOption('height', 600);
+    wrapper.setOption('height', 400);
     wrapper.setOption('width', 800);
-    wrapper.setOption('chartArea.width', '100%');
+    wrapper.setOption('chartArea.width', '80%');
     // the chart editor automatically enables animations, which doesn't look right with the ChartRangeFilter
     wrapper.setOption('animation', null);
     // the chart editor sets hAxis.viewWindowMode to 'pretty', which doesn't work well with continuous axes
