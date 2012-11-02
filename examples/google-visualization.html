@@ -69,7 +69,7 @@ function drawChart (setChartData) {
           height: 50,
           width: 800,
           chartArea: {
-            width: '80%'
+            width: '100%'
           }
         },
         chartView: {
@@ -88,7 +88,7 @@ function drawChart (setChartData) {
     // sets the options on the chart wrapper so that it draws correctly
     wrapper.setOption('height', 600);
     wrapper.setOption('width', 800);
-    wrapper.setOption('chartArea.width', '80%');
+    wrapper.setOption('chartArea.width', '100%');
     // the chart editor automatically enables animations, which doesn't look right with the ChartRangeFilter
     wrapper.setOption('animation', null);
     // the chart editor sets hAxis.viewWindowMode to 'pretty', which doesn't work well with continuous axes
@@ -132,7 +132,7 @@ width:100%;
       <h2> Welcome to the jQuery-CSV + Google Visualization API Demonstration</h2>
       <p></p>
     </div>
-    <div id="tabs-2">
+    <div id="tabs-2" style="height:950px;">
       <p>Text Intro</p>
       <hr />
       <textarea id=textInput style="height:150px;">"TimeStamp (ms)","MID 128|PID 91|Accelerator pedal position (%)","MID 128|PID 92|Engine load(%)","MID 128|PID 100|Engine oil pressure (bar)","MID 128|PID 105|Intake manifold temperature (N0C)","MID 128|PID 110|Engine coolant temperature (N0C)","MID 128|PID 190|Engine speed (r/min)"
@@ -176,7 +176,7 @@ width:100%;
         <div id="control1"></div>
       </div>
     </div>
-    <div id="tabs-3">
+    <div id="tabs-3" style="height:800px;">
       <p>File Intro</p>
       <hr />
       <input type="file" id="files" name="file" />
