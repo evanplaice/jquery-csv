@@ -1,0 +1,190 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>jQuery-CSV - Google Visualization Demo</title>
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<link href="http://code.jquery.com/ui/1.9.0/themes/cupertino/jquery-ui.css" rel="stylesheet" />
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<!--<script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>-->
+<script src="./jquery-csv/src/jquery.csv.js"</script>
+<script src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart'],'language':'ru'}]}"></script>
+<script>
+// don't use document ready for this, use the google setOnLoadCallback
+// otherwise you can end up trying to draw a chart before the API is done loading
+$(document).ready(function() {
+    if (isAPIAvailable()) {
+        $('#files').bind('change', handleFileSelect);
+    }
+});
+
+function isAPIAvailable() {
+    // Check for the various File API support.
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+        return true;
+    } else {
+        // source: File API availability - http://caniuse.com/#feat=fileapi
+        // source: <output> availability - http://html5doctor.com/the-output-element/
+        document.writeln('The HTML5 APIs used in this form are only available in the following browsers:<br />');
+        // 6.0 File API & 13.0 <output>
+        document.writeln(' - Google Chrome: 13.0 or later<br />');
+        // 3.6 File API & 6.0 <output>
+        document.writeln(' - Mozilla Firefox: 6.0 or later<br />');
+        // 10.0 File API & 10.0 <output>
+        document.writeln(' - Internet Explorer: Not supported (partial support expected in 10.0)<br />');
+        // ? File API & 5.1 <output>
+        document.writeln(' - Safari: Not supported<br />');
+        // ? File API & 9.2 <output>
+        document.writeln(' - Opera: Not supported');
+        return false;
+    }
+}
+
+//google.load('visualization', '1', {packages: ['controls', 'charteditor']});
+//google.setOnLoadCallback(init);
+
+function init () {
+    if (isAPIAvailable()) {
+        $('#files').bind('change', handleFileSelect);
+    }
+}
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+    var file = files[0];
+    // read the file contents 
+    console.log(file);
+    printTable(file);
+
+    chartData(file, function(parsed) {
+        drawChart(parsed);
+    });
+}
+
+// show data in html table and push data to array for google charts
+function printTable (file) {
+    var reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function(event) {
+        console.log('on fucking load');
+        var csv = event.target.result;
+        console.log(csv);
+        var data = $.csv.toArrays(csv, {
+            onParseValue: $.csv.hooks.castToScalar
+        });
+        
+        //console.log(data);
+        var html = '';
+
+        for (var row in data) {
+            html += '<tr>\r\n';
+            for (var item in newdata[row]) {
+                html += '<td>' + newdata[row][item] + '</td>\r\n';
+            }
+            html += '</tr>\r\n';
+        }
+        //console.log(html);
+        $('#contents').html(html);
+
+    };
+
+    reader.onerror = function() {
+        alert('Unable to read ' + file.fileName);
+    };
+}
+
+function chartData(fileToParse, callback) {
+    var reader = new FileReader();
+    reader.readAsText(fileToParse);
+    reader.onload = function() {
+        var csv = event.target.result;
+        var parsedData = $.csv.toArrays(csv, {
+            onParseValue: $.csv.hooks.castToScalar,
+            experimental: true
+        });
+        callback(parsedData);
+    };
+
+    reader.onerror = function() {
+        alert('Unable to read ' + file.fileName);
+    };
+}
+
+//draw chart
+function drawChart (setChartData) {
+    var data = new google.visualization.arrayToDataTable(setChartData);
+
+    var dash = new google.visualization.Dashboard(document.getElementById('dashboard'));
+
+    var control = new google.visualization.ControlWrapper({
+        controlType: 'ChartRangeFilter',
+        containerId: 'control_div',
+        options: {
+            filterColumnIndex: 0,
+            ui: {
+                chartOptions: {
+                    height: 50,
+                    width: 800,
+                    chartArea: {
+                        width: '80%'
+                    }
+                },
+                chartView: {
+                    columns: [0, 1]
+                }
+            }
+        }
+    });
+
+    var chart = new google.visualization.ChartWrapper({
+        chartType: 'LineChart',
+        containerId: 'chart_div'
+    });
+
+    function fixOptions(wrapper) {
+        // sets the options on the chart wrapper so that it draws correctly
+        wrapper.setOption('height', 600);
+        wrapper.setOption('width', 800);
+        wrapper.setOption('chartArea.width', '80%');
+        // the chart editor automatically enables animations, which doesn't look right with the ChartRangeFilter
+        wrapper.setOption('animation', null);
+        // the chart editor sets hAxis.viewWindowMode to 'pretty', which doesn't work well with continuous axes
+        wrapper.setOption('hAxis.viewWindowMode', 'maximized');
+        wrapper.setOption('curveType', 'function');
+    }
+
+    fixOptions(chart);
+
+    document.getElementById('edit').onclick = function() {
+        var editor = new google.visualization.ChartEditor();
+        google.visualization.events.addListener(editor, 'ok', function() {
+            chart = editor.getChartWrapper();
+            fixOptions(chart);
+            dash.bind([control], [chart]);
+            dash.draw(data);
+        });
+        editor.openDialog(chart);
+    };
+
+    dash.bind([control], [chart]);
+    dash.draw(data);
+}
+</script>
+</head>
+
+
+<body>
+<input type="button" id="edit" value="Edit Chart" />
+<div id="dashboard">
+    <div id="chart_div"></div>
+    <div id="control_div"></div>
+</div>
+
+<table id=contents style="width:100%; height:400px;" border>
+</table>
+
+<input type="file" id="files" name="file" />
+</body>
+</html>
