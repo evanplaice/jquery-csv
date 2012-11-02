@@ -53,8 +53,7 @@ function init () {
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
     var file = files[0];
-    // read the file contents 
-    console.log(file);
+    // read the file contents
     printTable(file);
 
     chartData(file, function(parsed) {
@@ -69,18 +68,17 @@ function printTable (file) {
     reader.onload = function(event) {
         console.log('on fucking load');
         var csv = event.target.result;
-        console.log(csv);
         var data = $.csv.toArrays(csv, {
             onParseValue: $.csv.hooks.castToScalar
         });
-        
-        //console.log(data);
+
+        console.log(data);
         var html = '';
 
         for (var row in data) {
             html += '<tr>\r\n';
-            for (var item in newdata[row]) {
-                html += '<td>' + newdata[row][item] + '</td>\r\n';
+            for (var item in data[row]) {
+                html += '<td>' + data[row][item] + '</td>\r\n';
             }
             html += '</tr>\r\n';
         }
