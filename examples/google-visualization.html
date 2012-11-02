@@ -66,7 +66,6 @@ function printTable (file) {
     var reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function(event) {
-        console.log('on fucking load');
         var csv = event.target.result;
         var data = $.csv.toArrays(csv, {
             onParseValue: $.csv.hooks.castToScalar
