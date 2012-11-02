@@ -64,6 +64,9 @@ function drawChart (setChartData) {
     containerId: 'control2',
     options: {
       filterColumnIndex: 0,
+      backgroundColor: {
+        fill: "#F4F4F4"
+      },
       ui: {
         chartOptions: {
           height: 50,
@@ -81,7 +84,10 @@ function drawChart (setChartData) {
 
   var chart = new google.visualization.ChartWrapper({
     chartType: 'LineChart',
-    containerId: 'chart2'
+    containerId: 'chart2',
+    backgroundColor: {
+      fill: "#F4F4F4"
+    }
   });
 
   function fixOptions(wrapper) {
@@ -89,7 +95,8 @@ function drawChart (setChartData) {
     wrapper.setOption('height', 400);
     wrapper.setOption('width', 800);
     wrapper.setOption('chartArea.width', '60%');
-    // the chart editor automatically enables animations, which doesn't look right with the ChartRangeFilter
+    
+// the chart editor automatically enables animations, which doesn't look right with the ChartRangeFilter
     wrapper.setOption('animation', null);
     // the chart editor sets hAxis.viewWindowMode to 'pretty', which doesn't work well with continuous axes
     wrapper.setOption('hAxis.viewWindowMode', 'maximized');
@@ -132,7 +139,7 @@ width:100%;
       <h2> Welcome to the jQuery-CSV + Google Visualization API Demonstration</h2>
       <p></p>
     </div>
-    <div id="tabs-2" style="height:950px;">
+    <div id="tabs-2" style="height:750px;">
       <p>Text Intro</p>
       <hr />
       <textarea id=textInput style="height:150px;">"TimeStamp (ms)","MID 128|PID 91|Accelerator pedal position (%)","MID 128|PID 92|Engine load(%)","MID 128|PID 100|Engine oil pressure (bar)","MID 128|PID 105|Intake manifold temperature (N0C)","MID 128|PID 110|Engine coolant temperature (N0C)","MID 128|PID 190|Engine speed (r/min)"
@@ -176,7 +183,7 @@ width:100%;
         <div id="control1"></div>
       </div>
     </div>
-    <div id="tabs-3" style="height:800px;">
+    <div id="tabs-3" style="height:600px;">
       <p>File Intro</p>
       <hr />
       <input type="file" id="files" name="file" />
