@@ -166,15 +166,7 @@ RegExp.escape= function(s) {
         });
 
         // submit the last entry
-        if (state != 0) {
-          endOfLine();
-        }
-
-        // handle null last value
-        if (entry !== '') {
-          entry += ','
-          endOfLine();
-        }
+        endOfLine();
 
         return entries;
       },
@@ -259,10 +251,8 @@ RegExp.escape= function(s) {
           return "";
         });
 
-        // submit the last value of an entry
-        if (state != 0) {
-          endOfValue();
-        }
+        // submit the last value
+        endOfValue();
 
         return entry;
       }
