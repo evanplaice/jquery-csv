@@ -56,9 +56,9 @@ function handleFileSelect(evt) {
     // read the file contents
     printTable(file);
 
-    //chartData(file, function(parsed) {
-    //    drawChart(parsed);
-    //});
+    chartData(file, function(parsed) {
+        drawChart(parsed);
+    });
 }
 
 // show data in html table and push data to array for google charts
@@ -71,7 +71,6 @@ function printTable (file) {
             onParseValue: $.csv.hooks.castToScalar
         });
 
-        console.log(data);
         var html = '';
 
         for (var row in data) {
@@ -81,7 +80,6 @@ function printTable (file) {
             }
             html += '</tr>\r\n';
         }
-        //console.log(html);
         $('#contents').html(html);
 
     };

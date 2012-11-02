@@ -57,27 +57,19 @@ RegExp.escape= function(s) {
       castToScalar: function(value, state) {
         var hasDot = /\./;
         if (isNaN(value)) {
-          if(value.length) { 
-            return value;
-          } else {
-            console.log("Null string");
-            return 0;
-          }
+          return value;
         } else {
           if (hasDot.test(value)) {
             return parseFloat(value);
           } else {
             var integer = parseInt(value);
             if(isNaN(integer)) {
-              console.log('Null int');
               return 0;
             } else {
               return integer;
             }
           }
         }
-        consolw.log('who knows');
-        return 0;
       }
     },
 
