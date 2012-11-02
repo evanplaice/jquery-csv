@@ -17,7 +17,7 @@ $(function() {
 $(document).ready(function() {
     if (isAPIAvailable()) {
         $('#files').bind('change', handleFileSelect);
-        $('#run').bind('change', chartTextData);
+        $('#run').bind('click', chartTextData);
     }
 });
 
