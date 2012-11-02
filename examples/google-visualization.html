@@ -86,8 +86,8 @@ function drawChart (setChartData) {
 
   function fixOptions(wrapper) {
     // sets the options on the chart wrapper so that it draws correctly
-    //wrapper.setOption('height', 600);
-    //wrapper.setOption('width', 800);
+    wrapper.setOption('height', 600);
+    wrapper.setOption('width', 800);
     wrapper.setOption('chartArea.width', '100%');
     // the chart editor automatically enables animations, which doesn't look right with the ChartRangeFilter
     wrapper.setOption('animation', null);
@@ -171,7 +171,7 @@ width:100%;
       <input type=button id=run value="Run" onClick="chartTextData();" />
       <input type="button" id="edit1" value="Edit Chart" />
       <hr />
-      <div id="dashboard1" style="display:block; margin:0 auto;">
+      <div id="dashboard1" style="display:block; margin:0 auto; width:800px;">
         <div id="chart1"></div>
         <div id="control1"></div>
       </div>
@@ -182,7 +182,7 @@ width:100%;
       <input type="file" id="files" name="file" />
       <input type="button" id="edit2" value="Edit Chart" />
       <hr />
-      <div id="dashboard2" style="display:block; margin:0 auto;">
+      <div id="dashboard2" style="display:block; margin:0 auto; width:800px;">
         <div id="chart2"></div>
         <div id="control2"></div>
       </div>
