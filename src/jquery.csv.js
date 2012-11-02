@@ -64,12 +64,14 @@ RegExp.escape= function(s) {
           } else {
             var integer = parseInt(value);
             if(isNaN(integer)) {
+              console.log('NULL');
               return 0;
             } else {
               return integer;
             }
           }
         }
+        return 0;
       }
     },
 
