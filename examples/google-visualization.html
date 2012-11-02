@@ -17,6 +17,7 @@ $(function() {
 $(document).ready(function() {
     if (isAPIAvailable()) {
         $('#files').bind('change', handleFileSelect);
+        $('#run').bind('change', chartTextData);
     }
 });
 
@@ -176,7 +177,7 @@ width:100%;
 2698,,,,,,1001
 2767,10.4,,,,,</textarea>
       <hr />
-      <input type=button id=run value="Run" onClick="chartTextData();" />
+      <input type=button id=run value="Run" />
       <input type="button" id="edit1" value="Edit Chart" />
       <hr />
       <div id="dashboard1" style="display:block; margin:0 auto; width:800px;">
