@@ -92,7 +92,7 @@ RegExp.escape= function(s) {
           //console.log('entry:' + entry);
           // reset the state
           entry = [];
-          value = "";
+          value = '';
           state = 0;
 
           // update global state
@@ -112,7 +112,7 @@ RegExp.escape= function(s) {
           }
           //console.log('value:' + value);
           // reset the state
-          value = "";
+          value = '';
           state = 0;
           // update global state
           options.state.colNum++;
@@ -124,18 +124,18 @@ RegExp.escape= function(s) {
             // the start of a value
             case 0:
               // null last value
-              if (m0 === ",") {
+              if (m0 === ',') {
                 value += '';
                 endOfValue();
                 break;
               }
               // opening delimiter
-              if (m0 === "\"") {
+              if (m0 === '"') {
                 state = 1;
                 break;
               }
               // ignore empty entry
-              if (m0 === "\n" || /^\r$/.test(m0)) {
+              if (m0 === '\n' || /^\r$/.test(m0)) {
                 break;
               }
               // un-delimited value
@@ -146,7 +146,7 @@ RegExp.escape= function(s) {
             // delimited input
             case 1:
               // second delimiter? check further
-              if (m0 === "\"") {
+              if (m0 === '"') {
                 state = 2;
                 break;
               }
@@ -158,47 +158,47 @@ RegExp.escape= function(s) {
             // delimiter found in delimited input
             case 2:
               // escaped delimiter?
-              if (m0 === "\"") {
+              if (m0 === '"') {
                 value += m0;
                 state = 1;
                 break;
               }
               // null value
-              if (m0 === ",") {
+              if (m0 === ',') {
                 endOfValue();
                 break;
               }
               // end of entry
-              if (m0 === "\n" || /^\r$/.test(m0)) {
+              if (m0 === '\n' || /^\r$/.test(m0)) {
                 endOfEntry();
                 break;
               }
               // broken paser?
-              throw new Error("CSVDataError: Illegal State [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+              throw new Error('CSVDataError: Illegal State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
 
             // un-delimited input
             case 3:
               // null last value
-              if (m0 === ",") {
+              if (m0 === ',') {
                 endOfValue();
                 break;
               }
               // end of entry
-              if (m0 === "\n" || m0 === "\r") {
+              if (m0 === '\n' || /^\r$/.test(m0)) {
                 endOfEntry();
                 break;
               }
               // non-compliant data
-              if (m0 === "\"") {
-                throw new Error("CSVDataError: Illegal Quote [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+              if (m0 === '"') {
+                throw new Error('CSVDataError: Illegal Quote [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
               }
               // broken parser?
-              throw new Error("CSVDataError: Illegal Data [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+              throw new Error('CSVDataError: Illegal Data [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
             default:
               // shenanigans
-              throw new Error("CSVDataError: Unknown State [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+              throw new Error('CSVDataError: Unknown State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
           }
-          //console.log("val:" + m0 + " state:" + state);
+          //console.log('val:' + m0 + ' state:' + state);
         });
 
         // submit the last entry
@@ -215,7 +215,7 @@ RegExp.escape= function(s) {
         // clear initial state
         var entries = [];
         var state = 0;
-        var entry = "";
+        var entry = '';
 
         function endOfLine() {
           if(options.onParseEntry === undefined) {
@@ -230,7 +230,7 @@ RegExp.escape= function(s) {
           }
 
           // reset the state
-          entry = "";
+          entry = '';
           state = 0;
 
           // update global state
@@ -244,19 +244,19 @@ RegExp.escape= function(s) {
             // the start of a value/entry
             case 0:
               // null value
-              if (m0 === ",") {
+              if (m0 === ',') {
                 entry += m0;
                 state = 0;
                 break;
               }
               // opening delimiter
-              if (m0 === "\"") {
+              if (m0 === '"') {
                 entry += m0;
                 state = 1;
                 break;
               }
               // end of line
-              if (m0 === "\n") {
+              if (m0 === '\n') {
                 endOfLine();
                 break;
               }
@@ -272,7 +272,7 @@ RegExp.escape= function(s) {
             // delimited input
             case 1:
               // second delimiter? check further
-              if (m0 === "\"") {
+              if (m0 === '"') {
                 entry += m0;
                 state = 2;
                 break;
@@ -286,58 +286,57 @@ RegExp.escape= function(s) {
             case 2:
               // escaped delimiter?
               var prevChar = entry.substr(entry.length - 1);
-              if (m0 === "\"" && prevChar === "\"") {
+              if (m0 === '"' && prevChar === '"') {
                 entry += m0;
                 state = 1;
                 break;
               }
               // end of value
-              if (m0 === ",") {
+              if (m0 === ',') {
                 entry += m0;
                 state = 0;
                 break;
               }
               // end of line
-              if (m0 === "\n") {
+              if (m0 === '\n') {
                 endOfLine();
                 break;
               }
               // phantom carriage return
-              if (m0 === "\r") {
+              if (m0 === '\r') {
                 break;
               }
               // broken paser?
-              throw new Error("CSVDataError: Illegal state [Row:" + options.state.rowNum + "]");
+              throw new Error('CSVDataError: Illegal state [Row:' + options.state.rowNum + ']');
 
             // un-delimited input
             case 3:
               // null value
-              if (m0 === ",") {
+              if (m0 === ',') {
                 entry += m0;
                 state = 0;
                 break;
               }
               // end of line
-              if (m0 === "\n") {
+              if (m0 === '\n') {
                 endOfLine();
                 break;
               }
               // phantom carriage return
-              if (m0 === "\r") {
+              if (m0 === '\r') {
                 break;
               }
               // non-compliant data
-              if (m0 === "\"") {
-                throw new Error("CSVDataError: Illegal quote [Row:" + options.state.rowNum + "]");
+              if (m0 === '"') {
+                throw new Error('CSVDataError: Illegal quote [Row:' + options.state.rowNum + ']');
               }
               // broken parser?
-              throw new Error("CSVDataError: Illegal state [Row:" + options.state.rowNum + "]");
+              throw new Error('CSVDataError: Illegal state [Row:' + options.state.rowNum + ']');
             default:
               // shenanigans
-              throw new Error("CSVDataError: Unknown state [Row:" + options.state.rowNum + "]");
+              throw new Error('CSVDataError: Unknown state [Row:' + options.state.rowNum + ']');
           }
-          //console.log("val:" + m0 + " state:" + state);
-          return "";
+          //console.log('val:' + m0 + ' state:' + state);
         });
 
         // submit the last entry
@@ -354,7 +353,7 @@ RegExp.escape= function(s) {
         // clear initial state
         var entry = [];
         var state = 0;
-        var value = "";
+        var value = '';
 
         function endOfValue() {
           if(options.onParseValue === undefined) {
@@ -368,7 +367,7 @@ RegExp.escape= function(s) {
             }
           }
           // reset the state
-          value = "";
+          value = '';
           state = 0;
           // update global state
           options.state.colNum++;
@@ -381,18 +380,18 @@ RegExp.escape= function(s) {
             // the start of a value
             case 0:
               // null last value
-              if (m0 === ",") {
+              if (m0 === ',') {
                 value += '';
                 endOfValue();
                 break;
               }
               // opening delimiter
-              if (m0 === "\"") {
+              if (m0 === '"') {
                 state = 1;
                 break;
               }
               // skip un-delimited new-lines
-              if (m0 === "\n" || /^\r$/.test(m0)) {
+              if (m0 === '\r' || m0 === '\n') {
                 break;
               }
               // un-delimited value
@@ -403,7 +402,7 @@ RegExp.escape= function(s) {
             // delimited input
             case 1:
               // second delimiter? check further
-              if (m0 === "\"") {
+              if (m0 === '"') {
                 state = 2;
                 break;
               }
@@ -415,46 +414,45 @@ RegExp.escape= function(s) {
             // delimiter found in delimited input
             case 2:
               // escaped delimiter?
-              if (m0 === "\"") {
+              if (m0 === '"') {
                 value += m0;
                 state = 1;
                 break;
               }
               // null value
-              if (m0 === ",") {
+              if (m0 === ',') {
                 endOfValue();
                 break;
               }
               // skip un-delimited new-lines
-              if (m0 === "\r" || m0 === "\n") {
+              if (m0 === '\r' || m0 === '\n') {
                 break;
               }
               // broken paser?
-              throw new Error("CSVDataError: Illegal State [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+              throw new Error('CSVDataError: Illegal State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
 
             // un-delimited input
             case 3:
               // null last value
-              if (m0 === ",") {
+              if (m0 === ',') {
                 endOfValue();
                 break;
               }
               // skip un-delimited new-lines
-              if (m0 === "\n" || m0 === "\r") {
+              if (m0 === '\n' || m0 === '\r') {
                 break;
               }
               // non-compliant data
-              if (m0 === "\"") {
-                throw new Error("CSVDataError: Illegal Quote [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+              if (m0 === '"') {
+                throw new Error('CSVDataError: Illegal Quote [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
               }
               // broken parser?
-              throw new Error("CSVDataError: Illegal Data [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+              throw new Error('CSVDataError: Illegal Data [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
             default:
               // shenanigans
-              throw new Error("CSVDataError: Unknown State [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+              throw new Error('CSVDataError: Unknown State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
           }
-          //console.log("val:" + m0 + " state:" + state);
-          return "";
+          //console.log('val:' + m0 + ' state:' + state);
         });
 
         // submit the last value
@@ -540,19 +538,12 @@ RegExp.escape= function(s) {
 
       // break the data down to lines
       data = $.csv.parsers.parse(csv, options);
-      //console.log(lines);
-
-      //for(var i=0, len=lines.length; i<len; i++) {
-        // process each value
-      //  var entry = $.csv.toArray(lines[i], options);
-      //  output.push(entry);
-      //}
 
       // push the value to a callback if one is defined
       if(!config.callback) {
         return data;
       } else {
-        config.callback("", data);
+        config.callback('', data);
       }
     },
 
@@ -615,7 +606,7 @@ RegExp.escape= function(s) {
       if(!config.callback) {
         return data;
       } else {
-        config.callback("", data);
+        config.callback('', data);
       }
     },
 
@@ -640,7 +631,7 @@ RegExp.escape= function(s) {
       config.experimental = 'experimental' in options ? options.experimental : false;
 
       if(!config.experimental) {
-        throw new Error("not implemented");
+        throw new Error('not implemented');
       }
 
       var output = [];
@@ -652,7 +643,7 @@ RegExp.escape= function(s) {
       if(!config.callback) {
         return output;
       } else {
-        config.callback("", output);
+        config.callback('', output);
       }
     },
 
@@ -677,7 +668,7 @@ RegExp.escape= function(s) {
       config.experimental = 'experimental' in options ? options.experimental : false;
 
       if(!config.experimental) {
-        throw new Error("not implemented");
+        throw new Error('not implemented');
       }
 
       var output = [];
@@ -689,7 +680,7 @@ RegExp.escape= function(s) {
       if(!config.callback) {
         return output;
       } else {
-        config.callback("", output);
+        config.callback('', output);
       }
     }
   };
