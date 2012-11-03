@@ -18,11 +18,6 @@
  * feedback to the project including the core for the new FSM
  * (Finite State Machine) parser. If you're looking for a stable TSV parser
  * take a look at jquery-tsv (http://code.google.com/p/jquery-tsv/).
- *
- * Experimental:
- * A new line splitting function has been added that can properly handle values
- * that contain newlines. To enable it, set the experimental parameter to true
- * in the options.
 
  * For legal purposes I'll include the "NO WARRANTY EXPRESSED OR IMPLIED.
  * USE AT YOUR OWN RISK.". Which, in 'layman's terms' means, by using this
@@ -49,8 +44,7 @@ RegExp.escape= function(s) {
     defaults: {
       separator:',',
       delimiter:'"',
-      headerLine:1,
-      dataLine:2
+      headers: true
     },
 
     hooks: {
@@ -74,175 +68,389 @@ RegExp.escape= function(s) {
     },
 
     parsers: {
+      parse: function(csv, options) {
+        // clear initial state
+        var data = [];
+        var entry = [];
+        var state = 0;
+        var value = ''
+
+        function endOfEntry() {
+          // submit the last value
+          endOfValue();
+
+          if(options.onParseEntry === undefined) {
+            // onParseEntry hook not set
+            data.push(entry);
+          } else {
+            var hookVal = options.onParseEntry(entry, options.state); // onParseEntry Hook
+            // false skips the row, configurable through a hook
+            if(hookVal !== false) {
+              data.push(hookVal);
+            }
+          }
+          //console.log('entry:' + entry);
+          // reset the state
+          entry = [];
+          value = "";
+          state = 0;
+
+          // update global state
+          options.state.rowNum++;
+        }
+
+        function endOfValue() {
+          if(options.onParseValue === undefined) {
+            // onParseValue hook not set
+            entry.push(value);
+          } else {
+            var hook = options.onParseValue(value, options.state); // onParseValue Hook
+            // false skips the row, configurable through a hook
+            if(hook !== false) {
+              entry.push(hook);
+            }
+          }
+          //console.log('value:' + value);
+          // reset the state
+          value = "";
+          state = 0;
+          // update global state
+          options.state.colNum++;
+        }
+        // put on your fancy pants...
+        // process control chars individually, use look-ahead on non-control chars
+        csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0) {
+          switch (state) {
+            // the start of a value
+            case 0:
+              // null last value
+              if (m0 === ",") {
+                value += '';
+                endOfValue();
+                break;
+              }
+              // opening delimiter
+              if (m0 === "\"") {
+                state = 1;
+                break;
+              }
+              // ignore empty entry
+              if (m0 === "\n" || /^\r$/.test(m0)) {
+                break;
+              }
+              // un-delimited value
+              value += m0;
+              state = 3;
+              break;
+
+            // delimited input
+            case 1:
+              // second delimiter? check further
+              if (m0 === "\"") {
+                state = 2;
+                break;
+              }
+              // delimited data
+              value += m0;
+              state = 1;
+              break;
+
+            // delimiter found in delimited input
+            case 2:
+              // escaped delimiter?
+              if (m0 === "\"") {
+                value += m0;
+                state = 1;
+                break;
+              }
+              // null value
+              if (m0 === ",") {
+                endOfValue();
+                break;
+              }
+              // end of entry
+              if (m0 === "\n" || /^\r$/.test(m0)) {
+                endOfEntry();
+                break;
+              }
+              // broken paser?
+              throw new Error("CSVDataError: Illegal State [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+
+            // un-delimited input
+            case 3:
+              // null last value
+              if (m0 === ",") {
+                endOfValue();
+                break;
+              }
+              // end of entry
+              if (m0 === "\n" || m0 === "\r") {
+                endOfEntry();
+                break;
+              }
+              // non-compliant data
+              if (m0 === "\"") {
+                throw new Error("CSVDataError: Illegal Quote [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+              }
+              // broken parser?
+              throw new Error("CSVDataError: Illegal Data [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+            default:
+              // shenanigans
+              throw new Error("CSVDataError: Unknown State [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+          }
+          //console.log("val:" + m0 + " state:" + state);
+        });
+
+        // submit the last entry
+        // ignore null last line
+        if(entry[0] !== undefined) {
+          endOfEntry();
+        }
+
+        return data;
+      },
+
+      // a csv-specific line splitter
       splitLines: function(csv, options) {
-        // set the initial state
+        // clear initial state
         var entries = [];
         var state = 0;
         var entry = "";
 
         function endOfLine() {
-          // push out the parsed entry
           if(options.onParseEntry === undefined) {
+            // onParseEntry hook not set
             entries.push(entry);
           } else {
             var hookVal = options.onParseEntry(entry, options.state); // onParseEntry Hook
+            // false skips the row, configurable through a hook
             if(hookVal !== false) {
               entries.push(hookVal);
             }
           }
-          // clear the state
+
+          // reset the state
           entry = "";
           state = 0;
+
+          // update global state
           options.state.rowNum++;
         }
 
-        csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0){
+        // put on your fancy pants...
+        // process control chars individually, use look-ahead on non-control chars
+        csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0) {
           switch (state) {
             // the start of a value/entry
             case 0:
+              // null value
               if (m0 === ",") {
                 entry += m0;
                 state = 0;
-              } else if (m0 === "\"") {
+                break;
+              }
+              // opening delimiter
+              if (m0 === "\"") {
                 entry += m0;
                 state = 1;
-              } else if (m0 === "\n") {
-                endOfLine();
-              } else if (/^\r$/.test(m0)) {
-                // carriage returns are ignored
-              } else {
-                entry += m0;
-                state = 3;
+                break;
               }
+              // end of line
+              if (m0 === "\n") {
+                endOfLine();
+                break;
+              }
+              // phantom carriage return
+              if (/^\r$/.test(m0)) {
+                break;
+              }
+              // un-delimit value
+              entry += m0;
+              state = 3;
               break;
+
             // delimited input
             case 1:
+              // second delimiter? check further
               if (m0 === "\"") {
                 entry += m0;
                 state = 2;
-              } else {
-                entry += m0;
-                state = 1;
+                break;
               }
+              // delimited data
+              entry += m0;
+              state = 1;
               break;
+
             // delimiter found in delimited input
             case 2:
-              // is the delimiter escaped?
+              // escaped delimiter?
               var prevChar = entry.substr(entry.length - 1);
               if (m0 === "\"" && prevChar === "\"") {
                 entry += m0;
                 state = 1;
-              } else if (m0 === ",") {
-                entry += m0;
-                state = 0;
-              } else if (m0 === "\n") {
-                endOfLine();
-              } else if (m0 === "\r") {
-              } else {
-                throw new Error("CSVDataError: Illegal state [Row:" + options.state.rowNum + "]");
+                break;
               }
-              break;
-            // un-delimited input
-            case 3:
+              // end of value
               if (m0 === ",") {
                 entry += m0;
                 state = 0;
-              } else if (m0 === "\"") {
-                throw new Error("CSVDataError: Illegal quote [Row:" + options.state.rowNum + "]");
-              } else if (m0 === "\n") {
-                endOfLine();
-              } else if (m0 === "\r") {
-                // Ignore
-              } else {
-                throw new Error("CSVDataError: Illegal data [Row:" + options.state.rowNum + "]");
-              }
                 break;
+              }
+              // end of line
+              if (m0 === "\n") {
+                endOfLine();
+                break;
+              }
+              // phantom carriage return
+              if (m0 === "\r") {
+                break;
+              }
+              // broken paser?
+              throw new Error("CSVDataError: Illegal state [Row:" + options.state.rowNum + "]");
+
+            // un-delimited input
+            case 3:
+              // null value
+              if (m0 === ",") {
+                entry += m0;
+                state = 0;
+                break;
+              }
+              // end of line
+              if (m0 === "\n") {
+                endOfLine();
+                break;
+              }
+              // phantom carriage return
+              if (m0 === "\r") {
+                break;
+              }
+              // non-compliant data
+              if (m0 === "\"") {
+                throw new Error("CSVDataError: Illegal quote [Row:" + options.state.rowNum + "]");
+              }
+              // broken parser?
+              throw new Error("CSVDataError: Illegal state [Row:" + options.state.rowNum + "]");
             default:
+              // shenanigans
               throw new Error("CSVDataError: Unknown state [Row:" + options.state.rowNum + "]");
           }
+          //console.log("val:" + m0 + " state:" + state);
           return "";
         });
 
         // submit the last entry
-        endOfLine();
+        // ignore null last line
+        if(entry !== '') {
+          endOfLine();
+        }
 
         return entries;
       },
 
+      // a csv entry parser
       parseEntry: function(csv, options) {
-        // set the initial state
+        // clear initial state
         var entry = [];
         var state = 0;
         var value = "";
 
         function endOfValue() {
-          // push out the parsed value
           if(options.onParseValue === undefined) {
+            // onParseValue hook not set
             entry.push(value);
           } else {
             var hook = options.onParseValue(value, options.state); // onParseValue Hook
+            // false skips the value, configurable through a hook
             if(hook !== false) {
               entry.push(hook);
             }
           }
-          // clear the state
+          // reset the state
           value = "";
           state = 0;
+          // update global state
           options.state.colNum++;
         }
 
-        csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0){
+        // put on your fancy pants...
+        // process control chars individually, use look-ahead on non-control chars
+        csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0) {
           switch (state) {
             // the start of a value
             case 0:
+              // null last value
               if (m0 === ",") {
                 value += '';
                 endOfValue();
-              } else if (m0 === "\"") {
-                state = 1;
-              } else if (m0 === "\n" || /^\r$/.test(m0)) {
-                return '';
-              } else {
-                value += m0;
-                state = 3;
+                break;
               }
+              // opening delimiter
+              if (m0 === "\"") {
+                state = 1;
+                break;
+              }
+              // skip un-delimited new-lines
+              if (m0 === "\n" || /^\r$/.test(m0)) {
+                break;
+              }
+              // un-delimited value
+              value += m0;
+              state = 3;
               break;
+
             // delimited input
             case 1:
+              // second delimiter? check further
               if (m0 === "\"") {
                 state = 2;
-              } else {
-                value += m0;
-                state = 1;
+                break;
               }
+              // delimited data
+              value += m0;
+              state = 1;
               break;
+
             // delimiter found in delimited input
             case 2:
-              // is the delimiter escaped?
+              // escaped delimiter?
               if (m0 === "\"") {
                 value += m0;
                 state = 1;
-              } else if (m0 === ",") {
-                endOfValue();
-              } else if (m0 === "\r" || m0 === "\n") {
-                return '';
-              } else {
-                throw new Error("CSVDataError: Illegal State [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+                break;
               }
-              break;
-            // un-delimited input
-            case 3:
+              // null value
               if (m0 === ",") {
                 endOfValue();
-              } else if (m0 === "\"") {
-                throw new Error("CSVDataError: Illegal Quote [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
-              } else if (m0 === "\n" || m0 === "\r") {
-                return '';
-              } else {
-                throw new Error("CSVDataError: Illegal Data [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
-              }
                 break;
+              }
+              // skip un-delimited new-lines
+              if (m0 === "\r" || m0 === "\n") {
+                break;
+              }
+              // broken paser?
+              throw new Error("CSVDataError: Illegal State [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+
+            // un-delimited input
+            case 3:
+              // null last value
+              if (m0 === ",") {
+                endOfValue();
+                break;
+              }
+              // skip un-delimited new-lines
+              if (m0 === "\n" || m0 === "\r") {
+                break;
+              }
+              // non-compliant data
+              if (m0 === "\"") {
+                throw new Error("CSVDataError: Illegal Quote [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
+              }
+              // broken parser?
+              throw new Error("CSVDataError: Illegal Data [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
             default:
+              // shenanigans
               throw new Error("CSVDataError: Unknown State [Row:" + options.state.rowNum + "][Col:" + options.state.colNum + "]");
           }
           //console.log("val:" + m0 + " state:" + state);
@@ -315,8 +523,7 @@ RegExp.escape= function(s) {
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
 
-      var lines = [];
-      var output = [];
+      var data = [];
 
       var state = {
         rowNum:1,
@@ -332,24 +539,20 @@ RegExp.escape= function(s) {
       };
 
       // break the data down to lines
-      lines = $.csv.parsers.splitLines(csv, options);
+      data = $.csv.parsers.parse(csv, options);
       //console.log(lines);
 
-      for(var i=0, len=lines.length; i<len; i++) {
-        // check for empty last line, ignore if found
-        if(i === (len - 1) && lines[i] === '') {
-          break;
-        }
+      //for(var i=0, len=lines.length; i<len; i++) {
         // process each value
-        var entry = $.csv.toArray(lines[i], options);
-        output.push(entry);
-      }
+      //  var entry = $.csv.toArray(lines[i], options);
+      //  output.push(entry);
+      //}
 
       // push the value to a callback if one is defined
       if(!config.callback) {
-        return output;
+        return data;
       } else {
-        config.callback("", output);
+        config.callback("", data);
       }
     },
 
@@ -360,8 +563,7 @@ RegExp.escape= function(s) {
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
-     * @param {Integer} [headerLine] The line in the file that contains the header data. Defaults to 1 (1-based counting).
-     * @param {Integer} [dataLine] The line where the data values start. Defaults to 2 (1-based counting).
+     * @param {Boolean} [headers] Indicates whether the data contains a header line. Defaults to true.
      *
      * This method deals with multi-line CSV strings. Where the headers line is
      * used as the key for each value per entry.
@@ -372,11 +574,10 @@ RegExp.escape= function(s) {
       config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
-      config.headerLine = 'headerLine' in options ? options.headerLine : $.csv.defaults.headerLine;
-      config.dataLine = 'dataLine' in options ? options.dataLine : $.csv.defaults.dataLine;
+      config.headers = 'headers' in options ? options.headers : $.csv.defaults.headers;
 
       var lines = [];
-      var output = [];
+      var data = [];
 
       var state = {
         rowNum:1,
@@ -395,15 +596,11 @@ RegExp.escape= function(s) {
       lines = $.csv.parsers.splitLines(csv, options);
 
       // fetch the headers
-      var headers = $.csv.toArray(lines[(config.headerLine - 1)]);
+      var headers = $.csv.toArray(lines[0]);
       // process the data
       for(var i=0, len=lines.length; i<len; i++) {
-        if(i < (config.dataLine - 1)) {
+        if(i < 1) {
           continue;
-        }
-        // check for empty last line, ignore if found
-        if(i === (len - 1) && lines[i] === '') {
-          break;
         }
         // process each value
         var entry = $.csv.toArray(lines[i], options);
@@ -411,14 +608,14 @@ RegExp.escape= function(s) {
         for(var j in headers) {
           object[headers[j]] = entry[j];
         }
-        output.push(object);
+        data.push(object);
       }
 
       // push the value to a callback if one is defined
       if(!config.callback) {
-        return output;
+        return data;
       } else {
-        config.callback("", output);
+        config.callback("", data);
       }
     },
 
