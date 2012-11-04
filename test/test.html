@@ -70,10 +70,10 @@ $(document).ready(function() {
     testEscaping.push('"3";"he said ""you are crazy""";"one "", two "", three """');
     testEscaping.push('"4"|"he said ""you are crazy"""|"one "", two "", three """');
     resultEscaping = [];
-    resultEscaping.push(['1', 'he said "you are crazy"', 'one ", two ", three "']);
-    resultEscaping.push(['2', 'he said \'you are crazy\'', 'one \', two \', three \'']);
-    resultEscaping.push(['3', 'he said "you are crazy"', 'one ", two ", three "']);
-    resultEscaping.push(['4', 'he said "you are crazy"', 'one ", two ", three "']);
+    resultEscaping.push(['1','he said "you are crazy"','one ", two ", three "']);
+    resultEscaping.push(['2','he said \'you are crazy\'','one \', two \', three \'']);
+    resultEscaping.push(['3','he said "you are crazy"','one ", two ", three "']);
+    resultEscaping.push(['4','he said "you are crazy"','one ", two ", three "']);
 
     testRFCCompliance1 = '';
     testRFCCompliance1 += 'aaa,bbb,ccc\r\n';
@@ -88,12 +88,12 @@ $(document).ready(function() {
     resultRFCCompliance2.push(['aaa','bbb','ccc']);
     resultRFCCompliance2.push(['zzz','yyy','xxx']);
     testRFCCompliance3 =  '';
-    testRFCCompliance3 += 'field_name,field_name,field_name\r\n';
+    testRFCCompliance3 += 'field1,field2,field3\r\n';
     testRFCCompliance3 += 'aaa,bbb,ccc\r\n';
     testRFCCompliance3 += 'zzz,yyy,xxx\r\n';
     resultRFCCompliance3 = [];
-    resultRFCCompliance3.push({field_name:'aaa',field_name:'bbb',field_name:'ccc'});
-    resultRFCCompliance3.push({field_name:'zzz',field_name:'yyy',field_name:'xxx'});
+    resultRFCCompliance3.push({field1:'aaa',field2:'bbb',field3:'ccc'});
+    resultRFCCompliance3.push({field1:'zzz',field2:'yyy',field3:'xxx'});
     testRFCCompliance4 = '';
     testRFCCompliance4 += 'aaa , bbb, c  cc\r\n';
     resultRFCCompliance4 = ['aaa ',' bbb',' c  cc'];
@@ -149,6 +149,32 @@ $(document).ready(function() {
     resultNodeCallbacks = [];
     resultNodeCallbacks.push(["What are you","knittin' a f*&%ing sweater"]);
     resultNodeCallbacks.push(["I'm trying to put some","tigers balm","on this jungle's nuts"]);
+  
+    testArrays = '';
+    testArrays += '1,0,0,0,0\n';
+    testArrays += '0,2,0,0,0\n';
+    testArrays += '0,0,3,0,0\n';
+    testArrays += '0,0,0,4,0\n';
+    testArrays += '0,0,0,0,5\n';
+    resultArraysStart = [];
+    resultArraysStart.push(['0','0','3','0','0']);
+    resultArraysStart.push(['0','0','0','4','0']);
+    resultArraysStart.push(['0','0','0','0','5']);
+    resultArraysEnd = [];
+    resultArraysEnd.push(['1','0','0','0','0']);
+    resultArraysEnd.push(['0','2','0','0','0']);
+    resultArraysEnd.push(['0','0','3','0','0']);
+    testObjects = '';
+    testObjects += 'first,second,third,fourth,fifth\n';
+    testObjects += testArrays;
+    resultObjectsStart = [];
+    resultObjectsStart.push({first:'0',second:'0',third:'3',fourth:'0',fifth:'0'});
+    resultObjectsStart.push({first:'0',second:'0',third:'0',fourth:'4',fifth:'0'});
+    resultObjectsStart.push({first:'0',second:'0',third:'0',fourth:'0',fifth:'5'});
+    resultObjectsEnd = [];
+    resultObjectsEnd.push({first:'1',second:'0',third:'0',fourth:'0',fifth:'0'});
+    resultObjectsEnd.push({first:'0',second:'2',third:'0',fourth:'0',fifth:'0'});
+    resultObjectsEnd.push({first:'0',second:'0',third:'3',fourth:'0',fifth:'0'});
   }
 
   module("core", { setup:function(){ coreDataInit() }});
@@ -260,6 +286,34 @@ $(document).ready(function() {
     deepEqual(output, resultEscaping[3], "regex escaped inputs");
   });
 
+  test("Start/End Arguments", function() {
+    expect(4);
+    stop();
+    var output = $.csv.toArrays(testArrays, {
+      start:3
+    });
+    start();
+    deepEqual(output, resultArraysStart, "toArrays() - 'start' argment");
+    stop();
+    var output = $.csv.toArrays(testArrays, {
+      end:3
+    });
+    start();
+    deepEqual(output, resultArraysEnd, "toArrays() - 'end' argment");
+    stop();
+    var output = $.csv.toObjects(testObjects, {
+      start:3
+    });
+    start();
+    deepEqual(output, resultObjectsStart, "toObjects() - 'start' argment");
+    stop();
+    var output = $.csv.toObjects(testObjects, {
+      end:3
+    });
+    start();
+    deepEqual(output, resultObjectsEnd, "toObjects() - 'end' argment");
+  });
+  
   test("Hooks & User-Defined Callbacks", function() {
     expect(4);
     stop();
