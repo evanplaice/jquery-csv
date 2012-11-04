@@ -405,6 +405,9 @@ RegExp.escape= function(s) {
       // a csv entry parser
       parseEntry: function(csv, options) {
         // set initial state if it's missing
+        if(!options.state.rowNum) {
+          options.state.rowNum = 1;
+        }
         if(!options.state.colNum) {
           options.state.colNum = 1;
         }
@@ -488,7 +491,7 @@ RegExp.escape= function(s) {
                 break;
               }
               // broken paser?
-              throw new Error('CSVDataError: Illegal State [Col:' + options.state.colNum + ']');
+              throw new Error('CSVDataError: Illegal State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
 
             // un-delimited input
             case 3:
@@ -503,13 +506,13 @@ RegExp.escape= function(s) {
               }
               // non-compliant data
               if (m0 === '"') {
-                throw new Error('CSVDataError: Illegal Quote [Col:' + options.state.colNum + ']');
+                throw new Error('CSVDataError: Illegal Quote [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
               }
               // broken parser?
-              throw new Error('CSVDataError: Illegal Data [Col:' + options.state.colNum + ']');
+              throw new Error('CSVDataError: Illegal Data [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
             default:
               // shenanigans
-              throw new Error('CSVDataError: Unknown State [Col:' + options.state.colNum + ']');
+              throw new Error('CSVDataError: Unknown State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
           }
           //console.log('val:' + m0 + ' state:' + state);
         });
