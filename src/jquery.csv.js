@@ -1,23 +1,21 @@
 /**
  * jQuery-csv (jQuery Plugin)
- * version: 0.64 (2012-10-06)
+ * version: 0.70 (2012-11-04)
  *
  * This document is licensed as free software under the terms of the
  * MIT License: http://www.opensource.org/licenses/mit-license.php
  *
  * Acknowledgements:
- * This plugin was originally designed to assist in parsing CSV files loaded
- * from client-side javascript. It's influenced by jQuery.json and the original
- *
- * The original core RegEx comes directly from the following answer posted by a
- * StackOverflow.com user named Ridgerunner.
- * Source:
- * - http://stackoverflow.com/q/8493195/290340
+ * The original design and influence to implement this library as a jquery
+ * plugin is influenced by jquery-json (http://code.google.com/p/jquery-json/).
+ * If you're looking to use native JSON.Stringify but want additional backwards
+ * compatibility for browsers that don't support it, I highly recommend you
+ * check it out.
  *
  * A special thanks goes out to rwk@acm.org for providing a lot of valuable
  * feedback to the project including the core for the new FSM
- * (Finite State Machine) parser. If you're looking for a stable TSV parser
- * take a look at jquery-tsv (http://code.google.com/p/jquery-tsv/).
+ * (Finite State Machine) parsers. If you're looking for a stable TSV parser
+ * be sure to take a look at jquery-tsv (http://code.google.com/p/jquery-tsv/).
 
  * For legal purposes I'll include the "NO WARRANTY EXPRESSED OR IMPLIED.
  * USE AT YOUR OWN RISK.". Which, in 'layman's terms' means, by using this
