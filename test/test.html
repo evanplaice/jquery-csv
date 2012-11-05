@@ -64,17 +64,6 @@ $(document).ready(function() {
     fromObjects.push({ID:"9",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-120-112AC",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
     fromObjects.push({ID:"10",iManufacturer:"Evans & Sutherland",iMPartNumber:"230-121-150AC",iSerialNumber:"",iSimCategory:"Visual",iPartType:"PCB",iDescription:"",iGroup:"1",iLocation:"Offsite",iSold:""});
 
-    testEscaping = [];
-    testEscaping.push('"1","he said ""you are crazy""","one "", two "", three """');
-    testEscaping.push("'2','he said ''you are crazy''','one '', two '', three '''");
-    testEscaping.push('"3";"he said ""you are crazy""";"one "", two "", three """');
-    testEscaping.push('"4"|"he said ""you are crazy"""|"one "", two "", three """');
-    resultEscaping = [];
-    resultEscaping.push(['1','he said "you are crazy"','one ", two ", three "']);
-    resultEscaping.push(['2','he said \'you are crazy\'','one \', two \', three \'']);
-    resultEscaping.push(['3','he said "you are crazy"','one ", two ", three "']);
-    resultEscaping.push(['4','he said "you are crazy"','one ", two ", three "']);
-
     testRFCCompliance1 = '';
     testRFCCompliance1 += 'aaa,bbb,ccc\r\n';
     testRFCCompliance1 += 'zzz,yyy,xxx\r\n';
@@ -122,6 +111,56 @@ $(document).ready(function() {
     testRFCComplianceA3 += '"aaa","bbb",';
     resultRFCComplianceA3 = ['aaa', 'bbb', ''];
 
+    testControl = [];
+    testControl.push('"1","he said ""you are crazy""","one "", two "", three """');
+    testControl.push("'2','he said ''you are crazy''','one '', two '', three '''");
+    testControl.push('"3";"he said ""you are crazy""";"one "", two "", three """');
+    testControl.push('"4"|"he said ""you are crazy"""|"one "", two "", three """');
+    resultControl = [];
+    resultControl.push(['1','he said "you are crazy"','one ", two ", three "']);
+    resultControl.push(['2','he said \'you are crazy\'','one \', two \', three \'']);
+    resultControl.push(['3','he said "you are crazy"','one ", two ", three "']);
+    resultControl.push(['4','he said "you are crazy"','one ", two ", three "']);
+    testControlArrays = '';
+    testControlArrays += '*Look*:*there\'s two women*:*fucking a polar bear!*\n'; 
+    testControlArrays += '*Don\'t*:*tell me these things*:*not now man.*\n'; 
+    resultControlArrays = [];
+    resultControlArrays.push(['Look','there\'s two women','fucking a polar bear!']);
+    resultControlArrays.push(['Don\'t','tell me these things','not now man.']);
+    testControlObjects = '';
+    testControlObjects += '^preposition^&^evaluation^&^response^\n';
+    testControlObjects += '^One toke?^&^you poor fool!^&^wait till you see those goddamn bats.^\n';
+    testControlObjects += '^Wait!^&^we can\'t stop here^&^this is bat country.^\n';
+    resultControlObjects = [];
+    resultControlObjects.push({preposition:'One toke?',evaluation:'you poor fool!',response:'wait till you see those goddamn bats.'});
+    resultControlObjects.push({preposition:'Wait!',evaluation:'we can\'t stop here',response:'this is bat country.'});
+
+    testArrays = '';
+    testArrays += '1,0,0,0,0\n';
+    testArrays += '0,2,0,0,0\n';
+    testArrays += '0,0,3,0,0\n';
+    testArrays += '0,0,0,4,0\n';
+    testArrays += '0,0,0,0,5\n';
+    resultArraysStart = [];
+    resultArraysStart.push(['0','0','3','0','0']);
+    resultArraysStart.push(['0','0','0','4','0']);
+    resultArraysStart.push(['0','0','0','0','5']);
+    resultArraysEnd = [];
+    resultArraysEnd.push(['1','0','0','0','0']);
+    resultArraysEnd.push(['0','2','0','0','0']);
+    resultArraysEnd.push(['0','0','3','0','0']);
+    testObjects = '';
+    testObjects += 'first,second,third,fourth,fifth\n';
+    testObjects += testArrays;
+    resultObjectsStart = [];
+    resultObjectsStart.push({first:'0',second:'0',third:'3',fourth:'0',fifth:'0'});
+    resultObjectsStart.push({first:'0',second:'0',third:'0',fourth:'4',fifth:'0'});
+    resultObjectsStart.push({first:'0',second:'0',third:'0',fourth:'0',fifth:'5'});
+    resultObjectsEnd = [];
+    resultObjectsEnd.push({first:'1',second:'0',third:'0',fourth:'0',fifth:'0'});
+    resultObjectsEnd.push({first:'0',second:'2',third:'0',fourth:'0',fifth:'0'});
+    resultObjectsEnd.push({first:'0',second:'0',third:'3',fourth:'0',fifth:'0'});
+
     testHook1 = '';
     testHook1 += '734,4.5,sda,"555","4523.35","af323"';
     resultHook1 = [];
@@ -149,32 +188,6 @@ $(document).ready(function() {
     resultNodeCallbacks = [];
     resultNodeCallbacks.push(["What are you","knittin' a f*&%ing sweater"]);
     resultNodeCallbacks.push(["I'm trying to put some","tigers balm","on this jungle's nuts"]);
-  
-    testArrays = '';
-    testArrays += '1,0,0,0,0\n';
-    testArrays += '0,2,0,0,0\n';
-    testArrays += '0,0,3,0,0\n';
-    testArrays += '0,0,0,4,0\n';
-    testArrays += '0,0,0,0,5\n';
-    resultArraysStart = [];
-    resultArraysStart.push(['0','0','3','0','0']);
-    resultArraysStart.push(['0','0','0','4','0']);
-    resultArraysStart.push(['0','0','0','0','5']);
-    resultArraysEnd = [];
-    resultArraysEnd.push(['1','0','0','0','0']);
-    resultArraysEnd.push(['0','2','0','0','0']);
-    resultArraysEnd.push(['0','0','3','0','0']);
-    testObjects = '';
-    testObjects += 'first,second,third,fourth,fifth\n';
-    testObjects += testArrays;
-    resultObjectsStart = [];
-    resultObjectsStart.push({first:'0',second:'0',third:'3',fourth:'0',fifth:'0'});
-    resultObjectsStart.push({first:'0',second:'0',third:'0',fourth:'4',fifth:'0'});
-    resultObjectsStart.push({first:'0',second:'0',third:'0',fourth:'0',fifth:'5'});
-    resultObjectsEnd = [];
-    resultObjectsEnd.push({first:'1',second:'0',third:'0',fourth:'0',fifth:'0'});
-    resultObjectsEnd.push({first:'0',second:'2',third:'0',fourth:'0',fifth:'0'});
-    resultObjectsEnd.push({first:'0',second:'0',third:'3',fourth:'0',fifth:'0'});
   }
 
   module("core", { setup:function(){ coreDataInit() }});
@@ -261,32 +274,46 @@ $(document).ready(function() {
   });
 
   test("Custom Control Chars - Delimiter, Separator", function() {
-    expect(4);
+    expect(6);
     stop();
-    var output = $.csv.toArray(testEscaping[0]);
+    var output = $.csv.toArray(testControl[0]);
     start();
-    deepEqual(output, resultEscaping[0], "standard delimiter/separator/escaper");
+    deepEqual(output, resultControl[0], "standard delimiter/separator/escaper");
     stop();
-    var output = $.csv.toArray(testEscaping[1], {
+    var output = $.csv.toArray(testControl[1], {
       delimiter:"'"
     });
     start();
-    deepEqual(output, resultEscaping[1], "custom delimiter");
+    deepEqual(output, resultControl[1], "custom delimiter");
     stop();
-    var output = $.csv.toArray(testEscaping[2], {
+    var output = $.csv.toArray(testControl[2], {
       separator:';'
     });
     start();
-    deepEqual(output, resultEscaping[2], "custom separator");
+    deepEqual(output, resultControl[2], "custom separator");
     stop();
-    var output = $.csv.toArray(testEscaping[3], {
+    var output = $.csv.toArray(testControl[3], {
       separator:'|'
     });
     start();
-    deepEqual(output, resultEscaping[3], "regex escaped inputs");
+    deepEqual(output, resultControl[3], "regex escaped inputs");
+    stop();
+    var output = $.csv.toArrays(testControlArrays, {
+      delimiter: '*',
+      separator: ':'
+    });
+    start();
+    deepEqual(output, resultControlArrays, "toArrays()");
+    stop();
+    var output = $.csv.toObjects(testControlObjects, {
+      delimiter: '^',
+      separator: '&'
+    });
+    start();
+    deepEqual(output, resultControlObjects, "toObjets()");
   });
 
-  test("Start/End Arguments", function() {
+  test("Custom Arguments - Start, End", function() {
     expect(4);
     stop();
     var output = $.csv.toArrays(testArrays, {

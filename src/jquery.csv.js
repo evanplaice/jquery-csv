@@ -69,6 +69,10 @@ RegExp.escape= function(s) {
 
     parsers: {
       parse: function(csv, options) {
+        // cache settings
+        var separator = options.separator;
+        var delimiter = options.delimiter;
+
         // set initial state if it's missing
         if(!options.state.rowNum) {
           options.state.rowNum = 1;
@@ -144,9 +148,21 @@ RegExp.escape= function(s) {
           // update global state
           options.state.colNum++;
         }
+
+        // escape regex-specific control chars
+        var escSeparator = RegExp.escape(separator);
+        var escDelimiter = RegExp.escape(delimiter);
+
+        // compile the regEx str using the custom delimiter/separator
+        var match = /(D|S|\n|\r|[^DS\r\n]+)/;
+        var matchSrc = match.source;
+        matchSrc = matchSrc.replace(/S/g, escSeparator);
+        matchSrc = matchSrc.replace(/D/g, escDelimiter);
+        match = RegExp(matchSrc, 'gm');
+
         // put on your fancy pants...
         // process control chars individually, use look-ahead on non-control chars
-        csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0) {
+        csv.replace(match, function (m0) {
           if(exit) {
             return;
           }
@@ -154,13 +170,13 @@ RegExp.escape= function(s) {
             // the start of a value
             case 0:
               // null last value
-              if (m0 === ',') {
+              if (m0 === separator) {
                 value += '';
                 endOfValue();
                 break;
               }
               // opening delimiter
-              if (m0 === '"') {
+              if (m0 === delimiter) {
                 state = 1;
                 break;
               }
@@ -176,7 +192,7 @@ RegExp.escape= function(s) {
             // delimited input
             case 1:
               // second delimiter? check further
-              if (m0 === '"') {
+              if (m0 === delimiter) {
                 state = 2;
                 break;
               }
@@ -188,13 +204,13 @@ RegExp.escape= function(s) {
             // delimiter found in delimited input
             case 2:
               // escaped delimiter?
-              if (m0 === '"') {
+              if (m0 === delimiter) {
                 value += m0;
                 state = 1;
                 break;
               }
               // null value
-              if (m0 === ',') {
+              if (m0 === separator) {
                 endOfValue();
                 break;
               }
@@ -209,7 +225,7 @@ RegExp.escape= function(s) {
             // un-delimited input
             case 3:
               // null last value
-              if (m0 === ',') {
+              if (m0 === separator) {
                 endOfValue();
                 break;
               }
@@ -218,8 +234,8 @@ RegExp.escape= function(s) {
                 endOfEntry();
                 break;
               }
+              if (m0 === delimiter) {
               // non-compliant data
-              if (m0 === '"') {
                 throw new Error('CSVDataError: Illegal Quote [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
               }
               // broken parser?
@@ -242,6 +258,10 @@ RegExp.escape= function(s) {
 
       // a csv-specific line splitter
       splitLines: function(csv, options) {
+        // cache settings
+        var separator = options.separator;
+        var delimiter = options.delimiter;
+
         // set initial state if it's missing
         if(!options.state.rowNum) {
           options.state.rowNum = 1;
@@ -288,9 +308,20 @@ RegExp.escape= function(s) {
           options.state.rowNum++;
         }
 
+        // escape regex-specific control chars
+        var escSeparator = RegExp.escape(separator);
+        var escDelimiter = RegExp.escape(delimiter);
+
+        // compile the regEx str using the custom delimiter/separator
+        var match = /(D|S|\n|\r|[^DS\r\n]+)/;
+        var matchSrc = match.source;
+        matchSrc = matchSrc.replace(/S/g, escSeparator);
+        matchSrc = matchSrc.replace(/D/g, escDelimiter);
+        match = RegExp(matchSrc, 'gm');
+        
         // put on your fancy pants...
         // process control chars individually, use look-ahead on non-control chars
-        csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0) {
+        csv.replace(match, function (m0) {
           if(exit) {
             return;
           }
@@ -298,13 +329,13 @@ RegExp.escape= function(s) {
             // the start of a value/entry
             case 0:
               // null value
-              if (m0 === ',') {
+              if (m0 === separator) {
                 entry += m0;
                 state = 0;
                 break;
               }
               // opening delimiter
-              if (m0 === '"') {
+              if (m0 === delimiter) {
                 entry += m0;
                 state = 1;
                 break;
@@ -326,7 +357,7 @@ RegExp.escape= function(s) {
             // delimited input
             case 1:
               // second delimiter? check further
-              if (m0 === '"') {
+              if (m0 === delimiter) {
                 entry += m0;
                 state = 2;
                 break;
@@ -340,13 +371,13 @@ RegExp.escape= function(s) {
             case 2:
               // escaped delimiter?
               var prevChar = entry.substr(entry.length - 1);
-              if (m0 === '"' && prevChar === '"') {
+              if (m0 === delimiter && prevChar === delimiter) {
                 entry += m0;
                 state = 1;
                 break;
               }
               // end of value
-              if (m0 === ',') {
+              if (m0 === separator) {
                 entry += m0;
                 state = 0;
                 break;
@@ -366,7 +397,7 @@ RegExp.escape= function(s) {
             // un-delimited input
             case 3:
               // null value
-              if (m0 === ',') {
+              if (m0 === separator) {
                 entry += m0;
                 state = 0;
                 break;
@@ -381,7 +412,7 @@ RegExp.escape= function(s) {
                 break;
               }
               // non-compliant data
-              if (m0 === '"') {
+              if (m0 === delimiter) {
                 throw new Error('CSVDataError: Illegal quote [Row:' + options.state.rowNum + ']');
               }
               // broken parser?
@@ -404,6 +435,10 @@ RegExp.escape= function(s) {
 
       // a csv entry parser
       parseEntry: function(csv, options) {
+        // cache settings
+        var separator = options.separator;
+        var delimiter = options.delimiter;
+        
         // set initial state if it's missing
         if(!options.state.rowNum) {
           options.state.rowNum = 1;
@@ -435,20 +470,34 @@ RegExp.escape= function(s) {
           options.state.colNum++;
         }
 
+        // checked for a cached regEx first
+        if(!options.match) {
+          // escape regex-specific control chars
+          var escSeparator = RegExp.escape(separator);
+          var escDelimiter = RegExp.escape(delimiter);
+          
+          // compile the regEx str using the custom delimiter/separator
+          var match = /(D|S|\n|\r|[^DS\r\n]+)/;
+          var matchSrc = match.source;
+          matchSrc = matchSrc.replace(/S/g, escSeparator);
+          matchSrc = matchSrc.replace(/D/g, escDelimiter);
+          options.match = RegExp(matchSrc, 'gm');
+        }
+
         // put on your fancy pants...
         // process control chars individually, use look-ahead on non-control chars
-        csv.replace(/(\"|,|\n|\r|[^\",\r\n]+)/gm, function (m0) {
+        csv.replace(options.match, function (m0) {
           switch (state) {
             // the start of a value
             case 0:
               // null last value
-              if (m0 === ',') {
+              if (m0 === separator) {
                 value += '';
                 endOfValue();
                 break;
               }
               // opening delimiter
-              if (m0 === '"') {
+              if (m0 === delimiter) {
                 state = 1;
                 break;
               }
@@ -464,7 +513,7 @@ RegExp.escape= function(s) {
             // delimited input
             case 1:
               // second delimiter? check further
-              if (m0 === '"') {
+              if (m0 === delimiter) {
                 state = 2;
                 break;
               }
@@ -476,13 +525,13 @@ RegExp.escape= function(s) {
             // delimiter found in delimited input
             case 2:
               // escaped delimiter?
-              if (m0 === '"') {
+              if (m0 === delimiter) {
                 value += m0;
                 state = 1;
                 break;
               }
               // null value
-              if (m0 === ',') {
+              if (m0 === separator) {
                 endOfValue();
                 break;
               }
@@ -496,7 +545,7 @@ RegExp.escape= function(s) {
             // un-delimited input
             case 3:
               // null last value
-              if (m0 === ',') {
+              if (m0 === separator) {
                 endOfValue();
                 break;
               }
@@ -505,7 +554,7 @@ RegExp.escape= function(s) {
                 break;
               }
               // non-compliant data
-              if (m0 === '"') {
+              if (m0 === delimiter) {
                 throw new Error('CSVDataError: Illegal Quote [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
               }
               // broken parser?
@@ -541,8 +590,8 @@ RegExp.escape= function(s) {
       var options = (options !== undefined ? options : {});
       var config = {};
       config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
-      config.separator = 'separator' in options ? RegExp.escape(options.separator) : $.csv.defaults.separator;
-      config.delimiter = 'delimiter' in options ? RegExp.escape(options.delimiter) : $.csv.defaults.delimiter;
+      config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
+      config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       var state = (options.state !== undefined ? options.state : {});
 
       // setup
@@ -653,7 +702,8 @@ RegExp.escape= function(s) {
         state: {
           rowNum: 1,
           colNum: 1
-        }
+        },
+        match: false
       };
 
       // fetch the headers
@@ -668,7 +718,7 @@ RegExp.escape= function(s) {
         }
       }
       var headerLine = $.csv.parsers.splitLines(csv, headerOptions);
-      var headers = $.csv.toArray(headerLine[0]);
+      var headers = $.csv.toArray(headerLine[0], options);
 
       // fetch the data
       var lines = $.csv.parsers.splitLines(csv, options);
