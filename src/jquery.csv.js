@@ -87,9 +87,6 @@ RegExp.escape= function(s) {
         var exit = false;
 
         function endOfEntry() {
-          // submit the last value
-          endOfValue();
-
           // reset the state
           state = 0;
           value = '';
@@ -178,8 +175,14 @@ RegExp.escape= function(s) {
                 state = 1;
                 break;
               }
-              // ignore empty entry
-              if (m0 === '\n' || /^\r$/.test(m0)) {
+              // null last value
+              if (m0 === '\n') {
+                endOfValue();
+                endOfEntry();
+                break;
+              }
+              // phantom carriage return
+              if (/^\r$/.test(m0)) {
                 break;
               }
               // un-delimited value
@@ -213,8 +216,13 @@ RegExp.escape= function(s) {
                 break;
               }
               // end of entry
-              if (m0 === '\n' || /^\r$/.test(m0)) {
+              if (m0 === '\n') {
+                endOfValue();
                 endOfEntry();
+                break;
+              }
+              // phantom carriage return
+              if (/^\r$/.test(m0)) {
                 break;
               }
               // broken paser?
@@ -228,8 +236,13 @@ RegExp.escape= function(s) {
                 break;
               }
               // end of entry
-              if (m0 === '\n' || /^\r$/.test(m0)) {
+              if (m0 === '\n') {
+                endOfValue();
                 endOfEntry();
+                break;
+              }
+              // phantom carriage return
+              if (/^\r$/.test(m0)) {
                 break;
               }
               if (m0 === delimiter) {
@@ -247,7 +260,8 @@ RegExp.escape= function(s) {
 
         // submit the last entry
         // ignore null last line
-        if(entry[0] !== undefined) {
+        if(entry.length !== 0) {
+          endOfValue();
           endOfEntry();
         }
 
@@ -500,7 +514,7 @@ RegExp.escape= function(s) {
                 break;
               }
               // skip un-delimited new-lines
-              if (m0 === '\r' || m0 === '\n') {
+              if (m0 === '\n' || m0 === '\r') {
                 break;
               }
               // un-delimited value
@@ -534,7 +548,7 @@ RegExp.escape= function(s) {
                 break;
               }
               // skip un-delimited new-lines
-              if (m0 === '\r' || m0 === '\n') {
+              if (m0 === '\n' || m0 === '\r') {
                 break;
               }
               // broken paser?

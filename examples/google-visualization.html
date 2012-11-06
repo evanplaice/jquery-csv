@@ -35,8 +35,9 @@
 
   function chartTextData() {
     $('#padding1').css({visibility: "visible"});
-    var parsedData = $.csv.toArrays($('#textInput').val(), {
-      onParseValue: $.csv.hooks.castToScalar
+    var csv = $('#textInput').val();
+    var parsedData = $.csv.toArrays(csv, {
+        onParseValue: $.csv.hooks.castToScalar
     });
 
     drawChart(parsedData, 1);
