@@ -56,7 +56,7 @@ RegExp.escape= function(s) {
           } else {
             var integer = parseInt(value);
             if(isNaN(integer)) {
-              return 0;
+              return null;
             } else {
               return integer;
             }
