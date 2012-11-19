@@ -656,7 +656,7 @@ RegExp.escape= function(s) {
         end: options.end,
         state: {
           rowNum: 1,
-          colNum: 1,
+          colNum: 1
         }
       };
 
