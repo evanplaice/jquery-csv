@@ -848,7 +848,10 @@ RegExp.escape= function(s) {
 
       for (o in objects) {
         for (propName in objects[o]) {
-          if ((! config.ownOnly || objects[o].hasOwnProperty(propName)) && (props.indexOf(propName) < 0)) {
+          if ((! config.ownOnly || objects[o].hasOwnProperty(propName))
+              && (props.indexOf(propName) < 0)
+              && (typeof objects[o][propName] !== 'function')) {
+
             props.push(propName);
           }
         }
@@ -862,7 +865,7 @@ RegExp.escape= function(s) {
         line = [];
         for (p = 0; p < props.length; p++) {
           propName = props[p];
-          if (propName in objects[o]) {
+          if (propName in objects[o] && typeof objects[o][propName] !== 'function') {
             line.push(objects[o][propName]);
           } else {
             line.push('');
