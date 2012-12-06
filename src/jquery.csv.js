@@ -786,7 +786,9 @@ RegExp.escape= function(s) {
       config.experimental = 'experimental' in options ? options.experimental : false;
 
       if(!config.experimental) {
-        throw new Error('not widely tested');
+        throw new Error(
+            'Experimental feature. If you are sure you are ready to use it - ' +
+            'pass `experimental: true` option.');
       }
 
       var output = '',
@@ -833,22 +835,44 @@ RegExp.escape= function(s) {
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       config.experimental = 'experimental' in options ? options.experimental : false;
+      config.ownOnly = 'ownOnly' in options ? options.ownOnly : true;
+      config.sortOrder = 'sortOrder' in options ? options.sortOrder : 'declare';
 
       if(!config.experimental) {
-        throw new Error('not implemented');
+        throw new Error(
+            'Experimental feature. If you are sure you are ready to use it - ' +
+            'pass `experimental: true` option.');
       }
 
-      var output = [];
-      for(i in objects) {
-        output.push(arrays[i]);
+      var o, propName, props = [];
+
+      for (o in objects) {
+        for (propName in objects[o]) {
+          if ((! config.ownOnly || objects[o].hasOwnProperty(propName)) && (props.indexOf(propName) < 0)) {
+            props.push(propName);
+          }
+        }
+      }
+      if (config.sortOrder === 'alpha') {
+        props.sort();
+      } // else {} - nothing to do for 'declare' order
+
+      var p, line, output = [props];
+      for (o in objects) {
+        line = [];
+        for (p = 0; p < props.length; p++) {
+          propName = props[p];
+          if (propName in objects[o]) {
+            line.push(objects[o][propName]);
+          } else {
+            line.push('');
+          }
+        }
+        output.push(line);
       }
 
       // push the value to a callback if one is defined
-      if(!config.callback) {
-        return output;
-      } else {
-        config.callback('', output);
-      }
+      return $.csv.fromArrays(output, options, config.callback);
     }
   };
 
