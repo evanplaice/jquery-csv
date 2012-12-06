@@ -42,6 +42,7 @@ RegExp.escape= function(s) {
     defaults: {
       separator:',',
       delimiter:'"',
+      escaper:'\\',
       headers:true
     },
 
@@ -785,12 +786,24 @@ RegExp.escape= function(s) {
       config.experimental = 'experimental' in options ? options.experimental : false;
 
       if(!config.experimental) {
-        throw new Error('not implemented');
+        throw new Error('not widely tested');
       }
 
-      var output = [];
-      for(i in arrays) {
-        output.push(arrays[i]);
+      var output = '',
+          line,
+          lineValues,
+          i, j;
+
+      for (i in arrays) {
+        line = arrays[i];
+        lineValues = [];
+        for (j in line) {
+          lineValues.push(
+              config.delimiter +
+              line[j].toString().replace(config.delimiter, config.escaper + config.delimiter) +
+              config.delimiter);
+        }
+        output += lineValues.join(config.separator) + '\n';
       }
 
       // push the value to a callback if one is defined
