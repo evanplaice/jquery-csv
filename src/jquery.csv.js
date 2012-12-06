@@ -817,12 +817,20 @@ RegExp.escape= function(s) {
     },
 
     /**
-     * $.csv.fromObjects(objects)
+     * $.csv.fromObjects2CSV(objects)
      * Converts a javascript dictionary to a CSV string.
+     *
      * @param {Object} objects An array of objects containing the data.
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
+     * @param {Character} [ownOnly] Output only properties, which are defined
+     *   exactly for this object and not for it's parents
+     *   (@see 'Object.hasOwnProperty()' for details). Defaults to true.
+     * @param {Character} [sortOrder] Sort order of columns (named after
+     *   object properties). Use 'alpha' for alphabetic. Default is 'declare',
+     *   which means, that properties will _probably_ appear in order they were
+     *   declared for the object. But without any guarantee.
      *
      * This method generates a CSV file from an array of objects (name:value pairs).
      * It starts by detecting the headers and adding them as the first line of
