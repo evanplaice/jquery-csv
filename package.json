@@ -20,6 +20,7 @@
   "repository": {
     "type": "git",
     "url": "http://code.google.com/p/jquery-csv/"
-  }
+  },
+  "readmeFilename": "README.md"
 }
 
