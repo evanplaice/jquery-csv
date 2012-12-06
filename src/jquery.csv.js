@@ -835,6 +835,7 @@ RegExp.escape= function(s) {
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       config.experimental = 'experimental' in options ? options.experimental : false;
+      config.headers = 'headers' in options ? options.headers : $.csv.defaults.headers;
       config.ownOnly = 'ownOnly' in options ? options.ownOnly : true;
       config.sortOrder = 'sortOrder' in options ? options.sortOrder : 'declare';
 
@@ -860,7 +861,11 @@ RegExp.escape= function(s) {
         props.sort();
       } // else {} - nothing to do for 'declare' order
 
-      var p, line, output = [props];
+      var p, line, output = [];
+      if (config.headers) {
+        output.push(props);
+      }
+
       for (o in objects) {
         line = [];
         for (p = 0; p < props.length; p++) {
