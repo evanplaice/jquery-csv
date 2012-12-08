@@ -799,7 +799,7 @@ RegExp.escape= function(s) {
         lineValues = [];
         for (j in line) {
           var strValue = line[j].toString();
-          if (line[j].indexOf(config.delimiter) > -1) {
+          if (strValue.indexOf(config.delimiter) > -1) {
             strValue = strValue.replace(config.delimiter, config.delimiter + config.delimiter);
           }
 
