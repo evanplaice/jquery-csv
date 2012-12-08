@@ -42,7 +42,6 @@ RegExp.escape= function(s) {
     defaults: {
       separator:',',
       delimiter:'"',
-      escaper:'\\',
       headers:true
     },
 
@@ -782,7 +781,6 @@ RegExp.escape= function(s) {
       config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
-      config.escaper = 'escaper' in options ? options.escaper : $.csv.defaults.escaper;
       config.experimental = 'experimental' in options ? options.experimental : false;
 
       if(!config.experimental) {
@@ -800,12 +798,21 @@ RegExp.escape= function(s) {
         line = arrays[i];
         lineValues = [];
         for (j in line) {
-          lineValues.push(
-              config.delimiter +
-              line[j].toString().replace(config.delimiter, config.escaper + config.delimiter) +
-              config.delimiter);
+          var strValue = line[j].toString();
+          if (line[j].indexOf(config.delimiter) > -1) {
+            strValue = strValue.replace(config.delimiter, config.delimiter + config.delimiter);
+          }
+
+          var escMatcher = '\n|\r|S|D';
+          escMatcher = escMatcher.replace('S', config.separator);
+          escMatcher = escMatcher.replace('D', config.delimiter);
+
+          if (strValue.search(escMatcher) > -1) {
+            strValue = config.delimiter + strValue + config.delimiter;
+          }
+          lineValues.push(strValue);
         }
-        output += lineValues.join(config.separator) + '\n';
+        output += lineValues.join(config.separator) + '\n\r';
       }
 
       // push the value to a callback if one is defined
