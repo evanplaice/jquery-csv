@@ -838,6 +838,11 @@ RegExp.escape= function(s) {
      *   object properties). Use 'alpha' for alphabetic. Default is 'declare',
      *   which means, that properties will _probably_ appear in order they were
      *   declared for the object. But without any guarantee.
+     * @param {Character or Array} [manualOrder] Manually order columns. May be
+     * a strin in a same csv format as an output or an array of header names
+     * (array items won't be parsed). All the properties, not present in
+     * `manualOrder` will be appended to the end in accordance with `sortOrder`
+     * option. So the `manualOrder` always takes preference, if present.
      *
      * This method generates a CSV file from an array of objects (name:value pairs).
      * It starts by detecting the headers and adding them as the first line of
@@ -853,6 +858,11 @@ RegExp.escape= function(s) {
       config.headers = 'headers' in options ? options.headers : $.csv.defaults.headers;
       config.ownOnly = 'ownOnly' in options ? options.ownOnly : true;
       config.sortOrder = 'sortOrder' in options ? options.sortOrder : 'declare';
+      config.manualOrder = 'manualOrder' in options ? options.manualOrder : [];
+
+      if (typeof config.manualOrder === 'string') {
+        config.manualOrder = $.csv.toArray(config.manualOrder, options);
+      }
 
       if(!config.experimental) {
         throw new Error(
@@ -875,6 +885,18 @@ RegExp.escape= function(s) {
       if (config.sortOrder === 'alpha') {
         props.sort();
       } // else {} - nothing to do for 'declare' order
+
+      if (config.manualOrder.length > 0) {
+
+        var propsManual = [].concat(config.manualOrder);
+        var p;
+        for (p = 0; p < props.length; p++) {
+          if (propsManual.indexOf( props[p] ) < 0) {
+            propsManual.push( props[p] );
+          }
+        }
+        props = propsManual;
+      }
 
       var p, line, output = [];
       if (config.headers) {
