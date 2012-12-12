@@ -824,7 +824,7 @@ RegExp.escape= function(s) {
     },
 
     /**
-     * $.csv.fromObjects2CSV(objects)
+     * $.csv.fromObjects(objects)
      * Converts a javascript dictionary to a CSV string.
      *
      * @param {Object} objects An array of objects containing the data.
@@ -843,7 +843,7 @@ RegExp.escape= function(s) {
      * It starts by detecting the headers and adding them as the first line of
      * the CSV file, followed by a structured dump of the data.
      */
-    fromObjects2CSV: function(objects, options, callback) {
+    fromObjects: function(objects, options, callback) {
       var options = (options !== undefined ? options : {});
       var config = {};
       config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
