@@ -585,6 +585,34 @@ RegExp.escape= function(s) {
       }
     },
 
+    helpers: {
+
+      /**
+       * $.csv.helpers.collectPropertyNames(objectsArray)
+       * Collects all unique property names from all passed objects.
+       *
+       * @param {Array} objects Objects to collect properties from.
+       *
+       * Returns an array of property names (array will be empty,
+       * if objects have no own properties).
+       */
+      collectPropertyNames: function (objects) {
+
+        var o, propName, props = [];
+        for (o in objects) {
+          for (propName in objects[o]) {
+            if ((objects[o].hasOwnProperty(propName))
+                && (props.indexOf(propName) < 0)
+                && (typeof objects[o][propName] !== 'function')) {
+
+              props.push(propName);
+            }
+          }
+        }
+        return props;
+      }
+    },
+
     /**
      * $.csv.toArray(csv)
      * Converts a CSV entry string to a javascript array.
@@ -831,9 +859,6 @@ RegExp.escape= function(s) {
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
-     * @param {Character} [ownOnly] Output only properties, which are defined
-     *   exactly for this object and not for it's parents
-     *   (@see 'Object.hasOwnProperty()' for details). Defaults to true.
      * @param {Character} [sortOrder] Sort order of columns (named after
      *   object properties). Use 'alpha' for alphabetic. Default is 'declare',
      *   which means, that properties will _probably_ appear in order they were
@@ -856,7 +881,6 @@ RegExp.escape= function(s) {
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
       config.experimental = 'experimental' in options ? options.experimental : false;
       config.headers = 'headers' in options ? options.headers : $.csv.defaults.headers;
-      config.ownOnly = 'ownOnly' in options ? options.ownOnly : true;
       config.sortOrder = 'sortOrder' in options ? options.sortOrder : 'declare';
       config.manualOrder = 'manualOrder' in options ? options.manualOrder : [];
 
@@ -870,18 +894,9 @@ RegExp.escape= function(s) {
             'pass `experimental: true` option.');
       }
 
-      var o, propName, props = [];
 
-      for (o in objects) {
-        for (propName in objects[o]) {
-          if ((! config.ownOnly || objects[o].hasOwnProperty(propName))
-              && (props.indexOf(propName) < 0)
-              && (typeof objects[o][propName] !== 'function')) {
+      var props = $.csv.helpers.collectPropertyNames(objects);
 
-            props.push(propName);
-          }
-        }
-      }
       if (config.sortOrder === 'alpha') {
         props.sort();
       } // else {} - nothing to do for 'declare' order
