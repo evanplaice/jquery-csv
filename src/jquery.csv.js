@@ -913,7 +913,7 @@ RegExp.escape= function(s) {
         props = propsManual;
       }
 
-      var p, line, output = [];
+      var o, p, line, output = [], propName;
       if (config.headers) {
         output.push(props);
       }
