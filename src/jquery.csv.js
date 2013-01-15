@@ -31,8 +31,19 @@ RegExp.escape= function(s) {
     return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
 
-(function( $ ) {
+(function (undefined) {
   'use strict'
+
+  var $;
+
+  // to keep backwards compatibility
+  if (typeof jQuery !== 'undefined' && jQuery) {
+    $ = jQuery;
+  } else {
+    $ = {};
+  }
+
+
   /**
    * jQuery.csv.defaults
    * Encapsulates the method paramater defaults for the CSV plugin module.
@@ -945,4 +956,10 @@ RegExp.escape= function(s) {
   $.csv2Array = $.csv.toArrays;
   $.csv2Dictionary = $.csv.toObjects;
 
-})( jQuery );
+  // CommonJS module is defined
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = $.csv;
+  }
+
+}).call( this );
+
