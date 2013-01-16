@@ -796,7 +796,7 @@ RegExp.escape= function(s) {
      * $.csv.fromArrays(arrays)
      * Converts a javascript array to a CSV String.
      *
-     * @param {Array} array An array containing an array of CSV entries.
+     * @param {Array} arrays An array containing an array of CSV entries.
      * @param {Object} [options] An object containing user-defined options.
      * @param {Character} [separator] An override for the separator character. Defaults to a comma(,).
      * @param {Character} [delimiter] An override for the delimiter character. Defaults to a double-quote(").
@@ -822,10 +822,10 @@ RegExp.escape= function(s) {
           lineValues,
           i, j;
 
-      for (i in arrays) {
+      for (i = 0; i < arrays.length; i++) {
         line = arrays[i];
         lineValues = [];
-        for (j in line) {
+        for (j = 0; j < line.length; j++) {
           var strValue = line[j].toString();
           if (strValue.indexOf(config.delimiter) > -1) {
             strValue = strValue.replace(config.delimiter, config.delimiter + config.delimiter);
@@ -918,7 +918,7 @@ RegExp.escape= function(s) {
         output.push(props);
       }
 
-      for (o in objects) {
+      for (o = 0; o < objects.length; o++) {
         line = [];
         for (p = 0; p < props.length; p++) {
           propName = props[p];
