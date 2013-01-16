@@ -826,7 +826,9 @@ RegExp.escape= function(s) {
         line = arrays[i];
         lineValues = [];
         for (j = 0; j < line.length; j++) {
-          var strValue = line[j].toString();
+          var strValue = (line[j] === undefined || line[j] === null)
+                       ? ''
+                       : line[j].toString();
           if (strValue.indexOf(config.delimiter) > -1) {
             strValue = strValue.replace(config.delimiter, config.delimiter + config.delimiter);
           }
