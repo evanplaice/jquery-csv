@@ -1,0 +1,25 @@
+{
+  "name": "jquery-csv",
+  "version": "0.7.1",
+  "description": "CSV parser (complete, end-to-end, battle tested, performance optimized, 100% IETF RFC 4180 compatible) in pure js to be used with jQuery, nodejs and more",
+  "author": {
+    "name": "Evan Plaice",
+    "email": "evan.plaice@gmail.com"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "main": "src/jquery.csv.js",
+  "engines": {
+    "node": ">= 0.8.x"
+  },
+  "license": {
+    "type": "MIT"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://code.google.com/p/jquery-csv/"
+  }
+}
+
