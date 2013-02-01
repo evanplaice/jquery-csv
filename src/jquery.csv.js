@@ -887,7 +887,7 @@ RegExp.escape= function(s) {
       config.manualOrder = 'manualOrder' in options ? options.manualOrder : [];
 
       if (typeof config.manualOrder === 'string') {
-        config.manualOrder = $.csv.toArray(config.manualOrder, options);
+        config.manualOrder = $.csv.toArray(config.manualOrder, config);
       }
 
       if(!config.experimental) {
@@ -895,7 +895,6 @@ RegExp.escape= function(s) {
             'Experimental feature. If you are sure you are ready to use it - ' +
             'pass `experimental: true` option.');
       }
-
 
       var props = $.csv.helpers.collectPropertyNames(objects);
 
