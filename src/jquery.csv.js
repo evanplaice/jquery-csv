@@ -814,13 +814,6 @@ RegExp.escape= function(s) {
       config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
-      config.experimental = 'experimental' in options ? options.experimental : false;
-
-      if(!config.experimental) {
-        throw new Error(
-            'Experimental feature. If you are sure you are ready to use it - ' +
-            'pass `experimental: true` option.');
-      }
 
       var output = '',
           line,
@@ -886,7 +879,6 @@ RegExp.escape= function(s) {
       config.callback = ((callback !== undefined && typeof(callback) === 'function') ? callback : false);
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
-      config.experimental = 'experimental' in options ? options.experimental : false;
       config.headers = 'headers' in options ? options.headers : $.csv.defaults.headers;
       config.sortOrder = 'sortOrder' in options ? options.sortOrder : 'declare';
       config.manualOrder = 'manualOrder' in options ? options.manualOrder : [];
@@ -894,12 +886,6 @@ RegExp.escape= function(s) {
 
       if (typeof config.manualOrder === 'string') {
         config.manualOrder = $.csv.toArray(config.manualOrder, config);
-      }
-
-      if(!config.experimental) {
-        throw new Error(
-            'Experimental feature. If you are sure you are ready to use it - ' +
-            'pass `experimental: true` option.');
       }
 
       if (config.transform !== undefined) {
