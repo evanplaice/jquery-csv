@@ -9,6 +9,8 @@
   "dependencies": {
   },
   "devDependencies": {
+    "mocha": ">= 1.2",
+    "should": ">= 2.0"
   },
   "main": "src/jquery.csv.js",
   "engines": {
