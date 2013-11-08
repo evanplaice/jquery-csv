@@ -20,3 +20,24 @@ describe('csv2js:', function () {
 
   });
 });
+
+describe('line endings:', function () {
+
+  describe('toArrays', function () {
+    it ('should support \\n (unix) line endings', function () {
+      var out = csv.toArrays(fixtures.basic_unix);
+      out.should.have.length(2);
+    });
+
+    it ('should support \\r (mac) line endings', function () {
+      var out = csv.toArrays(fixtures.basic_mac);
+      out.should.have.length(2);
+    });
+
+    it ('should support \\r\\n (dos) line endings', function () {
+      var out = csv.toArrays(fixtures.basic_dos);
+      out.should.have.length(2);
+    });
+
+  });
+});

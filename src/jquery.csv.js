@@ -94,7 +94,7 @@ RegExp.escape= function(s) {
         var data = [];
         var entry = [];
         var state = 0;
-        var value = ''
+        var value = '';
         var exit = false;
 
         function endOfEntry() {
@@ -160,7 +160,7 @@ RegExp.escape= function(s) {
         var escDelimiter = RegExp.escape(delimiter);
 
         // compile the regEx str using the custom delimiter/separator
-        var match = /(D|S|\n|\r|[^DS\r\n]+)/;
+        var match = /(D|S|\r\n|\n|\r|[^DS\r\n]+)/;
         var matchSrc = match.source;
         matchSrc = matchSrc.replace(/S/g, escSeparator);
         matchSrc = matchSrc.replace(/D/g, escDelimiter);
@@ -187,13 +187,9 @@ RegExp.escape= function(s) {
                 break;
               }
               // null last value
-              if (m0 === '\n') {
+              if (/^(\r\n|\n|\r)$/.test(m0)) {
                 endOfValue();
                 endOfEntry();
-                break;
-              }
-              // phantom carriage return
-              if (/^\r$/.test(m0)) {
                 break;
               }
               // un-delimited value
@@ -227,13 +223,9 @@ RegExp.escape= function(s) {
                 break;
               }
               // end of entry
-              if (m0 === '\n') {
+              if (/^(\r\n|\n|\r)$/.test(m0)) {
                 endOfValue();
                 endOfEntry();
-                break;
-              }
-              // phantom carriage return
-              if (/^\r$/.test(m0)) {
                 break;
               }
               // broken paser?
@@ -247,13 +239,9 @@ RegExp.escape= function(s) {
                 break;
               }
               // end of entry
-              if (m0 === '\n') {
+              if (/^(\r\n|\n|\r)$/.test(m0)) {
                 endOfValue();
                 endOfEntry();
-                break;
-              }
-              // phantom carriage return
-              if (/^\r$/.test(m0)) {
                 break;
               }
               if (m0 === delimiter) {
