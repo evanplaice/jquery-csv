@@ -199,21 +199,29 @@ $(document).ready(function() {
     deepEqual(output, fromArray, "$csv.toArray()");
   });
 
+//  TODO: Impmlement $.csv.fromArray()
+//  test("Parsing - from Array", function() {
+//    expect(1);
+//    stop();
+//    var output = $.fromArray(fromArray);
+//    start();
+//    deepEqual(output, toArray, "$.csv.fromArray()");
+//  });
+
   test("Parsing - to Arrays", function() {
     expect(1);
     stop();
     var output = $.csv.toArrays(toArrays);
     start();
     deepEqual(output, fromArrays, "$.csv.toArrays()");
-    // TODO: Add tests
-    //stop();
-    //var output = $.fromArray(fromArray);
-    //start();
-    //deepEqual(output, toArray, "$.csv.fromArray()");
-    //stop();
-    //var output = $.fromArrays(fromArrays);
-    //start();
-    //deepEqual(output, toArrays, "$.csv.fromArrays()");
+  });
+
+  test("Parsing - from Arrays", function() {
+    expect(1);
+    stop();
+    var output = $.csv.fromArrays(fromArrays, { experimental:true });
+    start();
+    deepEqual(output, toArrays, "$.csv.fromArrays()");
   });
 
   test("Parsing - to Objects", function() {
@@ -222,11 +230,14 @@ $(document).ready(function() {
     var output = $.csv.toObjects(toObjects);
     start();
     deepEqual(output, fromObjects, "$.csv.toObjects()");
-    // TODO: Add test
-    //stop();
-    //var output = $.fromObjects(fromObjects);
-    //start();
-    //deepEqual(output, fromObjects, "$.csv.fromObjects()");
+  });
+
+    test("Parsing - from Objects", function() {
+    expect(1);
+    stop();
+    var output = $.csv.fromObjects(fromObjects, { experimental:true });
+    start();
+    deepEqual(output, toObjects, "$.csv.fromObjects()");
   });
 
   test("RFC 4180 Compliance", function() {
