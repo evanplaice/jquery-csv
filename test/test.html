@@ -219,7 +219,7 @@ $(document).ready(function() {
   test("Parsing - from Arrays", function() {
     expect(1);
     stop();
-    var output = $.csv.fromArrays(fromArrays, { experimental:true });
+    var output = $.csv.fromArrays(fromArrays);
     start();
     deepEqual(output, toArrays, "$.csv.fromArrays()");
   });
@@ -235,7 +235,7 @@ $(document).ready(function() {
     test("Parsing - from Objects", function() {
     expect(1);
     stop();
-    var output = $.csv.fromObjects(fromObjects, { experimental:true });
+    var output = $.csv.fromObjects(fromObjects);
     start();
     deepEqual(output, toObjects, "$.csv.fromObjects()");
   });
