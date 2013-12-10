@@ -976,4 +976,3 @@ RegExp.escape= function(s) {
   }
 
 }).call( this );
-
