@@ -680,6 +680,7 @@ RegExp.escape= function(s) {
         onPreParse: options.onPreParse,
         onParseEntry: options.onParseEntry,
         onParseValue: options.onParseValue,
+        onPostParse: options.onPostParse,
         start: options.start,
         end: options.end,
         state: {
@@ -695,6 +696,11 @@ RegExp.escape= function(s) {
 
       // parse the data
       data = $.csv.parsers.parse(csv, options);
+
+      // onPostParse hook
+      if(options.onPostParse !== undefined) {
+        options.onPostParse(data, options.state);
+      }
 
       // push the value to a callback if one is defined
       if(!config.callback) {
