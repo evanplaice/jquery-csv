@@ -677,6 +677,7 @@ RegExp.escape= function(s) {
       var options = {
         delimiter: config.delimiter,
         separator: config.separator,
+        onPreParse: options.onPreParse,
         onParseEntry: options.onParseEntry,
         onParseValue: options.onParseValue,
         start: options.start,
@@ -687,7 +688,12 @@ RegExp.escape= function(s) {
         }
       };
 
-      // break the data down to lines
+      // onPreParse hook
+      if(options.onPreParse !== undefined) {
+        options.onPreParse(csv, options.state);
+      }
+
+      // parse the data
       data = $.csv.parsers.parse(csv, options);
 
       // push the value to a callback if one is defined
