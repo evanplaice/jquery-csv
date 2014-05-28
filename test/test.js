@@ -5,9 +5,14 @@ var should = require('chai').should();
 var csv      = require('../src/jquery.csv.js');
 var fixtures = require('./fixtures.js');
 
-describe('csv2js:', function () {
+describe('core:', function () {
 
   describe('toArray', function () {
+    it ('should be able to parse an entry containing multiple cells', function () {
+      var out = csv.toArray(fixtures.array_csv);
+      assert.deepEqual(out, fixtures.array_obj);
+    });
+
     it ('should return [""] when input is empty', function () {
       var out = csv.toArray('');
       out.should.have.length(1);
@@ -18,8 +23,22 @@ describe('csv2js:', function () {
       out.should.have.length(1);
       out[0].should.equal('a1');
     });
-
   });
+
+  describe('toArrays', function () {
+    it ('should be able to parse multiple entries containing multiple cells', function () {
+      var out = csv.toArrays(fixtures.arrays_csv);
+      assert.deepEqual(out, fixtures.arrays_obj);
+    })
+  });
+
+  //describe('fromArray', function () {
+  //  it ('should be able to format a multi-cell entry', function () {
+  //    var out = csv.fromArray(fixtures.array_obj);
+  //    assert.deepEqual(out, fixtures.array_csv);
+  //  })
+  //});
+
 });
 
 describe('line endings:', function () {
