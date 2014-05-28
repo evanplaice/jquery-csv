@@ -17,11 +17,3 @@ This library is a different creature, featuring a slim Chomsky - Type III parser
 
 More information on a original [projects page](http://code.google.com/p/jquery-csv/).
 
-## Fork
-
-How this fork differs from the origin:
-
-* It can convert an array of values to CSV
-* It can convert an array of objects to CSV
-* It can be launched on nodejs. `jQuery` is no longer required to be `require`d :)
-
