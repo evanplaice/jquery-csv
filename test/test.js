@@ -1,5 +1,5 @@
 var assert = require('assert');
-var should = require('should');
+var should = require('chai').should();
 
 var csv      = require('../src/jquery.csv.js');
 var fixtures = require('./fixtures.js');

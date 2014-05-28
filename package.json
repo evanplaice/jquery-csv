@@ -9,12 +9,15 @@
   "dependencies": {
   },
   "devDependencies": {
-    "mocha": ">= 1.2",
-    "should": ">= 2.0"
+    "mocha": "~1.20.0",
+    "chai": "~1.9.1"
   },
   "main": "src/jquery.csv.js",
   "engines": {
     "node": ">= 0.8.x"
+  },
+  "scripts": {
+    "test": "mocha test/test.js"
   },
   "license": {
     "type": "MIT"
@@ -25,4 +28,3 @@
   },
   "readmeFilename": "README.md"
 }
-
