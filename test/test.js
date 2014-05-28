@@ -1,4 +1,5 @@
-var assert = require('assert');
+var assert = require('chai').assert;
+var expect = require('chai').expect;
 var should = require('chai').should();
 
 var csv      = require('../src/jquery.csv.js');
