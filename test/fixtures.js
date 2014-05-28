@@ -12,6 +12,10 @@ var fs     = require('fs');
   }
 
   var fixtures = {
+    to_array:     CSVfixture('to_array'),
+    from_array:   JSONfixture('from_array'),
+    to_arrays:    CSVfixture('to_arrays'),
+    from_arrays:  JSONfixture('from_arrays'),
     basic_unix:   CSVfixture('basic_unix'),
     basic_dos:    CSVfixture('basic_dos'),
     basic_mac:    CSVfixture('basic_mac')
