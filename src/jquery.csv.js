@@ -796,7 +796,7 @@ RegExp.escape= function(s) {
       for(var i=0, len=lines.length; i<len; i++) {
         var entry = $.csv.toArray(lines[i], options);
         var object = {};
-        for(var j in headers) {
+        for(var j=0; j <headers.length; j++) {
           object[headers[j]] = entry[j];
         }
         if (options.transform !== undefined) {
