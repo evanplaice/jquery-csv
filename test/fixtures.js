@@ -4,9 +4,7 @@ var fs     = require('fs');
   'use strict';
 
   function fixture(fixtureName) {
-    return fs.readFileSync('./test/fixtures/' + fixtureName + '.csv', {
-      encoding: 'UTF-8'
-    });
+    return fs.readFileSync('./test/fixtures/' + fixtureName + '.csv', 'utf8');
   }
 
   var fixtures = {
