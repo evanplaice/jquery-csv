@@ -3,14 +3,18 @@ var fs     = require('fs');
 (function (undefined) {
   'use strict';
 
-  function fixture(fixtureName) {
+  function CSVfixture(fixtureName) {
     return fs.readFileSync('./test/fixtures/' + fixtureName + '.csv', 'utf8');
   }
 
+  function JSONfixture(fixtureName) {
+    return JSON.parse(fs.readFileSync('./test/fixtures/' + fixtureName + '.json'));
+  }
+
   var fixtures = {
-    basic_unix: fixture('basic_unix'),
-    basic_dos: fixture('basic_dos'),
-    basic_mac: fixture('basic_mac')
+    basic_unix:   CSVfixture('basic_unix'),
+    basic_dos:    CSVfixture('basic_dos'),
+    basic_mac:    CSVfixture('basic_mac')
   };
 
   // CommonJS module is defined
