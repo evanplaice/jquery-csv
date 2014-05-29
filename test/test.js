@@ -25,19 +25,28 @@ describe('core:', function () {
     });
   });
 
+//describe('fromArray', function () {
+//  it ('should be able to format a multi-cell entry', function () {
+//    var out = csv.fromArray(fixtures.array_obj);
+//    assert.deepEqual(out, fixtures.array_csv);
+//  });
+//});
+
   describe('toArrays', function () {
-    it ('should be able to parse multiple entries containing multiple cells', function () {
+    it ('should be able to parse multi-entry/multi-cell input', function () {
       var out = csv.toArrays(fixtures.arrays_csv);
       assert.deepEqual(out, fixtures.arrays_obj);
-    })
+    });
   });
 
-  //describe('fromArray', function () {
-  //  it ('should be able to format a multi-cell entry', function () {
-  //    var out = csv.fromArray(fixtures.array_obj);
-  //    assert.deepEqual(out, fixtures.array_csv);
-  //  })
-  //});
+  describe('fromArrays', function() {
+    it ('should be able to format multi-entry/multi-cell data set', function() {
+      var out = csv.fromArrays(fixtures.arrays_obj);
+      console.dir(fixtures.arrays_csv);
+      assert.deepEqual(out, fixtures.arrays_csv);
+    });
+  });
+
 
 });
 
