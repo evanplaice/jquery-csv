@@ -39,15 +39,64 @@ describe('core:', function () {
     });
   });
 
-  describe('fromArrays', function() {
-    it ('should be able to format multi-entry/multi-cell data set', function() {
-      var out = csv.fromArrays(fixtures.arrays_obj);
-      console.dir(fixtures.arrays_csv);
-      assert.deepEqual(out, fixtures.arrays_csv);
+//  describe('fromArrays', function() {
+//    it ('should be able to format multi-entry/multi-cell data set', function() {
+//      var out = csv.fromArrays(fixtures.arrays_obj);
+//      assert.deepEqual(out, fixtures.arrays_csv);
+//    });
+//  });
+
+  describe('RFC 4180 Compliance', function () {
+    it ('should follow Rule #1 - One entry per line, each line ends with a newline', function () {
+      var out = csv.toArrays(fixtures.rfc1_csv);
+      assert.deepEqual(out, fixtures.rfc1_obj);
+    });
+
+    it ('should follow Rule #2 - Trailing newline at the end of the file ommitted', function () {
+      var out = csv.toArrays(fixtures.rfc2_csv);
+      assert.deepEqual(out, fixtures.rfc2_obj);
+    });
+
+    it ('should follow Rule #3 - First row contains header data', function () {
+      var out = csv.toObjects(fixtures.rfc3_csv);
+      assert.deepEqual(out, fixtures.rfc3_obj);
+    });
+
+    it ('should follow Rule #4 - Spaces are considered data and entries should not contain a trailing comma', function () {
+      var out = csv.toArray(fixtures.rfc4_csv);
+      assert.deepEqual(out, fixtures.rfc4_obj);
+    });
+
+    it ('should follow Rule #5 - Lines may or may not be delimited by double-quotes', function () {
+      var out = csv.toArrays(fixtures.rfc5_csv);
+      assert.deepEqual(out, fixtures.rfc5_obj);
+    });
+
+    it ('should follow Rule #6 - Fields containing line breaks, double-quotes, and commas should be enclosed in double-quotes', function () {
+      var out = csv.toArrays(fixtures.rfc6_csv);
+      assert.deepEqual(out, fixtures.rfc6_obj);
+    });
+
+    it ('should follow Rule #7 - If double-quotes are used to enclose fields, then a double-quote appering inside a field must be escaped by a preceding it with another double-quote', function () {
+      var out = csv.toArray(fixtures.rfc7_csv);
+      assert.deepEqual(out, fixtures.rfc7_obj);
+    });
+
+    it ('should follow Amendment #1 - An unquoted field may contain a null (ie empty) value', function () {
+      var out = csv.toArray(fixtures.rfcA1_csv);
+      assert.deepEqual(out, fixtures.rfcA1_obj);
+    });
+
+    it ('should follow Amendment #2 - A quoted field may contain a null (ie empty) value', function() {
+      var out = csv.toArray(fixtures.rfcA2_csv);
+      assert.deepEqual(out, fixtures.rfcA2_obj);
+    });
+
+    it ('should follow Amendment #3 - The last field in an entry may contain a null (ie empty) value', function() {
+      var out = csv.toArray(fixtures.rfcA3_csv);
+      assert.deepEqual(out, fixtures.rfcA3_obj);
     });
   });
-
-
 });
 
 describe('line endings:', function () {
