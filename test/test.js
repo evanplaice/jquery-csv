@@ -115,3 +115,52 @@ describe('line endings:', function () {
     out.should.have.length(2);
   });
 });
+
+describe('custom terminals (ie delimiter, separator', function() {
+  it ('should parse using the default terminals', function() {
+    var out = csv.toArray(fixtures.defaults_csv);
+    assert.deepEqual(out, fixtures.defaults_obj);
+  });
+
+  it ('should parse using a custom delimiter', function() {
+    var out = csv.toArray(fixtures.delimiter_csv, { delimiter:"'" });
+    assert.deepEqual(out, fixtures.delimiter_obj); 
+  });
+
+  it ('should parse using a custom separator', function() {
+    var out = csv.toArray(fixtures.separator_csv, { separator:";"});
+    assert.deepEqual(out, fixtures.separator_obj);
+  });
+
+  it ('should properly escape regex special chars', function() {
+    var out = csv.toArray(fixtures.regex_csv, { separator:'|'});
+    assert.deepEqual(out, fixtures.regex_obj);
+  });
+
+  it ('should support custom terminals via toArrays()', function() {
+    var out = csv.toArrays(fixtures.term_arrays_csv, { delimiter: '*', separator:':' });
+    assert.deepEqual(out, fixtures.term_arrays_obj);
+  });
+  
+  it ('should support custom terminals via toObjects()', function() {
+    var out = csv.toObjects(fixtures.term_objects_csv, { delimiter: '^', separator: '&'} );
+    assert.deepEqual(out, fixtures.term_objects_obj);
+  });
+
+  //  var output = $.csv.toArrays(testControlArrays, {
+  //     delimiter: '*',
+  //     separator: ':'
+  //   });
+  //   start();
+  //   deepEqual(output, resultControlArrays, "toArrays()");
+  //   stop();
+  //   var output = $.csv.toObjects(testControlObjects, {
+  //     delimiter: '^',
+  //     separator: '&'
+  //   });
+  //   start();
+  //   deepEqual(output, resultControlObjects, "toObjets()");
+  // });
+
+
+});
