@@ -103,17 +103,17 @@ describe('line endings:', function () {
 
   describe('toArrays', function () {
     it ('should support \\n (unix) line endings', function () {
-      var out = csv.toArrays(fixtures.basic_unix);
+      var out = csv.toArrays(fixtures.newline_unix);
       out.should.have.length(2);
     });
 
     it ('should support \\r (mac) line endings', function () {
-      var out = csv.toArrays(fixtures.basic_mac);
+      var out = csv.toArrays(fixtures.newline_mac);
       out.should.have.length(2);
     });
 
     it ('should support \\r\\n (dos) line endings', function () {
-      var out = csv.toArrays(fixtures.basic_dos);
+      var out = csv.toArrays(fixtures.newline_dos);
       out.should.have.length(2);
     });
 
