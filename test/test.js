@@ -146,21 +146,10 @@ describe('custom terminals (ie delimiter, separator', function() {
     var out = csv.toObjects(fixtures.term_objects_csv, { delimiter: '^', separator: '&'} );
     assert.deepEqual(out, fixtures.term_objects_obj);
   });
-
-  //  var output = $.csv.toArrays(testControlArrays, {
-  //     delimiter: '*',
-  //     separator: ':'
-  //   });
-  //   start();
-  //   deepEqual(output, resultControlArrays, "toArrays()");
-  //   stop();
-  //   var output = $.csv.toObjects(testControlObjects, {
-  //     delimiter: '^',
-  //     separator: '&'
-  //   });
-  //   start();
-  //   deepEqual(output, resultControlObjects, "toObjets()");
-  // });
-
-
 });
+
+
+//describe('custom start/end points', function() {
+//  it('should start at a certain point when used on toArrays()', function() {
+//  });
+//});
