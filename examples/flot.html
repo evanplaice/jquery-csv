@@ -4,139 +4,45 @@
 <head>
 <meta charset="utf-8" />
 <title>jQuery-CSV - Flot Demo</title>
-<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <link href="http://code.jquery.com/ui/1.9.0/themes/cupertino/jquery-ui.css" rel="stylesheet" />
-<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/jquery.flot.min.js"</script>
-<script></script>
-<script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
-<script>
-  $(function() {
-    $("#tabs").tabs();
-  });
-
-  $(document).ready(function() {
-    if(isAPIAvailable()) {
-      $('#fileInput').bind('change', handleFileSelect);
-    }
-
-    flotTextData();
-
-    $('#run').bind('click', flotTextData);
-  });
-
-  // Used to generate the data for the sine wave demo
-  // source: http://coding.smashingmagazine.com/2011/10/04/quick-look-math-animations-javascript/
-  function drawSine() {
-    var counter = 0;
-    // 100 iterations
-    var increase = Math.PI * 2 / 100;
-    for ( i = 0; i <= 1; i += 0.01 ) {
-      x = i;
-      y = Math.sin( counter ) / 2 + 0.5;
-      counter += increase;
-      console.log(x + ',' + y);
-    }
-  }
-
-  // plots the data input into the textarea
-  function flotTextData() {
-    var options = {
-      series: {
-        lines: { show: true },
-        points: { show: true }
-      }
-    }
-
-    var data1 = [];
-    data1[0] = $.csv.toArrays($('#textInput').val(), {
-      onParseValue: $.csv.hooks.castToScalar
-    });
-    flot1 = $.plot($('#flot1'), data1, options);
-
-    var data2 = [];
-    flot2 = $.plot($('#flot2'), data2, options);
-  }
-
-  // displays a warning if the browser doesn't support the HTML5 File API
-  function isAPIAvailable() {
-    // Check for the various File API support.
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-      // Great success! All the File APIs are supported.
-      return true;
-    } else {
-      alert("The browser you're using does not currently support\nthe HTML5 File API. As a result the file loading demo\nwon't work properly.");
-      return false;
-    }
-  }
-
-  // handles csv files
-  function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
-
-    // reset the flot dataset
-    flot2.setData([]);
-    for(var i=0, len=files.length; i<len; i++) {
-      flotFileData(files[i], i);
-    }
-  }
-
-  function flotFileData(file, i) {
-    var reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = function(event){
-      var csv = event.target.result;
-      var data = flot2.getData();
-      var newData = $.csv.toArrays(csv, {
-        onParseValue:$.csv.hooks.castToScalar
-      });
-      // append to the existing dataset
-      data[i] = newData;
-      flot2.setData(data);
-      flot2.setupGrid();
-      flot2.draw();
-    };
-    reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
-  }
-</script>
 <style>
 textarea {
-width:100%;
+  width:100%;
 }
 </style>
 </head>
 
 <body>
-<div id=tabs>
-  <ul>
-    <li><a href="#tabs-1">Intro</a></li>
-    <li><a href="#tabs-2">Load From TextArea</a></li>
-    <li><a href="#tabs-3">Load From File</a></li>
-  </ul>
-  <div id=tabs-1>
-    <h2> Welcome to the jQuery-CSV + Flot Demonstration</h2>
-      <p>On the adjacent tabs, you will find demonstrations whereby you can load your own data into a fully functional Flot chart.</p>
-      <p>You'll need the HTML5 File Api to use the file loader but no worries, if your browser is lagging behind in HTML5 adoption ::cough::IE::cough:: you can still try out the demos by pasting data into the text area in the first example.</p>
-      <p>If you don't have a dataset of your own feel free to try one of these:</p>
-      <ul>
-        <li><a href="http://jquery-csv.googlecode.com/git/examples/data/analytics1.csv">Google Analytics Data Dump 1</a></li>
-        <li><a href="http://jquery-csv.googlecode.com/git/examples/data/analytics2.csv">Google Analytics Data Dump 2</a>
-        <li><a href="http://jquery-csv.googlecode.com/git/examples/data/sine.csv">Sine Wave</a></li>
-        <li><a href="http://jquery-csv.googlecode.com/git/examples/data/sample2.csv">Auto Data</a></li>
-      </ul>
+  <div id="tabs">
+    <ul>
+      <li><a href="#tabs-1">Intro</a></li>
+      <li><a href="#tabs-2">Load From TextArea</a></li>
+      <li><a href="#tabs-3">Load From File</a></li>
+    </ul>
+    <div id="tabs-1">
+      <h2>Welcome to the jQuery-CSV + Flot Demonstration</h2>
+        <p>On the adjacent tabs, you will find demonstrations whereby you can load your own data into a fully functional Flot chart.</p>
+        <p>You'll need the HTML5 File Api to use the file loader but no worries, if your browser is lagging behind in HTML5 adoption ::cough::IE::cough:: you can still try out the demos by pasting data into the text area in the first example.</p>
+        <p>If you don't have a dataset of your own feel free to try one of these:</p>
+        <ul>
+          <li><a href="http://jquery-csv.googlecode.com/git/examples/data/analytics1.csv">Google Analytics Data Dump 1</a></li>
+          <li><a href="http://jquery-csv.googlecode.com/git/examples/data/analytics2.csv">Google Analytics Data Dump 2</a></li>
+          <li><a href="http://jquery-csv.googlecode.com/git/examples/data/sine.csv">Sine Wave</a></li>
+          <li><a href="http://jquery-csv.googlecode.com/git/examples/data/sample2.csv">Auto Data</a></li>
+        </ul>
+        <hr />
+        <p>The main project page can be found on <a href="http://code.google.com/p/jquery-csv/">Google Code</a></p>
+        <p>If you want the complete documentation. Goto: <a href="http://code.google.com/p/jquery-csv/wiki/API">API Wiki</a></p>
+        <p>If you would like to provide feedback, you may do so on the <a href="http://code.google.com/p/jquery-csv/wiki/Feedback">Feedback Wiki</a>.</p>
+        <p>If you find a bug, report a 'Defect' in the <a href="http://code.google.com/p/jquery-csv/issues/list">Issues</a> section of the project site.</p>
+        <p>If you have a suggestion for a new feature, create a 'Feature Request' in the <a href="http://code.google.com/p/jquery-csv/issues/list">Issues</a> section of the project site.</p>
+        <hr />
+        <h2>Enjoy...</h2>
+    </div>
+    <div id="tabs-2">
+      <p>To use this demo, simply paste your dataset into the text area and hit the 'Run' button.</p>
       <hr />
-      <p>The main project page can be found on <a href="http://code.google.com/p/jquery-csv/">Google Code</a>
-      <p>If you want the complete documentation. Goto: <a href="http://code.google.com/p/jquery-csv/wiki/API">API Wiki</a></p>
-      <p>If you would like to provide feedback, you may do so on the <a href="http://code.google.com/p/jquery-csv/wiki/Feedback">Feedback Wiki</a>.</p>
-      <p>If you find a bug, report a 'Defect' in the <a href="http://code.google.com/p/jquery-csv/issues/list">Issues</a> section of the project site.</p>
-      <p>If you have a suggestion for a new feature, create a 'Feature Request' in the <a href="http://code.google.com/p/jquery-csv/issues/list">Issues</a> section of the project site.</p>
-      <hr />
-      <h2>Enjoy...</h2>
-  </div>
-  <div id=tabs-2>
-    <p>To use this demo, simply paste your dataset into the text area and hit the 'Run' button.</p>
-    <hr />
-    <textarea id=textInput style="height:150px;">0,0.5
+      <textarea id="textInput" style="height:150px;">0,0.5
 0.01,0.5313952597646567
 0.02,0.5626666167821521
 0.03,0.5936906572928623
@@ -236,18 +142,113 @@ width:100%;
 0.9700000000000006,0.4063093427071337
 0.9800000000000006,0.4373333832178437
 0.9900000000000007,0.46860474023533893</textarea>
-    <input id=run type=button  value="Run" />
-    <hr />
-    <div id=flot1 style="width:600px;height:300px;margin:0 auto;"></div>
+      <input id="run" type="button"  value="Run" />
+      <hr />
+      <div id="flot1" style="width:600px;height:300px;margin:0 auto;"></div>
+    </div>
+    <div id="tabs-3">
+      <p>To use this demo, just choose a CSV file through the file dialog. Really, it's that easy.</p>
+      <p>Note: This demo is capable of processing and loading multiple data files. Just select more than one file in the dialog.</p>
+      <p>I suggest you try loading the <a href="http://jquery-csv.googlecode.com/git/examples/data/analytics1.csv">analytics1.csv</a> and <a href="http://jquery-csv.googlecode.com/git/examples/data/analytics2.csv">analytics2.csv</a> data sets together.</p>
+      <hr />
+      <input id="fileInput" type="file" name="files[]" multiple />
+      <hr />
+      <div id="flot2" style="width:600px;height:300px;margin:0 auto;"></div>
+    </div>
   </div>
-  <div id=tabs-3>
-    <p>To use this demo, just choose a CSV file through the file dialog. Really, it's that easy.</p>
-    <p>Note: This demo is capable of processing and loading multiple data files. Just select more than one file in the dialog.</p>
-    <p>I suggest you try loading the <a href="http://jquery-csv.googlecode.com/git/examples/data/analytics1.csv">analytics1.csv</a> and <a href="http://jquery-csv.googlecode.com/git/examples/data/analytics2.csv">analytics2.csv</a> data sets together.</p>
-    <hr />
-    <input id=fileInput type=file name=files[] multiple />
-    <hr />
-    <div id=flot2 style="width:600px;height:300px;margin:0 auto;"></div>
-  </div>
+
+  <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/jquery.flot.min.js"></script>
+  <script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
+  <script>
+    $(function() {
+      $("#tabs").tabs();
+    });
+
+    $(document).ready(function() {
+      if(isAPIAvailable()) {
+        $('#fileInput').bind('change', handleFileSelect);
+      }
+
+      flotTextData();
+
+      $('#run').bind('click', flotTextData);
+    });
+
+    // Used to generate the data for the sine wave demo
+    // source: http://coding.smashingmagazine.com/2011/10/04/quick-look-math-animations-javascript/
+    function drawSine() {
+      var counter = 0;
+      // 100 iterations
+      var increase = Math.PI * 2 / 100;
+      for ( i = 0; i <= 1; i += 0.01 ) {
+        x = i;
+        y = Math.sin( counter ) / 2 + 0.5;
+        counter += increase;
+        console.log(x + ',' + y);
+      }
+    }
+
+    // plots the data input into the textarea
+    function flotTextData() {
+      var options = {
+        series: {
+          lines: { show: true },
+          points: { show: true }
+        }
+      }
+
+      var data1 = [];
+      data1[0] = $.csv.toArrays($('#textInput').val(), {
+        onParseValue: $.csv.hooks.castToScalar
+      });
+      flot1 = $.plot($('#flot1'), data1, options);
+
+      var data2 = [];
+      flot2 = $.plot($('#flot2'), data2, options);
+    }
+
+    // displays a warning if the browser doesn't support the HTML5 File API
+    function isAPIAvailable() {
+      // Check for the various File API support.
+      if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+        return true;
+      } else {
+        alert("The browser you're using does not currently support\nthe HTML5 File API. As a result the file loading demo\nwon't work properly.");
+        return false;
+      }
+    }
+
+    // handles csv files
+    function handleFileSelect(evt) {
+      var files = evt.target.files; // FileList object
+
+      // reset the flot dataset
+      flot2.setData([]);
+      for(var i=0, len=files.length; i<len; i++) {
+        flotFileData(files[i], i);
+      }
+    }
+
+    function flotFileData(file, i) {
+      var reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = function(event){
+        var csv = event.target.result;
+        var data = flot2.getData();
+        var newData = $.csv.toArrays(csv, {
+          onParseValue:$.csv.hooks.castToScalar
+        });
+        // append to the existing dataset
+        data[i] = newData;
+        flot2.setData(data);
+        flot2.setupGrid();
+        flot2.draw();
+      };
+      reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
+    }
+  </script>
 </body>
 </html>
