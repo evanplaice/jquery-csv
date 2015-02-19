@@ -18,5 +18,6 @@
     "sync",
     "synchronise"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "ignore": ""
 }
