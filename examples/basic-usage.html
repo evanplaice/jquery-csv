@@ -4,111 +4,14 @@
 <head>
 <meta charset="utf-8" />
 <title>jQuery-CSV - Basic Usage Demo</title>
-<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <link href="http://code.jquery.com/ui/1.9.0/themes/cupertino/jquery-ui.css" rel="stylesheet" />
-<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-<script></script>
-<script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
-<script>
-  $(function() {
-    $("#tabs").tabs();
-  });
-
-  $(document).ready(function() {
-    example1();
-    example2();
-    example3();
-    
-    $('#run1').bind('click', function() {
-      fourtyTwo();
-      example1();
-    });
-    
-    $('#run2').bind('click', function() {
-      fourtyTwo();
-      example2();
-    });
-    
-    $('#run3').bind('click', function() {
-      fourtyTwo();
-      example3();
-    });
-  });
-
-  function example1() {
-    var input = $('#input1').val();
-    var data = $.csv.toArray(input);
-    var html = generateTable(data);
-    $('#result1').empty();
-    $('#result1').html(html);
-  }
-
-  function example2() {
-    var input = $('#input2').val();
-    var data = $.csv.toArrays(input);
-    var html = generateTable(data);
-    $('#result2').empty();
-    $('#result2').html(html);
-  }
-
-  function example3() {
-    var input = $('#input3').val();
-    var data = $.csv.toObjects(input);
-    var html = generateTable(data);
-    $('#result3').empty();
-    $('#result3').html(html);
-  }
-
-  // build HTML table data from an array (one or two dimensional)
-  function generateTable(data) {
-    var html = '';
-
-    if(typeof(data[0]) === 'undefined') {
-      return null;
-    }
-
-    if(data[0].constructor === String) {
-      html += '<tr>\r\n';
-      for(var item in data) {
-        html += '<td>' + data[item] + '</td>\r\n';
-      }
-      html += '</tr>\r\n';
-    }
-
-    if(data[0].constructor === Array) {
-      for(var row in data) {
-        html += '<tr>\r\n';
-        for(var item in data[row]) {
-          html += '<td>' + data[row][item] + '</td>\r\n';
-        }
-        html += '</tr>\r\n';
-      }
-    }
-
-    if(data[0].constructor === Object) {
-      for(var row in data) {
-        html += '<tr>\r\n';
-        for(var item in data[row]) {
-          html += '<td>' + item + ':' + data[row][item] + '</td>\r\n';
-        }
-        html += '</tr>\r\n';
-      }
-    }
-    
-    return html;
-  }
-
-  function fourtyTwo() {
-    alert('Reticulating Splines...');
-  }
-</script>
 <style>
 textarea {
-width:100%;
+  width:100%;
 }
 .result {
-width:100%;
-overflow:auto;
+  width:100%;
+  overflow:auto;
 }
 td {
   padding:5px;
@@ -117,53 +20,53 @@ td {
 </head>
 
 <body>
-<div id=tabs>
-  <ul>
-    <li><a href="#tabs-1">Intro</a></li>
-    <li><a href="#tabs-2">toArray()</a></li>
-    <li><a href="#tabs-3">toArrays()</a></li>
-    <li><a href="#tabs-4">toObjects()</a></li>
-    <li><a href="#tabs-5">fromArrays()</a></li>
-    <li><a href="#tabs-6">fromObjects()</a></li>
-  </ul>
-  <div id=tabs-1>
-    <h2> Welcome to the jQuery-CSV Basic Usage Demonstration</h2>
-    <p>On the adjacent tabs, you will find examples demonstrating the usage of the jQuery-CSV library.</p>
-    <p>Samples datasets will be provided with each example but if you want, you may insert your own data. Just press the 'Run' button to re-execute the parser.</p>
-    <hr />
-    <p>The main project page can be found on <a href="http://code.google.com/p/jquery-csv/">Google Code</a>
-    <p>If you want the complete documentation. Goto: <a href="http://code.google.com/p/jquery-csv/wiki/API">API Wiki</a></p>
-    <p>If you would like to provide feedback, you may do so on the <a href="http://code.google.com/p/jquery-csv/wiki/Feedback">Feedback Wiki</a>.</p>
-    <p>If you find a bug, report a 'Defect' in the <a href="http://code.google.com/p/jquery-csv/issues/list">Issues</a> section of the project site.</p>
-    <p>If you have a suggestion for a new feature, create a 'Feature Request' in the <a href="http://code.google.com/p/jquery-csv/issues/list">Issues</a> section of the project site.</p>
-    <hr />
-    <h2>Enjoy...</h2>
-  </div>
-  <div id=tabs-2>
-    <h2>$.csv.toArray()</h2>
-    <p>Used to parse a single line of CSV data into an array of values.</p>
-    <p>Usage:
-    <div style="font-style:italic;">var result = $.csv.toArray(input);</div>
-    </p>
-    <hr />
-    <h4>Input Data:</h4>
-    <textarea id=input1 style="height:25px;">"You will come back stronger then ever","like Lance Armstrong","but with two balls"</textarea>
-    <input id=run1 type=button value="Run" />
-    <hr />
-    <h4>Result:</h4>
-    <div class=result>
-      <table id=result1 border=1></table>
+  <div id="tabs">
+    <ul>
+      <li><a href="#tabs-1">Intro</a></li>
+      <li><a href="#tabs-2">toArray()</a></li>
+      <li><a href="#tabs-3">toArrays()</a></li>
+      <li><a href="#tabs-4">toObjects()</a></li>
+      <li><a href="#tabs-5">fromArrays()</a></li>
+      <li><a href="#tabs-6">fromObjects()</a></li>
+    </ul>
+    <div id="tabs-1">
+      <h2>Welcome to the jQuery-CSV Basic Usage Demonstration</h2>
+      <p>On the adjacent tabs, you will find examples demonstrating the usage of the jQuery-CSV library.</p>
+      <p>Samples datasets will be provided with each example but if you want, you may insert your own data. Just press the 'Run' button to re-execute the parser.</p>
+      <hr />
+      <p>The main project page can be found on <a href="http://code.google.com/p/jquery-csv/">Google Code</a></p>
+      <p>If you want the complete documentation. Goto: <a href="http://code.google.com/p/jquery-csv/wiki/API">API Wiki</a></p>
+      <p>If you would like to provide feedback, you may do so on the <a href="http://code.google.com/p/jquery-csv/wiki/Feedback">Feedback Wiki</a>.</p>
+      <p>If you find a bug, report a 'Defect' in the <a href="http://code.google.com/p/jquery-csv/issues/list">Issues</a> section of the project site.</p>
+      <p>If you have a suggestion for a new feature, create a 'Feature Request' in the <a href="http://code.google.com/p/jquery-csv/issues/list">Issues</a> section of the project site.</p>
+      <hr />
+      <h2>Enjoy...</h2>
     </div>
-  </div>
-  <div id=tabs-3>
-    <h2>$.csv.toArrays()</h2>
-    <p>Used to parse multi-line CSV data into a JavaScript 2D (two-dimensional) array.</p>
-    <p>Usage:
-    <div style="font-style:italic;">var result = $.csv.toArrays(input);</div>
-    </p>
-    <hr />
-    <h4>Input Data:</h4>
-    <textarea id=input2 style="height:150px;">"All work","and no play","makes Jack","a dull boy..."
+    <div id="tabs-2">
+      <h2>$.csv.toArray()</h2>
+      <p>Used to parse a single line of CSV data into an array of values.</p>
+      <p>Usage:
+      <div style="font-style:italic;">var result = $.csv.toArray(input);</div>
+      </p>
+      <hr />
+      <h4>Input Data:</h4>
+      <textarea id="input1" style="height:25px;">"You will come back stronger then ever","like Lance Armstrong","but with two balls"</textarea>
+      <input id="run1" type="button" value="Run" />
+      <hr />
+      <h4>Result:</h4>
+      <div class="result">
+        <table id="result1" border="1"></table>
+      </div>
+    </div>
+    <div id="tabs-3">
+      <h2>$.csv.toArrays()</h2>
+      <p>Used to parse multi-line CSV data into a JavaScript 2D (two-dimensional) array.</p>
+      <p>Usage:
+      <div style="font-style:italic;">var result = $.csv.toArrays(input);</div>
+      </p>
+      <hr />
+      <h4>Input Data:</h4>
+      <textarea id="input2" style="height:150px;">"All work","and no play","makes Jack","a dull boy..."
 "All work","and no play","makes Jack","a dull boy..."
 "All work","and no play","makes Jack","a dull boy..."
 "All work","and no play","makes Jack","a dull boy..."
@@ -173,22 +76,22 @@ td {
 "All work","and no play","makes Jack","a dull boy..."
 "All work","and no play","makes Jack","a dull boy..."
 "All work","and no play","makes Jack","a dull boy..."</textarea>
-    <input id=run2 type=button value="Run" />
-    <hr />
-    <h4>Result:</h4>
-    <div class=result>
-      <table id=result2 border=1></table>
+      <input id="run2" type="button" value="Run" />
+      <hr />
+      <h4>Result:</h4>
+      <div class="result">
+        <table id="result2" border="1"></table>
+      </div>
     </div>
-  </div>
-  <div id=tabs-4>
-    <h2>$.csv.toObjects()</h2>
-    <p>Used to convert multi-line CSV data into an array objects containing the data as key-value (ie header:value) pairs.</p>
-    <p>Usage:
-    <div style="font-style:italic;">var result = $.csv.toObjects(input);</div>
-    </p>
-    <hr />
-    <h4>Input Data:</h4>
-    <textarea id=input3 style="height:150px;">"ID","iManufacturer","iMPartNumber","iSerialNumber","iSimCategory","iPartType","iDescription","iGroup","iLocation","iSold"
+    <div id="tabs-4">
+      <h2>$.csv.toObjects()</h2>
+      <p>Used to convert multi-line CSV data into an array objects containing the data as key-value (ie header:value) pairs.</p>
+      <p>Usage:
+      <div style="font-style:italic;">var result = $.csv.toObjects(input);</div>
+      </p>
+      <hr />
+      <h4>Input Data:</h4>
+      <textarea id="input3" style="height:150px;">"ID","iManufacturer","iMPartNumber","iSerialNumber","iSimCategory","iPartType","iDescription","iGroup","iLocation","iSold"
 "1","Evans & Sutherland","230-132-111AA","","Visual","PCB","","1","Offsite",""
 "2","Evans & Sutherland","230-132-111AA","","Visual","PCB","","1","Offsite",""
 "3","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""
@@ -199,36 +102,135 @@ td {
 "8","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""
 "9","Evans & Sutherland","230-120-112AC","","Visual","PCB","","1","Offsite",""
 "10","Evans & Sutherland","230-121-150AC","","Visual","PCB","","1","Offsite",""</textarea>
-    <input id=run3 type=button value="Run" />
-    <hr />
-    <h4>Result:</h4>
-    <div class=result>
-      <table id=result3 border=1></table>
+      <input id="run3" type="button" value="Run" />
+      <hr />
+      <h4>Result:</h4>
+      <div class="result">
+        <table id="result3" border="1"></table>
+      </div>
+    </div>
+    <div id="tabs-5">
+      <h2>$.csv.fromArrays()</h2>
+      <hr />
+      <h3>This feature has not been implemented yet</h3>
+      <div>If you would like to track the development progress on this feature, take a look at the project <a href="">Roadmap</a></div>
+      <!--<h4>Input Data:</h4>
+      <div id=input4></div>
+      <h4>Result:</h4>
+      <div class=result>
+        <textarea id=result4></textarea>
+      </div>-->
+    </div>
+    <div id="tabs-6">
+      <h2>$.csv.fromObjects()</h2>
+      <hr />
+      <h3>This feature has not been implemented yet</h3>
+      <div>If you would like to track the development progress on this feature, take a look at the project <a href="">Roadmap</a></div>
+      <!--<h4>Input Data:</h4>
+      <div id=input5></div>
+      <h4>Result:</h4>
+      <div class=result>
+        <textarea id=result5></textarea>
+      </div>-->
     </div>
   </div>
-  <div id=tabs-5>
-    <h2>$.csv.fromArrays()</h2>
-    <hr />
-    <h3>This feature has not been implemented yet</h3>
-    <div>If you would like to track the development progress on this feature, take a look at the project <a href="">Roadmap</a></div>
-    <!--<h4>Input Data:</h4>
-    <div id=input4></div>
-    <h4>Result:</h4>
-    <div class=result>
-      <textarea id=result4></textarea>
-    </div>-->
-  </div>
-  <div id=tabs-6>
-    <h2>$.csv.fromObjects()</h2>
-    <hr />
-    <h3>This feature has not been implemented yet</h3>
-    <div>If you would like to track the development progress on this feature, take a look at the project <a href="">Roadmap</a></div>
-    <!--<h4>Input Data:</h4>
-    <div id=input5></div>
-    <h4>Result:</h4>
-    <div class=result>
-      <textarea id=result5></textarea>
-    </div>-->
-  </div>
+
+  <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+  <script></script>
+  <script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
+  <script>
+    $(function() {
+      $("#tabs").tabs();
+    });
+
+    $(document).ready(function() {
+      example1();
+      example2();
+      example3();
+      
+      $('#run1').bind('click', function() {
+        fourtyTwo();
+        example1();
+      });
+      
+      $('#run2').bind('click', function() {
+        fourtyTwo();
+        example2();
+      });
+      
+      $('#run3').bind('click', function() {
+        fourtyTwo();
+        example3();
+      });
+    });
+
+    function example1() {
+      var input = $('#input1').val();
+      var data = $.csv.toArray(input);
+      var html = generateTable(data);
+      $('#result1').empty();
+      $('#result1').html(html);
+    }
+
+    function example2() {
+      var input = $('#input2').val();
+      var data = $.csv.toArrays(input);
+      var html = generateTable(data);
+      $('#result2').empty();
+      $('#result2').html(html);
+    }
+
+    function example3() {
+      var input = $('#input3').val();
+      var data = $.csv.toObjects(input);
+      var html = generateTable(data);
+      $('#result3').empty();
+      $('#result3').html(html);
+    }
+
+    // build HTML table data from an array (one or two dimensional)
+    function generateTable(data) {
+      var html = '';
+
+      if(typeof(data[0]) === 'undefined') {
+        return null;
+      }
+
+      if(data[0].constructor === String) {
+        html += '<tr>\r\n';
+        for(var item in data) {
+          html += '<td>' + data[item] + '</td>\r\n';
+        }
+        html += '</tr>\r\n';
+      }
+
+      if(data[0].constructor === Array) {
+        for(var row in data) {
+          html += '<tr>\r\n';
+          for(var item in data[row]) {
+            html += '<td>' + data[row][item] + '</td>\r\n';
+          }
+          html += '</tr>\r\n';
+        }
+      }
+
+      if(data[0].constructor === Object) {
+        for(var row in data) {
+          html += '<tr>\r\n';
+          for(var item in data[row]) {
+            html += '<td>' + item + ':' + data[row][item] + '</td>\r\n';
+          }
+          html += '</tr>\r\n';
+        }
+      }
+      
+      return html;
+    }
+
+    function fourtyTwo() {
+      alert('Reticulating Splines...');
+    }
+  </script>
 </body>
 </html>
