@@ -24,7 +24,9 @@
     "node": ">= 0.8.x"
   },
   "scripts": {
-    "test": "mocha test/test.js"
+    "test": "test-node & test-browser",
+    "test-node": "mocha test/test.js",
+    "test-browser": "mocha-phantomjs ./test/test.html"
   },
   "license": {
     "type": "MIT"
