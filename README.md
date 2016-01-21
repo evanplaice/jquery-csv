@@ -1,3 +1,5 @@
+*Notice: This is the canonical repo of the source of the jquery-csv project formerly hosted on [Google Code](http://code.google.com/p/jquery-csv)*
+
 #jquery-csv
 
 ##Summary
