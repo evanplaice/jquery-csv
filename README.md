@@ -143,7 +143,7 @@ Don't want to draw a line graph, no problem you can tap into the massive collect
 
 Warning: You may experience multiple spontaneous 'oh my got that's soo awesome' fits of excitement. Maybe even get stoked. Happens to the best us...
 
-[jQuery-CSV - Google Visualization API Demonstration](./examples/google-visualization.html)
+[jQuery-CSV - Google Visualization API Demonstration](http://evanplaice.github.io/jquery-csv/examples/google-visualization.html)
 
 ### jQuery-CSV + Node.js
 
