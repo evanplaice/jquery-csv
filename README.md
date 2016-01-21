@@ -12,7 +12,9 @@ This library is a different creature, featuring a slim Chomsky - Type III parser
 
 Enough with the wind-up...
 
-Want to see it in action? Check out the Basic Usage Demo. Want more? The Use Cases section below has what you need.
+Want to see it in action? Check out the [Basic Usage Demo](http://evanplaice.github.io/jquery-csv/examples/basic-usage.html).
+
+Want more? The Use Cases section below has what you need.
 
 Aside: To the script kiddies... Don't be sad, we bet there are still plenty of people who would like to hear you outline the merits of `str.split()`.
 
@@ -115,7 +117,7 @@ Who knows... maybe this whole 'having fun' concept may spread to some of the oth
 
 Want to play with the parser and maybe validate your CSV data without all the frills? No need to download the source first, there's a demo for that...
 
-[jQuery-CSV - Basic Usage Demonstration](./examples/basic-usage.html)
+[jQuery-CSV - Basic Usage Demonstration](http://evanplaice.github.io/jquery-csv/examples/basic-usage.html)
 
 ### Client-Side File Handling
 
