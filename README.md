@@ -125,7 +125,7 @@ Yes, you read that right. It's now possible to open local files in the browser w
 
 The functionality is still pretty new so not all browsers support it (I'm looking @ you IE). If that's not an issue I highly suggest you try it. It's much easier than the traditional client/server approach.
 
-[jQuery-CSV - File Handling Demonstration](./examples/file-handling.html)
+[jQuery-CSV - File Handling Demonstration](http://evanplaice.github.io/jquery-csv/examples/file-handling.html)
 
 ### jQuery-CSV + Flot
 
