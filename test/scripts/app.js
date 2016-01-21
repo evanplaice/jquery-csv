@@ -20,9 +20,9 @@ require.config({
   },
 });
 
-define(function(require, exports, module) {
-  require('jquery');
-  require('jquery-csv');
+define(function(require) {
+  $ = require('jquery');
+  $.csv = require('jquery-csv');
   
   // chai setup
   var chai = require('chai');
@@ -35,7 +35,8 @@ define(function(require, exports, module) {
   mocha.reporter('html');
   mocha.bail(false);
  
-  require(['test.js'], function(require) {
+  require(['test.js', 'jquery', 'jquery-csv'], function(require, $, csv) {
+    $.csv = csv;
     if (window.mochaPhantomJS) {
       mochaPhantomJS.run();
     }
