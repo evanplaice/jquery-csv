@@ -135,7 +135,7 @@ You can input the data set using either the text area provided or via uploading 
 
 Want to plot 5 data sets on the same grid, no problem; Just upload 5 files containing one dataset each. The jQuery-CSV will handle the plumbing while Flot will make it all look pretty.
 
-[jQuery-CSV - Flot Demonstration](./examples/flot.html)
+[jQuery-CSV - Flot Demonstration](http://evanplaice.github.io/jquery-csv/examples/flot.html)
 
 ### jQuery-CSV + Google Visualization API
 
@@ -161,7 +161,7 @@ To make this example work, you'll also need to install jQuery via the NPM.
 
 The link to the stub:
 
-[node-usage.js](./examples/node-usage.js)
+[node-usage.js](http://evanplaice.github.io/jquery-csv/examples/node-usage.js)
 
 ### Client-Side Database Import
 
