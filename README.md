@@ -163,20 +163,6 @@ The link to the stub:
 
 [node-usage.js](http://evanplaice.github.io/jquery-csv/examples/node-usage.js)
 
-### Client-Side Database Import
-
-Wait... what? Don't databases require a server-side API? Not if the data access layer implements a REST API that accepts JSON POST updates.
-
-When it comes to databases, CSV is still a favored format for data dumps because it's simple, lightweight, and platform agnostic. It's possible to expose a server-side SaaS service to handle the data conversion but that would involve more web requests, more bandwidth, more CPU time, and more unnecessary strain on the webserver.
-
-I hear web browsers are becoming more powerful, lets use those...
-
-It will require [jQuery-JSON]() to handle the data (de)serialization but the chain from a CSV file to an AJAX POST request is very simple.
-
-Open a .csv file Locally (HTML5 File API) -> jQuery-CSV -> jQuery.JSON -> jQuery.POST
-
-(planned HTML example needs to be added to the repository)
-
 ## Long-Term Development
 
 1.0 will be the first long-term stable release. The API will be locked until the next major release. New functionality-breaking and/or backwards incompatible changes will be introduced into the master branch.
