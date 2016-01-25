@@ -16,7 +16,7 @@ Want more? The Use Cases section below has what you need.
 
 Aside: To the script kiddies... Don't be sad, we bet there are still plenty of people who would like to hear you outline the merits of `str.split()`.
 
-## Features
+# Features
 
 * Convert a CSV String to an array
 * Convert a multi-line CSV string to a 2D array
@@ -27,9 +27,9 @@ Aside: To the script kiddies... Don't be sad, we bet there are still plenty of p
 * Customizable delimiter (default: ") and separator (default: ,) characters
 * Node.js support (ie CommonJS importing and async callback support)
 
-## Syntax
+# Syntax
 
-### Importing
+## Importing
 
 **Client-Side** (ie browser) - import via the script element.
 ```javascript
@@ -42,7 +42,7 @@ var $ = jQuery = require('jquery');
 require('./jquery.csv.js');
 ```
 
-### Usage
+## Usage
 
 Each one of the methods can be called with the following form:
 ```javascript
@@ -55,7 +55,7 @@ $.csv.function(csv, {options}, callback);
 | options	  | optional	| An object containing user-defined overrides for the default options. |
 | callback	| optional	| Used for Node.js-style async callbacks. Uses the form function(err, data). |
 
-### Methods
+## Methods
 
 **toArray**
 
@@ -95,13 +95,13 @@ Convert an array of objects to a CSV string
 $.csv.fromObjects(objects);
 ```
 
-## Documentation
+# Documentation
 
 - [API](./docs/api.md)
 - [Hooks & Callbacks](./docs/hooks-callbacks.md)
 - [Algorithm](./docs/algorithm.md)
 
-## Use Cases
+# Use Cases
 
 What fun is having a shiny new library without examples to play with?
 
@@ -111,13 +111,13 @@ Instead of the typical useless contrived example code, I have provided a handful
 
 Who knows... maybe this whole 'having fun' concept may spread to some of the other Open Source libraries as a result. One can dream...
 
-### Basic Usage
+## Basic Usage
 
 Want to play with the parser and maybe validate your CSV data without all the frills? No need to download the source first, there's a demo for that...
 
 [jQuery-CSV - Basic Usage Demonstration](http://evanplaice.github.io/jquery-csv/examples/basic-usage.html)
 
-### Client-Side File Handling
+## Client-Side File Handling
 
 Yes, you read that right. It's now possible to open local files in the browser without firing a single request to the server.
 
@@ -125,7 +125,7 @@ The functionality is still pretty new so not all browsers support it (I'm lookin
 
 [jQuery-CSV - File Handling Demonstration](http://evanplaice.github.io/jquery-csv/examples/file-handling.html)
 
-### jQuery-CSV + Flot
+## jQuery-CSV + Flot
 
 Hands down, the most exciting addition to the demo collection so far...
 
@@ -135,7 +135,7 @@ Want to plot 5 data sets on the same grid, no problem; Just upload 5 files conta
 
 [jQuery-CSV - Flot Demonstration](http://evanplaice.github.io/jquery-csv/examples/flot.html)
 
-### jQuery-CSV + Google Visualization API
+## jQuery-CSV + Google Visualization API
 
 OK, I lied. This one is even cooler than Flot. Hike up your fancy pants because these things look slick.
 
@@ -145,7 +145,7 @@ Warning: You may experience multiple spontaneous 'oh my got that's soo awesome' 
 
 [jQuery-CSV - Google Visualization API Demonstration](http://evanplaice.github.io/jquery-csv/examples/google-visualization.html)
 
-### jQuery-CSV + Node.js
+## jQuery-CSV + Node.js
 
 What's better than a powerful JavaScript? platform in the browser. A second, even more powerful JavaScript? platform on the server.
 
