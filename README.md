@@ -1,8 +1,6 @@
 *Notice: This is a continuation of the jquery-csv project hosted on Google Code.*
 
-#jquery-csv
-
-##Summary
+# Introduction
 
 Javascript is growing up and HTML is finally maturing the point where webapps are being built to completely displace desktop applications. It's about time that the supporting libraries grow up too.
 
@@ -18,7 +16,7 @@ Want more? The Use Cases section below has what you need.
 
 Aside: To the script kiddies... Don't be sad, we bet there are still plenty of people who would like to hear you outline the merits of `str.split()`.
 
-##Features
+## Features
 
 * Convert a CSV String to an array
 * Convert a multi-line CSV string to a 2D array
@@ -31,7 +29,7 @@ Aside: To the script kiddies... Don't be sad, we bet there are still plenty of p
 
 ## Syntax
 
-###Importing
+### Importing
 
 **Client-Side** (ie browser) - import via the script element.
 ```javascript
@@ -44,7 +42,7 @@ var $ = jQuery = require('jquery');
 require('./jquery.csv.js');
 ```
 
-###Usage
+### Usage
 
 Each one of the methods can be called with the following form:
 ```javascript
@@ -57,7 +55,7 @@ $.csv.function(csv, {options}, callback);
 | options	  | optional	| An object containing user-defined overrides for the default options. |
 | callback	| optional	| Used for Node.js-style async callbacks. Uses the form function(err, data). |
 
-###Methods
+### Methods
 
 **toArray**
 
