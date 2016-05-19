@@ -28,12 +28,12 @@ var removeEmptyLines = function(csv) {
   var output = [];
   for(var i=0, len=lines.length; i<len; i++) {
     if(lines[i] !== '') {
-      output.push[lines[i]);
+      output.push(lines[i]);
     }
   }
   return output.join('\n');
 }; 
-$.csv.toArrays(csv, { onPreParse: removeEmptyLines )};
+$.csv.toArrays(csv, { onPreParse: removeEmptyLines });
 ```
 
 ### onParseEntry()
