@@ -850,7 +850,7 @@ RegExp.escape= function(s) {
         for (j = 0; j < line.length; j++) {
           var strValue = (line[j] === undefined || line[j] === null) ? '' : line[j].toString();
           if (strValue.indexOf(config.delimiter) > -1) {
-            strValue = strValue.replace(new RegExp(config.delimiter, 'g'), config.delimiter + config.delimiter);
+            strValue = strValue.replace(config.delimiter, config.delimiter + config.delimiter);
           }
 
           var escMatcher = '\n|\r|S|D';
