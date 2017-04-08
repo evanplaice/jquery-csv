@@ -1,3 +1,5 @@
+[![CDNJS](https://img.shields.io/cdnjs/v/jquery-csv.svg)](https://cdnjs.com/libraries/jquery-csv)
+
 *Notice: This is a continuation of the jquery-csv project hosted on Google Code.*
 
 # Introduction
