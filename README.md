@@ -5,7 +5,7 @@
 
 # Introduction
 
-Javascript is growing up and HTML is finally maturing the point where webapps are being built to completely displace desktop applications. It's about time that the supporting libraries grow up too.
+JavaScript is growing up and HTML is finally maturing the point where webapps are being built to completely displace desktop applications. It's about time that the supporting libraries grow up too.
 
 Looking for a complete, end-to-end, battle tested, performance optimized CSV parser that's available in the familiar jQuery syntax style? Welcome...
 
