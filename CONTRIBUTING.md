@@ -1,23 +1,46 @@
-## Long-Term Development
+If you don't know where to start, take a look at the [Roadmap][Roadmap] of proposed changes for the next release.
 
-1.0 will be the first long-term stable release. The API will be locked until the next major release. New functionality-breaking and/or backwards incompatible changes will be introduced into the master branch.
+# How You Can Help
 
-## Short-Term Development
+## Non-code contributions
 
-0.8.0 The first stable release following the migration to GitHub from Google Code.
+- If you'd like to edit/update the documentation, submit a Pull Request
+- If you'd like to start a dialog, post a new [Discussion][Discussion]
+- If you'd like to mention a project where jquery is used, post a comment in the [Mentions][Mentions]
+- If you'd like to assist other users of jquery-csv, answer qustions on [StackOverflow][StackOverflow]
+- If you'd like to promote this project, write articles or blog posts and link back to the project
 
-* The parser is fully featured and mostly bug free
-* The TODO list includes re-vamping of the Documentation & examples
-* Tests will be revisited and work will be done to add headless browser testing support.
-* NPM support will be added
-* Hopefully, Bower support can be transferred over from Mirlord and updated to the latest.
+## Code Contributions
 
-## How You Can Help
+- If you'd like to add a new example or test, submit a [Specification][Specification]
+- If you'd like to propose a new feature, submit a [Feature][Feature] request
 
-**Run the test runner:** Just run the **tests** in your particular brand of browser and report any failures.
+**DO**
 
-**We need performance tests:** Performance tests in javascript would add a lot of value to the project. If that's your forte, don't be shy.
+- Follow the [Forking Workflow][Forking Workflow]
+   1. Fork the project
+   2. Clone your fork
+   3. Add a remote to the main project
+   3. Create a new `feature` branch
+   4. Checkout the `feature` branch
+   5. Commit your changes
+   6. Rebase your changes onto the latest
+   7. Post a PR comparing `master` to the `feature` branch on your fork
+- Provide tests where applicable
+- Provide documentation updates that apply to the changes
+- Follow the current style of the project
 
-**Provide feedback:** If you have a good suggestion, a useful use case, or just want to share your experience, don't hesitate to get involved.
+**Don't**
 
-Without your contributions and the contributions of the community, this would be just another half-baked CSV to add to the pile of literally thousands of broken/incomplete implementations. The quality of projects like these is a direct result of a greater community that is willing to suggest improvements and test the code.
+- Group multiple features into a single PR
+- Co-mingle whitespace changes with code changes
+- Make superficial changes (ie style/structure) to existing code
+- Make API breaking changes unless they're clearly documented in a Specification
+
+[Roadmap]: https://github.com/evanplaice/jquery-csv/issues/92
+[Discussion]: https://github.com/evanplaice/jquery-csv/issues/new?template=DISC_TEMPLATE.md&title=disc()&labels=discussion
+[Mentions]: https://github.com/evanplaice/jquery-csv/issues/97
+[StackOverflow]: https://stackoverflow.com/questions/tagged/jquery-csv?mixed=1
+[Feature]: https://github.com/evanplaice/jquery-csv/issues/new?template=FEAT_TEMPLATE.md&title=feat()&labels=feature
+[Specification]: https://github.com/evanplaice/jquery-csv/issues/new?template=SPEC_TEMPLATE.md&title=spec()&labels=specification
+[Forking Workflow]: https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow
