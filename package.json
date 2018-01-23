@@ -21,9 +21,9 @@
     "node": ">= 0.8.x"
   },
   "scripts": {
-    "test": "test-node & test-browser",
+    "test": "test-node",
     "test-node": "mocha test/test.js",
-    "test-browser": "mocha-phantomjs ./test/test.html"
+    "grunt": "npx grunt --force"
   },
   "license": "MIT",
   "repository": {
