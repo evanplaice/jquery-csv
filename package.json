@@ -18,7 +18,7 @@
   },
   "main": "src/jquery.csv.js",
   "engines": {
-    "node": ">= 0.8.x"
+    "node": ">= 1.x"
   },
   "scripts": {
     "test": "test-node",
