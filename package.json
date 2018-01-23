@@ -21,8 +21,8 @@
     "node": ">= 1.x"
   },
   "scripts": {
-    "test": "test-node",
-    "test-node": "mocha test/test.js",
+    "test": "npm run test-node",
+    "test-node": "npx mocha test/test.js",
     "grunt": "npx grunt --force"
   },
   "license": "MIT",
