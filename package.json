@@ -28,9 +28,7 @@
     "test-node": "mocha test/test.js",
     "test-browser": "mocha-phantomjs ./test/test.html"
   },
-  "license": {
-    "type": "MIT"
-  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "http://github.com/evanplaice/jquery-csv/"
