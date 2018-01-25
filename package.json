@@ -18,6 +18,7 @@
   "scripts": {
     "test": "npm run test-node",
     "test-node": "npx mocha test/test.js",
+    "htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
     "grunt": "npx grunt --force"
   },
   "license": "MIT",
