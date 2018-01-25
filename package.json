@@ -18,6 +18,7 @@
   "scripts": {
     "test": "npm run test-node",
     "test-node": "npx mocha test/test.js",
+    "clean": "npm run htmlhint && npm run semistandard",
     "htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
     "semistandard": "npx semistandard",
     "grunt": "npx grunt --force"
