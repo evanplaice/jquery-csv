@@ -1,29 +1,31 @@
+/* global define expect should mochaPhantomJS */
+
 require.config({
   baseUrl: '/',
   paths: {
-    'jquery'        : '../../node_modules/jquery/dist/jquery',
-    'jquery-csv'    : '../../src/jquery.csv',
-    'mocha'         : '../../node_modules/mocha/mocha',
-    'chai'          : '../../node_modules/chai/chai',
+    'jquery': '../../node_modules/jquery/dist/jquery',
+    'jquery-csv': '../../src/jquery.csv',
+    'mocha': '../../node_modules/mocha/mocha',
+    'chai': '../../node_modules/chai/chai'
   },
   shim: {
-    'mocha': { 
+    'mocha': {
       exports: 'mocha'
     },
     'chai': {
       exports: 'chai'
     },
-    'jquery-csv' : {
+    'jquery-csv': {
       deps: ['jquery'],
-      exports: 'jQuery.fn.csv',
+      exports: 'jQuery.fn.csv'
     }
-  },
+  }
 });
 
-define(function(require) {
+define(function (require) {
   $ = require('jquery');
   $.csv = require('jquery-csv');
-  
+
   // chai setup
   var chai = require('chai');
   var expect = chai.expect();
@@ -34,13 +36,12 @@ define(function(require) {
   mocha.setup('bdd');
   mocha.reporter('html');
   mocha.bail(false);
- 
-  require(['test.js', 'jquery', 'jquery-csv'], function(require, $, csv) {
+
+  require(['test.js', 'jquery', 'jquery-csv'], function (require, $, csv) {
     $.csv = csv;
     if (window.mochaPhantomJS) {
       mochaPhantomJS.run();
-    }
-    else {
+    } else {
       mocha.run();
     }
   });
