@@ -19,12 +19,22 @@
     "test": "npm run test-node",
     "test-node": "npx mocha test/test.js",
     "htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
+    "semistandard": "npx semistandard",
     "grunt": "npx grunt --force"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "http://github.com/evanplaice/jquery-csv/"
+  },
+  "semistandard": {
+    "env": [
+      "mocha"
+    ],
+    "globals": [
+      "$",
+      "jQuery"
+    ]
   },
   "readmeFilename": "README.md"
 }
