@@ -22,6 +22,7 @@
     "htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
     "semistandard": "npx semistandard",
     "grunt": "npx grunt --force"
+    "uglify": "npx uglifyjs src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle"
   },
   "license": "MIT",
   "repository": {
