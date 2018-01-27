@@ -267,6 +267,10 @@ RegExp.escape = function (s) {
 
       // a csv-specific line splitter
       splitLines: function (csv, options) {
+        if (!csv) {
+          return undefined;
+        }
+
         options = options || {};
 
         // cache settings
