@@ -7,6 +7,12 @@ var should = require('chai').should();
 var csv = require('../src/jquery.csv.js');
 var fixtures = require('./fixtures/fixtures.js');
 
+function importTest(name, path) {
+  describe(name, function () {
+    require(path);
+  });
+}
+
 describe('core:', function () {
   describe('toArray', function () {
     it('should be able to parse an entry containing multiple cells', function () {
@@ -153,3 +159,5 @@ describe('custom terminals (ie delimiter, separator', function () {
 //   it('should start at a certain point when used on toArrays()', function() {
 //   });
 // });
+
+importTest('csv.parser tests:', './parser');

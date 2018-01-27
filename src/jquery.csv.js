@@ -267,11 +267,18 @@ RegExp.escape = function (s) {
 
       // a csv-specific line splitter
       splitLines: function (csv, options) {
+        if (!csv) {
+          return undefined;
+        }
+
+        options = options || {};
+
         // cache settings
-        var separator = options.separator;
-        var delimiter = options.delimiter;
+        var separator = options.separator || $.csv.defaults.separator;
+        var delimiter = options.delimiter || $.csv.defaults.delimiter;
 
         // set initial state if it's missing
+        options.state = options.state || {};
         if (!options.state.rowNum) {
           options.state.rowNum = 1;
         }
