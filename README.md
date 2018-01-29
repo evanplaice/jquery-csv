@@ -1,5 +1,8 @@
-[![CDNJS](https://img.shields.io/cdnjs/v/jquery-csv.svg)](https://cdnjs.com/libraries/jquery-csv)
-[![npm version](https://badge.fury.io/js/jquery-csv.svg)](https://badge.fury.io/js/jquery-csv)
+[![GitHub release](https://img.shields.io/github/release/evanplaice/jquery-csv.svg)](https://github.com/evanplaice/jquery-csv/releases)
+[![npm](https://img.shields.io/npm/v/jquery-csv.svg)](https://www.npmjs.com/package/jquery-csv)
+[![CDNJS](https://img.shields.io/cdnjs/v/jquery.svg)](https://cdnjs.com/libraries/jquery-csv)
+[![David](https://img.shields.io/david/dev/evanplaice/jquery-csv.svg)](https://david-dm.org/evanplaice/jquery-csv?type=dev)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/evanplaice/jquery-csv/master/LICENSE)
 [![Build Status](https://travis-ci.org/evanplaice/jquery-csv.svg?branch=master)](https://travis-ci.org/evanplaice/jquery-csv)
 
 *Notice: This is a continuation of the jquery-csv project hosted on Google Code.*
