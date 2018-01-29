@@ -1,0 +1,9 @@
+.github
+docs/
+examples/
+test/
+.gitattributes
+.htmlhint
+.travis.yml
+CONTRIBUTING.md
+*.tgz
