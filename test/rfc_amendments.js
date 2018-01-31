@@ -31,8 +31,3 @@ test('RFC Amendment #3 - The last field in an entry may contain a null (ie empty
   t.deepEqual(result, expect);
   t.end();
 });
-
-
-// it('should follow ', function () {
-
-// });

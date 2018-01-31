@@ -16,4 +16,4 @@ test('$.csv.fromArrays() - should be able to format multi-entry/multi-cell data 
   let expect = fixtures.arrays_csv;
   t.deepEqual(result, expect);
   t.end();
-})
+});

@@ -18,7 +18,7 @@ test('$.csv.toArray() - should be able to parse an entry containing multiple cel
   t.end();
 });
 
-test('$.csv.toArray() - should return [""] when input is empty', (t) =>{
+test('$.csv.toArray() - should return [""] when input is empty', (t) => {
   let result = csv.toArray('');
   t.equal(result.length, 1);
   t.end();

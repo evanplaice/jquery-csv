@@ -30,7 +30,7 @@ test('RFC Rule #3 - First row contains header data', (t) => {
   let expect = fixtures.rfc3_obj;
   t.deepEqual(result, expect);
   t.end();
-})
+});
 
 test('RFC Rule #4 - Spaces are considered data and entries should not contain a trailing comma', (t) => {
   let result = csv.toArray(fixtures.rfc4_csv);
