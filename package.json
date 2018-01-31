@@ -18,9 +18,8 @@
     "node": ">= 1.x"
   },
   "scripts": {
-    "tape": "npx tape ./test/*.js | tap-spec",
     "test": "npm run test-node",
-    "test-node": "npx mocha test/test.js",
+    "test-node": "npx tape ./test/*.js | tap-spec",
     "clean": "npm run htmlhint && npm run semistandard",
     "htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
     "semistandard": "npx semistandard",
