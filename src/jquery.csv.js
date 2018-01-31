@@ -869,7 +869,7 @@ RegExp.escape = function (s) {
           }
           lineValues.push(strValue);
         }
-        output += lineValues.join(config.separator) + '\r\n';
+        output += lineValues.join(config.separator) + '\n';
       }
 
       // push the value to a callback if one is defined
