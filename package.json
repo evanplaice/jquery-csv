@@ -9,13 +9,16 @@
   "dependencies": {},
   "devDependencies": {
     "chai": "^4.0",
-    "jquery": "^3.0"
+    "jquery": "^3.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.8.0"
   },
   "main": "src/jquery.csv.js",
   "engines": {
     "node": ">= 1.x"
   },
   "scripts": {
+    "tape": "npx tape ./test/*.js | tap-spec",
     "test": "npm run test-node",
     "test-node": "npx mocha test/test.js",
     "clean": "npm run htmlhint && npm run semistandard",
