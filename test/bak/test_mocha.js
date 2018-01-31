@@ -13,47 +13,6 @@ function importTest(name, path) {
   });
 }
 
-describe('core:', function () {
-  describe('toArray', function () {
-    it('should be able to parse an entry containing multiple cells', function () {
-      var out = csv.toArray(fixtures.array_csv);
-      assert.deepEqual(out, fixtures.array_obj);
-    });
-
-    it('should return [""] when input is empty', function () {
-      var out = csv.toArray('');
-      out.should.have.length(1);
-    });
-
-    it('should return ["a1"] when input is "a1"', function () {
-      var out = csv.toArray('a1');
-      out.should.have.length(1);
-      out[0].should.equal('a1');
-    });
-  });
-
-  // describe('fromArray', function () {
-  //   it ('should be able to format a multi-cell entry', function () {
-  //     var out = csv.fromArray(fixtures.array_obj);
-  //     assert.deepEqual(out, fixtures.array_csv);
-  //   });
-  // });
-
-  describe('toArrays', function () {
-    it('should be able to parse multi-entry/multi-cell input', function () {
-      var out = csv.toArrays(fixtures.arrays_csv);
-      assert.deepEqual(out, fixtures.arrays_obj);
-    });
-  });
-
-//  describe('fromArrays', function() {
-//    it ('should be able to format multi-entry/multi-cell data set', function() {
-//      var out = csv.fromArrays(fixtures.arrays_obj);
-//      assert.deepEqual(out, fixtures.arrays_csv);
-//    });
-//  });
-});
-
 describe('RFC 4180 Compliance', function () {
   it('should follow Rule #1 - One entry per line, each line ends with a newline', function () {
     var out = csv.toArrays(fixtures.rfc1_csv);
