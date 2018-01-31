@@ -20,12 +20,12 @@ If you don't know where to start, take a look at the [Roadmap][Roadmap] of propo
 - Follow the [Forking Workflow][Forking Workflow]
    1. Fork the project
    2. Clone your fork
-   3. Add a remote to the main project
+   3. Add a remote pointing to the origin repo
    3. Create a new `feature` branch
    4. Checkout the `feature` branch
    5. Commit your changes
-   6. Rebase your changes onto the latest
-   7. Post a PR comparing `master` to the `feature` branch on your fork
+   6. Rebase your changes onto the latest w/ `git pull --rebase`
+   7. Post a PR comparing `origin/master` to the `fork/feature`
 - Provide tests where applicable
 - Provide documentation updates that apply to the changes
 - Follow the current style of the project
