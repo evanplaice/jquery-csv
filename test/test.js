@@ -161,3 +161,4 @@ describe('custom terminals (ie delimiter, separator', function () {
 // });
 
 importTest('csv.parser tests:', './parser');
+importTest('edge case tests: ', './edgecases');

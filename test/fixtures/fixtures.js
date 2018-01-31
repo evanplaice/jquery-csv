@@ -53,7 +53,9 @@ var fs = require('fs');
     term_arrays_csv: csvFixture('term_arrays'),
     term_arrays_obj: jsonFixture('term_arrays'),
     term_objects_csv: csvFixture('term_objects'),
-    term_objects_obj: jsonFixture('term_objects')
+    term_objects_obj: jsonFixture('term_objects'),
+    edge1_csv: csvFixture('edge1'),
+    edge1_obj: jsonFixture('edge1')
   };
 
   // CommonJS module is defined
