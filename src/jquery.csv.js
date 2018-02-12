@@ -935,7 +935,7 @@ RegExp.escape = function (s) {
 
       if (config.manualOrder.length > 0) {
         var propsManual = [].concat(config.manualOrder);
-        var p;
+        let p;
         for (p = 0; p < props.length; p++) {
           if (propsManual.indexOf(props[p]) < 0) {
             propsManual.push(props[p]);
@@ -944,7 +944,7 @@ RegExp.escape = function (s) {
         props = propsManual;
       }
 
-      var o, p, line, output = [], propName;
+      var o, p, line, output, propName;
       if (config.headers) {
         output.push(props);
       }
