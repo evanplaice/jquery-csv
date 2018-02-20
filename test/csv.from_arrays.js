@@ -17,3 +17,10 @@ test('$.csv.fromArrays() - should be able to format multi-entry/multi-cell data 
   t.deepEqual(result, expect);
   t.end();
 });
+
+test('$.csv.fromArrays() w/ Configurable Line Ending (;) - should be able to format multi-entry/multi-cell data set', (t) => {
+  let result = csv.fromArrays(fixtures.arrays_obj, {lineEnding: ";"});
+  let expect = fixtures.arrays_configurable_csv;
+  t.deepEqual(result, expect);
+  t.end();
+});

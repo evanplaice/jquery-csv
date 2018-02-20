@@ -51,6 +51,7 @@ RegExp.escape = function (s) {
     defaults: {
       separator: ',',
       delimiter: '"',
+      lineEnding: '\n',
       headers: true
     },
 
@@ -844,6 +845,7 @@ RegExp.escape = function (s) {
       config.callback = ((callback !== undefined && typeof (callback) === 'function') ? callback : false);
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
+      config.lineEnding = 'lineEnding' in options ? options.lineEnding : $.csv.defaults.lineEnding;
 
       var output = '';
       var line;
@@ -860,16 +862,17 @@ RegExp.escape = function (s) {
             strValue = strValue.replace(new RegExp(config.delimiter, 'g'), config.delimiter + config.delimiter);
           }
 
-          var escMatcher = '\n|\r|S|D';
+          var escMatcher = 'L|\r|S|D';
           escMatcher = escMatcher.replace('S', config.separator);
           escMatcher = escMatcher.replace('D', config.delimiter);
+          escMatcher = escMatcher.replace('L', config.delimiter);
 
           if (strValue.search(escMatcher) > -1) {
             strValue = config.delimiter + strValue + config.delimiter;
           }
           lineValues.push(strValue);
         }
-        output += lineValues.join(config.separator) + '\n';
+        output += lineValues.join(config.separator) + config.lineEnding;
       }
 
       // push the value to a callback if one is defined
@@ -908,6 +911,7 @@ RegExp.escape = function (s) {
       config.callback = ((callback !== undefined && typeof (callback) === 'function') ? callback : false);
       config.separator = 'separator' in options ? options.separator : $.csv.defaults.separator;
       config.delimiter = 'delimiter' in options ? options.delimiter : $.csv.defaults.delimiter;
+      config.lineEnding = 'lineEnding' in options ? options.lineEnding : $.csv.defaults.lineEnding;
       config.headers = 'headers' in options ? options.headers : $.csv.defaults.headers;
       config.sortOrder = 'sortOrder' in options ? options.sortOrder : 'declare';
       config.manualOrder = 'manualOrder' in options ? options.manualOrder : [];

@@ -16,6 +16,7 @@ var fs = require('fs');
     array_obj: jsonFixture('array'),
     arrays_csv: csvFixture('arrays'),
     arrays_obj: jsonFixture('arrays'),
+    arrays_configurable_csv: csvFixture('arrays_configurable'),
     rfc1_csv: csvFixture('rfc1'),
     rfc1_obj: jsonFixture('rfc1'),
     rfc2_csv: csvFixture('rfc2'),
