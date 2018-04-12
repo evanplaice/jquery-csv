@@ -861,8 +861,9 @@ RegExp.escape = function (s) {
           }
 
           var escMatcher = '\n|\r|S|D';
-          escMatcher = escMatcher.replace('S', config.separator);
-          escMatcher = escMatcher.replace('D', config.delimiter);
+          var replacer = /[-[\]{}()*+?.,\\^$|#\s]/g;
+          escMatcher = escMatcher.replace('S', config.separator.replace(replacer, '\\$&'));
+          escMatcher = escMatcher.replace('D', config.delimiter.replace(replacer, '\\$&'));
 
           if (strValue.search(escMatcher) > -1) {
             strValue = config.delimiter + strValue + config.delimiter;
