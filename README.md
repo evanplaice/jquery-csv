@@ -168,6 +168,12 @@ The link to the stub:
 
 [node-usage.js](http://evanplaice.github.io/jquery-csv/examples/node-usage.js)
 
+## ESM Import
+With the introduction of modules in ES6, we have a new and better path to import modules into JavaScript. 
+
+Here is an example of how to import jquery-csv:
+[esm-usage.js](http://evanplaice.github.io/jquery-csv/examples/esm-usage.js)
+
 **jQuery-CSV** coding style is inherited from the [JQuery Core Style Guidelines](https://contribute.jquery.org/style-guide/)
 
 by **Evan Plaice**
