@@ -124,6 +124,12 @@ Want to play with the parser and maybe validate your CSV data without all the fr
 
 [jQuery-CSV - Basic Usage Demonstration](http://evanplaice.github.io/jquery-csv/examples/basic-usage.html)
 
+## ESM Import
+
+Here is an example of how to import jquery-csv in ECMAScript:
+
+[jQuery-CSV - ESM Import Demonstration](http://evanplaice.github.io/jquery-csv/examples/esm-usage.js)
+
 ## Client-Side File Handling
 
 Yes, you read that right. It's now possible to open local files in the browser without firing a single request to the server.
