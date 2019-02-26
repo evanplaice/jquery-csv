@@ -44,9 +44,16 @@ Aside: To the script kiddies... Don't be sad, we bet there are still plenty of p
 ```
 
 **Server-Side** (ie Node.js) - Import via the standard CommonJS approach.
+
+Install the package via NPM
+
+```bash
+npm i jquery-csv
+```
+Then import it as a CommonJS module.
+
 ```javascript
-var $ = jQuery = require('jquery');
-require('./jquery.csv.js');
+var csv = require('./jquery.csv.js');
 ```
 
 ## Usage
