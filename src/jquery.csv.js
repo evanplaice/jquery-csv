@@ -944,7 +944,7 @@ RegExp.escape = function (s) {
         props = propsManual;
       }
 
-      var o, p, line, output, propName;
+      var o, p, line, output = [], propName;
       if (config.headers) {
         output.push(props);
       }
