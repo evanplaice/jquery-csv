@@ -51,6 +51,28 @@ test('Options - should properly escape regex special chars', (t) => {
   t.end();
 });
 
+test('Options - should properly escape regex ( chars', (t) => {
+  let options = {
+    separator: '('
+  };
+
+  let result = csv.toArray(fixtures.regex2_csv, options);
+  let expect = fixtures.regex2_obj;
+  t.deepEqual(result, expect);
+  t.end();
+});
+
+test('Options - should properly escape regex * chars', (t) => {
+  let options = {
+    delimiter: '*'
+  };
+
+  let result = csv.toArray(fixtures.regex3_csv, options);
+  let expect = fixtures.regex3_obj;
+  t.deepEqual(result, expect);
+  t.end();
+});
+
 test('Options - should support custom terminals via toArrays()', (t) => {
   let options = {
     delimiter: '*',
