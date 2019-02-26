@@ -6,11 +6,12 @@
     "name": "Evan Plaice",
     "email": "evan.plaice@gmail.com"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tap": "^12.5.3"
+  },
   "devDependencies": {
-    "chai": "^4.0",
     "jquery": "^3.0",
-    "tap-spec": "^4.1.1",
+    "tap-spec": "^5.0.0",
     "tape": "^4.8.0"
   },
   "main": "src/jquery.csv.js",
