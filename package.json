@@ -17,11 +17,8 @@
     "lint": "npm run lint:htmlhint && npm run lint:semistandard",
     "lint:htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
     "lint:semistandard": "npx semistandard",
-    "minify": "npm run minify:prepare && npm run minify:add && npm run minify:commit",
-    "minify:prepare": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle", 
-    "minify:add": "git add src/jquery.csv.min.js",
-    "minify:commit": "git commit -m 'Update minified version'",
-    "preversion": "npm run test && npm run minify",
+    "minify": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle",
+    "preversion": "npm run test",
     "postversion": "git push --follow-tags",
     "prepublish": "npm lint && npm run test"
   },
