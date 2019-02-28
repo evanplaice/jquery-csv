@@ -17,9 +17,10 @@
     "clean": "npm run htmlhint && npm run semistandard",
     "htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
     "semistandard": "npx semistandard",
-    "uglify": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle",
+    "minify": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle",
+    "preversion": "npm run test && npm run clean && npm run minify && git commit -a -m 'Update minified version'",
     "postversion": "git push --follow-tags",
-    "prepublish": "npm run htmlhint && npm run semistandard && npm run test && npm run clean && npm run uglify"
+    "prepublish": "npm run htmlhint && npm run semistandard && npm run test"
   },
   "license": "MIT",
   "repository": "http://github.com/evanplaice/jquery-csv/",
