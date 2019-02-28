@@ -5,23 +5,15 @@
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/evanplaice/jquery-csv/master/LICENSE)
 [![Build Status](https://travis-ci.org/evanplaice/jquery-csv.svg?branch=master)](https://travis-ci.org/evanplaice/jquery-csv)
 
-*Notice: This is a continuation of the jquery-csv project hosted on Google Code.*
-
 # Introduction
 
-JavaScript is growing up and HTML is finally maturing the point where webapps are being built to completely displace desktop applications. It's about time that the supporting libraries grow up too.
+jQuery-csv is an artifact of a simpler time (ie 2012) when the JS library ecosystem was still very underdeveloped. This was the first and still is one of the fastest spec compliant CSV parsers available. 
 
-Looking for a complete, end-to-end, battle tested, performance optimized CSV parser that's available in the familiar jQuery syntax style? Welcome...
-
-This library is a different creature, featuring a slim Chomsky - Type III parser implementation. Full (that means 100%) [IETF RFC 4180](http://tools.ietf.org/html/rfc4180) compliance. Including coverage for a few edge cases that even the spec fails to cover.
+This is a complete, customizable, battle tested, performance optimized CSV parser that follows the traditional jQuery-style of syntax. Featuring a slim Chomsky - Type III parser implementation. Full (that means 100%) [IETF RFC 4180](http://tools.ietf.org/html/rfc4180) compliance. Including coverage for a few edge cases that even the spec fails to cover.
 
 Enough with the wind-up...
 
 Want to see it in action? Check out the [Basic Usage Demo](http://evanplaice.github.io/jquery-csv/examples/basic-usage.html).
-
-Want more? The Use Cases section below has what you need.
-
-Aside: To the script kiddies... Don't be sad, we bet there are still plenty of people who would like to hear you outline the merits of `str.split()`.
 
 # Features
 
@@ -117,13 +109,7 @@ $.csv.fromObjects(objects);
 
 # Use Cases
 
-What fun is having a shiny new library without examples to play with?
-
-No fun that's what... That is coming from a guy who has spent entirely too much time mucking through API documentation when he'd much rather be out at the beach, surfing, or chasing girls.
-
-Instead of the typical useless contrived example code, I have provided a handful of simple yet powerful demos. Not only are they fun to play with but a quick peak at the source will show you how simple and easy they were to implement.
-
-Who knows... maybe this whole 'having fun' concept may spread to some of the other Open Source libraries as a result. One can dream...
+Instead of the typical useless contrived example code, I have provided a handful of simple yet powerful demos. Not only are they fun to play with but a quick peak at the source will show you how simple and easy they were to implement. Feel free to copy and reuse these in your own projects.
 
 ## Basic Usage
 
@@ -133,7 +119,7 @@ Want to play with the parser and maybe validate your CSV data without all the fr
 
 ## ESM Import
 
-Here is an example of how to import jquery-csv in ECMAScript:
+Here is an example of how to import jQuery-csv in ECMAScript:
 
 [jQuery-CSV - ESM Import Demonstration](http://evanplaice.github.io/jquery-csv/examples/esm-usage.js)
 
@@ -169,7 +155,7 @@ Warning: You may experience multiple spontaneous 'oh my got that's soo awesome' 
 
 What's better than a powerful JavaScript? platform in the browser. A second, even more powerful JavaScript? platform on the server.
 
-And... jQuery-CSV fully supports it. There is not online demo because it requires a Node.js server to run but a stub is provided to help get you started.
+And... jQuery-CSV fully supports it. There is no online demo because it requires a Node.js server to run but a stub is provided to help get you started.
 
 Dependencies:
 
