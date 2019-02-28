@@ -18,6 +18,7 @@ hr {
 
 textarea {
   width:100%;
+  white-space: nowrap;
 }
 
 code {
