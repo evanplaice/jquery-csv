@@ -2,15 +2,6 @@ const test = require('tape');
 const csv = require('../src/jquery.csv.js');
 const fixtures = require('./fixtures/fixtures.js');
 
-const setup = () => {
-  const fixtures = require('./fixtures/fixtures.js');
-  return fixtures;
-};
-
-const teardown = (fixtures) => {
-  fixtures = {};
-};
-
 test('$.csv.parsers.splitLines() - should correctly split lines with default options', (t) => {
   let result = csv.parsers.splitLines(fixtures.defaults_fivelines_csv);
   t.equal(typeof (result), 'object', 'the returned object should be an array');

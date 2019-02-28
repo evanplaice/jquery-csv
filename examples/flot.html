@@ -42,7 +42,7 @@ textarea {
     <div id="tabs-2">
       <p>To use this demo, simply paste your dataset into the text area and hit the 'Run' button.</p>
       <hr />
-      <textarea id="textInput" style="height:150px;">0,0.5
+      <textarea id="text-input" style="height: 150px;">0,0.5
 0.01,0.5313952597646567
 0.02,0.5626666167821521
 0.03,0.5936906572928623
@@ -151,9 +151,9 @@ textarea {
       <p>Note: This demo is capable of processing and loading multiple data files. Just select more than one file in the dialog.</p>
       <p>I suggest you try loading the <a href="https://raw.githubusercontent.com/evanplaice/jquery-csv/master/examples/data/analytics1.csv">analytics1.csv</a> and <a href="https://raw.githubusercontent.com/evanplaice/jquery-csv/master/examples/data/analytics2.csv">analytics2.csv</a> data sets together.</p>
       <hr />
-      <input id="fileInput" type="file" name="files[]" multiple />
+      <input id="file-input" type="file" name="files[]" multiple />
       <hr />
-      <div id="flot2" style="width:600px;height:300px;margin:0 auto;"></div>
+      <div id="flot2" style="width: 600px; height: 300px; margin: 0 auto;"></div>
     </div>
   </div>
 
@@ -168,7 +168,7 @@ textarea {
 
     $(document).ready(function() {
       if(isAPIAvailable()) {
-        $('#fileInput').bind('change', handleFileSelect);
+        $('#file-input').bind('change', handleFileSelect);
       }
 
       flotTextData();
@@ -200,7 +200,7 @@ textarea {
       }
 
       var data1 = [];
-      data1[0] = $.csv.toArrays($('#textInput').val(), {
+      data1[0] = $.csv.toArrays($('#text-input').val(), {
         onParseValue: $.csv.hooks.castToScalar
       });
       flot1 = $.plot($('#flot1'), data1, options);

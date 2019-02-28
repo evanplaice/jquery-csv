@@ -2,15 +2,6 @@ const test = require('tape');
 const csv = require('../src/jquery.csv.js');
 const fixtures = require('./fixtures/fixtures.js');
 
-const setup = () => {
-  const fixtures = require('./fixtures/fixtures.js');
-  return fixtures;
-};
-
-const teardown = (fixtures) => {
-  fixtures = {};
-};
-
 test('Edge Case - should properly escape backslashes', (t) => {
   let result = csv.toObjects(fixtures.backslash_csv);
   let expect = fixtures.backslash_obj;

@@ -2,15 +2,6 @@ const test = require('tape');
 const csv = require('../src/jquery.csv.js');
 const fixtures = require('./fixtures/fixtures.js');
 
-const setup = () => {
-  const fixtures = require('./fixtures/fixtures.js');
-  return fixtures;
-};
-
-const teardown = (fixtures) => {
-  fixtures = {};
-};
-
 test('Options - should parse using the default terminals', (t) => {
   let result = csv.toArray(fixtures.defaults_csv);
   let expect = fixtures.defaults_obj;

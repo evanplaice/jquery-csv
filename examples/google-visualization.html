@@ -39,7 +39,7 @@ textarea {
     <div id="tabs-2">
       <p>To use this demo, simply paste your dataset into the text area and hit the 'Run' button.</p>
       <hr />
-      <textarea id="textInput" style="height:150px;">"TimeStamp (ms)","MID 128|PID 91|Accelerator pedal position (%)","MID 128|PID 92|Engine load(%)","MID 128|PID 100|Engine oil pressure (bar)","MID 128|PID 105|Intake manifold temperature (N0C)","MID 128|PID 110|Engine coolant temperature (N0C)","MID 128|PID 190|Engine speed (r/min)"
+      <textarea id="text-input" style="height:150px;">"TimeStamp (ms)","MID 128|PID 91|Accelerator pedal position (%)","MID 128|PID 92|Engine load(%)","MID 128|PID 100|Engine oil pressure (bar)","MID 128|PID 105|Intake manifold temperature (N0C)","MID 128|PID 110|Engine coolant temperature (N0C)","MID 128|PID 190|Engine speed (r/min)"
 115,10.4,0,0,0,0,0
 175,,40,,,,
 309,,,4.55,,,
@@ -126,7 +126,7 @@ textarea {
 
     function chartTextData() {
       $('#padding1').css({visibility: "visible"});
-      var csv = $('#textInput').val();
+      var csv = $('#text-input').val();
       var parsedData = $.csv.toArrays(csv, {
           onParseValue: $.csv.hooks.castToScalar
       });

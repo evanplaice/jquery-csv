@@ -1,6 +1,5 @@
 import * as csv from 'jquery-csv';
-import * as  fs from 'fs';
-
+import * as fs from 'fs';
 
 let sample = './data/sample.csv';
 fs.readFile(sample, 'UTF-8', (err, fileContent) => {

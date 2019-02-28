@@ -27,7 +27,7 @@
  */
 
 RegExp.escape = function (s) {
-  return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
 
 (function () {
@@ -944,7 +944,10 @@ RegExp.escape = function (s) {
         props = propsManual;
       }
 
-      var o, p, line, output = [], propName;
+      var o;
+      var line;
+      var output = [];
+      var propName;
       if (config.headers) {
         output.push(props);
       }

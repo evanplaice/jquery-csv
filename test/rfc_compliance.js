@@ -2,15 +2,6 @@ const test = require('tape');
 const csv = require('../src/jquery.csv.js');
 const fixtures = require('./fixtures/fixtures.js');
 
-const setup = () => {
-  const fixtures = require('./fixtures/fixtures.js');
-  return fixtures;
-};
-
-const teardown = (fixtures) => {
-  fixtures = {};
-};
-
 test('RFC Rule #1 - One entry per line, each line ends with a newline', (t) => {
   let result = csv.toArrays(fixtures.rfc1_csv);
   let expect = fixtures.rfc1_obj;

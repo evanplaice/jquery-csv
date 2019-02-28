@@ -2,15 +2,6 @@ const test = require('tape');
 const csv = require('../src/jquery.csv.js');
 const fixtures = require('./fixtures/fixtures.js');
 
-const setup = () => {
-  const fixtures = require('./fixtures/fixtures.js');
-  return fixtures;
-};
-
-const teardown = (fixtures) => {
-  fixtures = {};
-};
-
 test('$.csv.toArray() - should be able to parse an entry containing multiple cells', (t) => {
   let result = csv.toArray(fixtures.array_csv);
   let expect = fixtures.array_obj;
