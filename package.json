@@ -6,39 +6,27 @@
     "name": "Evan Plaice",
     "email": "evan.plaice@gmail.com"
   },
-  "dependencies": {
-    "tap": "^12.5.3"
-  },
   "devDependencies": {
     "jquery": "^3.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.8.0"
   },
   "main": "src/jquery.csv.js",
-  "engines": {
-    "node": ">= 1.x"
-  },
   "scripts": {
-    "test": "npm run test-node",
-    "test-node": "npx tape ./test/*.js | tap-spec",
+    "test": "npx tape ./test/*.js | tap-spec",
     "clean": "npm run htmlhint && npm run semistandard",
     "htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
     "semistandard": "npx semistandard",
-    "uglify": "npx uglifyjs src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle"
+    "uglify": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle",
+    "postversion": "git push --follow-tags",
+    "prepublish": "npm run htmlhint && npm run semistandard && npm run test && npm run clean && npm run uglify"
   },
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/evanplaice/jquery-csv/"
-  },
+  "repository": "http://github.com/evanplaice/jquery-csv/",
   "semistandard": {
-    "env": [
-      "mocha"
-    ],
     "globals": [
       "$",
       "jQuery"
     ]
-  },
-  "readmeFilename": "README.md"
+  }
 }
