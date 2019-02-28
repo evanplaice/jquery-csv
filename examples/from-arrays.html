@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Roboto|Source+Code+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/monokai.min.css">
+    <link rel="stylesheet" href="_demo.css">
+  </head>
+
+  <body>
+
+    <div id="header">
+      <h1 id="title">$.csv.fromArrays()</h1>
+      <div id="link"><a href="https://github.com/evanplaice/jquery-csv">GitHub</a></div>
+    </div>
+    <div id="container">
+      <section id="content">
+        <h2>Description</h2>
+        <p>Used to format a fixed 2D array of data as CSV.</p>
+        <hr>
+        <h2>Usage</h2>
+        <pre><code class="javascript">var result = $.csv.fromArrays(input);</code></pre>
+        <hr />
+        <h2>Input</h2>
+        <textarea id="input" style="height: 200px;">
+[
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."]
+]
+        </textarea>
+        <input id="run" type="button" value="Run" />
+        <hr />
+        <h2>Result</h2>
+        <textarea id="result" style="height: 170px;"></textarea>
+      </section>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+    <script src="../src/jquery.csv.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+      // enable syntax highlighting
+      hljs.initHighlightingOnLoad();
+
+      $(document).ready(() => {
+        format();
+      });
+
+      $('#run').bind('click', function () {
+        format();
+      });
+
+      function format() {
+        const input = JSON.parse($('#input').val());
+        const csv = $.csv.fromArrays(input);
+        $('#result').empty();
+        $('#result').html(csv);
+      }
+    </script>
+  </body>
+</html>
