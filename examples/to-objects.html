@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Roboto|Source+Code+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/monokai.min.css">
+    <link rel="stylesheet" href="_demo.css">
+  </head>
+
+  <body>
+
+    <div id="header">
+      <h1 id="title">$.csv.toObjects()</h1>
+      <div id="link"><a href="https://github.com/evanplaice/jquery-csv">GitHub</a></div>
+    </div>
+    <div id="container">
+      <section id="content">
+        <h2>Description</h2>
+        <p>Used to convert multi-line CSV data into an array objects containing the data as key-value (ie header:value) pairs.</p>
+        <hr>
+        <h2>Usage</h2>
+        <pre><code class="javascript">var result = $.csv.toObjects(input);</code></pre>
+        <hr />
+        <h2>Input</h2>
+        <textarea id="input" style="height: 190px;">"ID","iManufacturer","iMPartNumber","iSimCategory","iPartType","iGroup","iLocation"
+"1","Evans & Sutherland","230-132-111AA","Visual","PCB","1","Offsite"
+"2","Evans & Sutherland","230-132-111AA","Visual","PCB","1","Offsite"
+"3","Evans & Sutherland","230-120-112AC","Visual","PCB","1","Offsite"
+"4","Evans & Sutherland","230-120-112AC","Visual","PCB","1","Offsite"
+"5","Evans & Sutherland","230-120-112AC","Visual","PCB","1","Offsite"
+"6","Evans & Sutherland","230-120-112AC","Visual","PCB","1","Offsite"
+"7","Evans & Sutherland","230-120-112AC","Visual","PCB","1","Offsite"
+"8","Evans & Sutherland","230-120-112AC","Visual","PCB","1","Offsite"
+"9","Evans & Sutherland","230-120-112AC","Visual","PCB","1","Offsite"
+"10","Evans & Sutherland","230-121-150AC","Visual","PCB","1","Offsite"</textarea>
+        <input id="run" type="button" value="Run" />
+        <hr />
+        <h2>Result</h2>
+        <textarea id="result" style="height: 1400px;"></textarea>
+      </section>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+    <script src="../src/jquery.csv.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+      // enable syntax highlighting
+      hljs.initHighlightingOnLoad();
+
+      $(document).ready(() => {
+        parse();
+      });
+
+      $('#run').bind('click', function () {
+        parse();
+      });
+
+      function parse() {
+        const input = $('#input').val();
+        const data = $.csv.toObjects(input);
+        $('#result').empty();
+        $('#result').html(JSON.stringify(data, null, 2));
+      }
+    </script>
+  </body>
+</html>
