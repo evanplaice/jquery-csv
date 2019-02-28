@@ -1,6 +1,6 @@
 {
   "name": "jquery-csv",
-  "version": "0.8.11",
+  "version": "0.8.10",
   "description": "A jQuery CSV parser plugin. Battle Tested | Optimized | 100% IETF RFC 4180 Complete",
   "author": {
     "name": "Evan Plaice",
@@ -14,13 +14,16 @@
   "main": "src/jquery.csv.js",
   "scripts": {
     "test": "npx tape ./test/*.js | tap-spec",
-    "clean": "npm run htmlhint && npm run semistandard",
-    "htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
-    "semistandard": "npx semistandard",
-    "minify": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle",
-    "preversion": "npm run test && npm run clean && npm run minify && git commit -a -m 'Update minified version'",
+    "lint": "npm run lint:htmlhint && npm run lint:semistandard",
+    "lint:htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
+    "lint:semistandard": "npx semistandard",
+    "minify": "npm run minify:prepare && npm run minify:add && npm run minify:commit",
+    "minify:prepare": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle", 
+    "minify:add": "git add src/jquery.csv.min.js",
+    "minify:commit": "git commit -m 'Update minified version'",
+    "preversion": "npm run test && npm run minify",
     "postversion": "git push --follow-tags",
-    "prepublish": "npm run htmlhint && npm run semistandard && npm run test"
+    "prepublish": "npm lint && npm run test"
   },
   "license": "MIT",
   "repository": "http://github.com/evanplaice/jquery-csv/",
