@@ -111,27 +111,78 @@ td {
     </div>
     <div id="tabs-5">
       <h2>$.csv.fromArrays()</h2>
+      <div>Used to format 2D data as CSV.</div>
+      <p>Usage:
+        <div style="font-style:italic;">var result = $.csv.fromArrays(input);</div>
+      </p>
       <hr />
-      <h3>This feature has not been implemented yet</h3>
-      <div>If you would like to track the development progress on this feature, take a look at the project <a href="">Roadmap</a></div>
-      <!--<h4>Input Data:</h4>
-      <div id=input4></div>
+      <h4>Input Data:</h4>
+      <div id=input4>
+        <pre>
+[
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."],
+  ["All work","and no play","makes Jack","a dull boy..."]
+]
+        </pre>
+      </div>
+      <input id="run4" type="button" value="Run" />
+      <hr />
       <h4>Result:</h4>
       <div class=result>
-        <textarea id=result4></textarea>
-      </div>-->
+        <textarea id=result4 style="height:150px;"></textarea>
+      </div>
     </div>
     <div id="tabs-6">
       <h2>$.csv.fromObjects()</h2>
-      <hr />
-      <h3>This feature has not been implemented yet</h3>
-      <div>If you would like to track the development progress on this feature, take a look at the project <a href="">Roadmap</a></div>
-      <!--<h4>Input Data:</h4>
-      <div id=input5></div>
+      <div>Used to format an array of data objects as CSV.</div>
+      <p>Usage:
+        <div style="font-style:italic;">var result = $.csv.fromObjects(input);</div>
+      </p>
+      <h4>Input Data:</h4>
+      <div id=input5>
+        <pre>
+[
+  {
+    "ID":"1",
+    "iManufacturer":"Evans & Sutherland",
+    "iMPartNumber":"230-132-111AA",
+    "iSerialNumber":"",
+    "iSimCategory":"Visual",
+    "iPartType":"PCB",
+    "iDescription":"",
+    "iGroup":"1",
+    "iLocation":"Offsite",
+    "iSold":""
+  },
+  {
+    "ID":"2",
+    "iManufacturer":"Evans & Sutherland",
+    "iMPartNumber":"230-132-111AA",
+    "iSerialNumber":"",
+    "iSimCategory":"Visual",
+    "iPartType":"PCB",
+    "iDescription":"",
+    "iGroup":"1",
+    "iLocation":"Offsite",
+    "iSold":""
+  }
+]
+        </pre>
+      </div>
+      <input id="run5" type="button" value="Run" />
+      <hr>
       <h4>Result:</h4>
       <div class=result>
-        <textarea id=result5></textarea>
-      </div>-->
+        <textarea id=result5 style="height:150px;"></textarea>
+      </div>
     </div>
   </div>
 
@@ -163,6 +214,16 @@ td {
         fourtyTwo();
         example3();
       });
+
+      $('#run4').bind('click', function() {
+        fourtyTwo();
+        example4();
+      })
+
+      $('#run5').bind('click', function() {
+        fourtyTwo();
+        example5();
+      });
     });
 
     function example1() {
@@ -187,6 +248,20 @@ td {
       var html = generateTable(data);
       $('#result3').empty();
       $('#result3').html(html);
+    }
+
+    function example4() {
+      var input = JSON.parse($('#input4').first().text());
+      var csv = $.csv.fromArrays(input);
+      $('#result4').empty();
+      $('#result4').html(csv);
+    }
+
+    function example5() {
+      var input = JSON.parse($('#input5').first().text());
+      var csv = $.csv.fromObjects(input);
+      $('#result5').empty();
+      $('#result5').html(csv);
     }
 
     // build HTML table data from an array (one or two dimensional)
