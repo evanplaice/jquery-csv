@@ -13,6 +13,7 @@
   },
   "main": "src/jquery.csv.js",
   "scripts": {
+    "start": "npx live-server",
     "test": "npx tape ./test/*.js | tap-spec",
     "lint": "npm run lint:htmlhint && npm run lint:semistandard",
     "lint:htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
