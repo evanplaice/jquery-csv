@@ -1,45 +1,28 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<title>jQuery-CSV - Google Visualization Demo</title>
-<link href="http://code.jquery.com/ui/1.9.0/themes/cupertino/jquery-ui.css" rel="stylesheet" />
-<style>
-textarea {
-  width:100%;
-}
-</style>
-</head>
-<body>
-  <div id="tabs">
-    <ul>
-      <li><a href="#tabs-1">Intro</a></li>
-      <li><a href="#tabs-2">Load From TextArea</a></li>
-      <li><a href="#tabs-3">Load From File</a></li>
-    </ul>
-    <div id="tabs-1">
-      <h2>Welcome to the jQuery-CSV + Google Visualization API Demonstration</h2>
-      <p>On the adjacent tabs, you will find demonstrations whereby you can load your own data into a fully functional Google Visualization chart.</p>
-      <p>You'll need the HTML5 File Api to use the file loader but no worries, if your browser is lagging behind in HTML5 adoption ::cough::IE::cough:: you can still try out the demos by pasting data into the text area in the first example.</p>
-      <p>If you don't have a dataset of your own feel free to try one of these:</p>
-      <ul>
-        <li><a href="https://raw.githubusercontent.com/evanplaice/jquery-csv/master/examples/data/analytics1.csv">Google Analytics Data Dump</a></li>
-        <li><a href="https://raw.githubusercontent.com/evanplaice/jquery-csv/master/examples/data/sine.csv">Sine Wave</a></li>
-        <li><a href="https://raw.githubusercontent.com/evanplaice/jquery-csv/master/examples/data/sample2.csv">Auto Data</a></li>
-      </ul>
-      <hr />
-      <p>The main project page can be found on <a href="https://github.com/evanplaice/jquery-csv">GitHub</a></p>
-      <p>For API specifics. See the <a href="https://github.com/evanplaice/jquery-csv/blob/master/docs/api.md">API Documentation</a>.</p>
-      <p>If you would like to provide feedback, start a <a href="https://github.com/evanplaice/jquery-csv/issues/new?template=DISC_TEMPLATE.md&title=disc()&labels=discussion">Discussion</a>.</p>
-      <p>If you find a bug, report an <a href="https://github.com/evanplaice/jquery-csv/issues">Issue</a>.</p>
-      <p>If you have a suggestion for a new feature, create a <a href="https://github.com/evanplaice/jquery-csv/issues/new?template=FEAT_TEMPLATE.md&title=feat()&labels=feature">Feature Request</a>.</p>
-      <hr />
-      <h2>Enjoy...</h2>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Roboto|Source+Code+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/monokai.min.css">
+    <link rel="stylesheet" href="_demo.css">
+  </head>
+
+  <body>
+
+    <div id="header">
+      <h1 id="title">jQuery-CSV + Google Visualization API</h1>
+      <div id="link"><a href="https://github.com/evanplaice/jquery-csv">GitHub</a></div>
     </div>
-    <div id="tabs-2">
-      <p>To use this demo, simply paste your dataset into the text area and hit the 'Run' button.</p>
-      <hr />
-      <textarea id="text-input" style="height:150px;">"TimeStamp (ms)","MID 128|PID 91|Accelerator pedal position (%)","MID 128|PID 92|Engine load(%)","MID 128|PID 100|Engine oil pressure (bar)","MID 128|PID 105|Intake manifold temperature (N0C)","MID 128|PID 110|Engine coolant temperature (N0C)","MID 128|PID 190|Engine speed (r/min)"
+    <div id="container">
+      <section id="content">
+        <h2>Description</h2>
+        <p>Google Visualization API is a powerful too used to generate graphs in Javascript.</p>
+        <p>This Demo generates a basic scatter plot CSV as the input data.</p>
+        <hr>
+        <h2>Load File</h2>
+        <span>sample.csv</span>
+        <input id="load-file" type="button" value="Load File" />
+        <hr />
+        <h2>Load Data</h2>
+        <textarea id="input" style="height: 250px;">"TimeStamp (ms)","MID 128|PID 91|Accelerator pedal position (%)","MID 128|PID 92|Engine load(%)","MID 128|PID 100|Engine oil pressure (bar)","MID 128|PID 105|Intake manifold temperature (N0C)","MID 128|PID 110|Engine coolant temperature (N0C)","MID 128|PID 190|Engine speed (r/min)"
 115,10.4,0,0,0,0,0
 175,,40,,,,
 309,,,4.55,,,
@@ -71,151 +54,114 @@ textarea {
 2633,,,,,46,
 2698,,,,,,1001
 2767,10.4,,,,,</textarea>
-      <hr />
-      <input id="run" type="button" value="Run" />
-      <input id="edit1" type="button" value="Edit Chart" />
-      <hr />
-      <div id="dashboard1" style="display:block; margin:0 auto; width:800px; height:400px;">
-        <div id="chart1"></div>
-        <div id="control1"></div>
-        <div id="padding1" style="display:block; height:50px; background-color:white; visibility:hidden;"></div>
-      </div>
+        <input id="load-data" type="button" value="Load" />
+        <hr />
+        <h2>Plot</h2>
+        <div id="dashboard">
+          <div id="chart"></div>
+          <div id="control"></div>
+          <input id="edit" type="button" value="Edit Chart" />
+        </div>
+        <hr />
+        <h2>Data</h2>
+        <textarea id="result" style="height: 250px;"></textarea>
+      </section>
     </div>
-    <div id="tabs-3" style="height:550px;">
-      <p>To use this demo, just choose a CSV file through the file dialog.</p>
-      <p>If your data sample isn't working, be sure to edit it to include a line at the top with the header names.</p>
-      <hr />
-      <input id="files" type="file" name="file" />
-      <input id="edit2" type="button" value="Edit Chart" />
-      <hr />
-      <div id="dashboard2" style="display:block; margin:0 auto; width:800px; height:400px;">
-        <div id="chart2"></div>
-        <div id="control2"></div>
-        <div id="padding2" style="display:block; height:50px; background-color:white; visibility:hidden;"></div>
-      </div>
-    </div>
-  </div>
 
-  <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-  <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-  <script src="http://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['controls', 'charteditor']}]}"></script>
-  <script src="../src/jquery.csv.js"></script>
-  <script>
-    $(function() {
-      $("#tabs").tabs();
-    });
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="../src/jquery.csv.js"></script>
+    <script src="http://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['controls', 'charteditor']}]}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+      // enable syntax highlighting
+      hljs.initHighlightingOnLoad();
 
-    $(document).ready(function() {
-      if (isAPIAvailable()) {
-        $('#files').bind('change', handleFileSelect);
-      }
-        
-      $('#run').bind('click', chartTextData);
-    });
-
-    function isAPIAvailable() {
-      // Check for the various File API support.
-      if (window.File && window.FileReader && window.FileList && window.Blob) {
-        // Great success! All the File APIs are supported.
-        return true;
-      } else {
-        alert("The browser you're using does not currently support\nthe HTML5 File API. As a result the file loading demo\nwon't work properly.");
-        return false;
-      }
-    }
-
-    function chartTextData() {
-      $('#padding1').css({visibility: "visible"});
-      var csv = $('#text-input').val();
-      var parsedData = $.csv.toArrays(csv, {
-          onParseValue: $.csv.hooks.castToScalar
+      $('#load-file').bind('click', function () {
+        loadFile();
       });
 
-      drawChart(parsedData, 1);
-    }
-
-    function handleFileSelect(evt) {
-      var files = evt.target.files; // FileList object
-      var file = files[0];
-      // read the file contents and chart the data
-      chartFileData(file, function(parsed) {
-        drawChart(parsed, 2);
+      $('#load-data').bind('click', function() {
+        loadData();
       });
-    }
 
-    function chartFileData(fileToParse, callback) {
-      $('#padding2').css({visibility: "visible"});
-      var reader = new FileReader();
-      reader.readAsText(fileToParse);
-      reader.onload = function() {
-        var csv = event.target.result;
-        var parsedData = $.csv.toArrays(csv, {
+      function loadFile() {
+        var file = 'data/sample2.csv';
+        $.get(file, function(csv) {
+            var data = $.csv.toArrays(csv, {
+              onParseValue: $.csv.hooks.castToScalar
+            });
+            plot(data);
+            $('#result').empty();
+            $('#result').html(JSON.stringify(data, null, 2));
+        });
+      }
+
+      function loadData() {
+        var csv = $('#input').val();
+        var data = $.csv.toArrays(csv, {
           onParseValue: $.csv.hooks.castToScalar
         });
-        callback(parsedData);
-      };
-      reader.onerror = function() {
-        alert('Unable to read ' + file.fileName);
-      };
-    }
+        plot(data);
+        $('#result').empty();
+        $('#result').html(JSON.stringify(data, null, 2));
+      }
 
-    //draw chart
-    function drawChart (setChartData, num) {
-      var data = new google.visualization.arrayToDataTable(setChartData);
-      var dash = new google.visualization.Dashboard(document.getElementById('dashboard' + num));
-      var control = new google.visualization.ControlWrapper({
-        controlType: 'ChartRangeFilter',
-        containerId: 'control' + num,
-        options: {
-          filterColumnIndex: 0,
-          ui: {
-            chartOptions: {
-              height: 50,
-              width: 800,
-              chartArea: {
-                width: '60%'
+      function plot(data) {
+        var data = new google.visualization.arrayToDataTable(data);
+        var dash = new google.visualization.Dashboard(document.getElementById('dashboard'));
+        var control = new google.visualization.ControlWrapper({
+          controlType: 'ChartRangeFilter',
+          containerId: 'control',
+          options: {
+            filterColumnIndex: 0,
+            ui: {
+              chartOptions: {
+                height: 50,
+                width: 800,
+                chartArea: {
+                  width: '50%'
+                },
+              },
+              chartView: {
+                columns: [0, 1]
               }
-            },
-            chartView: {
-              columns: [0, 1]
             }
           }
-        }
-      });
-
-      var chart = new google.visualization.ChartWrapper({
-        chartType: 'LineChart',
-        containerId: 'chart' + num,
-      });
-
-      function fixOptions(wrapper) {
-        // sets the options on the chart wrapper so that it draws correctly
-        wrapper.setOption('height', 300);
-        wrapper.setOption('width', 800);
-        wrapper.setOption('chartArea.width', '60%');
-        // the chart editor automatically enables animations, which doesn't look right with the ChartRangeFilter
-        wrapper.setOption('animation', null);
-        // the chart editor sets hAxis.viewWindowMode to 'pretty', which doesn't work well with continuous axes
-        wrapper.setOption('hAxis.viewWindowMode', 'maximized');
-        wrapper.setOption('curveType', 'function');
-      }
-
-      fixOptions(chart);
-
-      document.getElementById('edit' + num).onclick = function() {
-        var editor = new google.visualization.ChartEditor();
-        google.visualization.events.addListener(editor, 'ok', function() {
-          chart = editor.getChartWrapper();
-          fixOptions(chart);
-          dash.bind([control], [chart]);
-          dash.draw(data);
         });
-        editor.openDialog(chart);
-      };
-      
-      dash.bind([control], [chart]);
-      dash.draw(data);
-    }
-  </script>  
-</body>
+
+        var chart = new google.visualization.ChartWrapper({
+          chartType: 'LineChart',
+          containerId: 'chart',
+        });
+
+        function fixOptions(wrapper) {
+          // sets the options on the chart wrapper so that it draws correctly
+          wrapper.setOption('height', 300);
+          wrapper.setOption('width', 800);
+          wrapper.setOption('chartArea.width', '60%');
+          // the chart editor automatically enables animations, which doesn't look right with the ChartRangeFilter
+          wrapper.setOption('animation', null);
+          // the chart editor sets hAxis.viewWindowMode to 'pretty', which doesn't work well with continuous axes
+          wrapper.setOption('hAxis.viewWindowMode', 'maximized');
+          wrapper.setOption('curveType', 'function');
+        }
+
+        fixOptions(chart);
+
+        document.getElementById('edit').onclick = function() {
+          var editor = new google.visualization.ChartEditor();
+          google.visualization.events.addListener(editor, 'ok', function() {
+            chart = editor.getChartWrapper();
+            fixOptions(chart);
+            dash.bind([control], [chart]);
+            dash.draw(data);
+          });
+          editor.openDialog(chart);
+        };
+        
+        dash.bind([control], [chart]);
+        dash.draw(data);
+      }
+    </script>
+  </body>
 </html>
