@@ -126,13 +126,13 @@ Want to play with the parser and maybe validate your CSV data without all the fr
 
 ## Node.js ESM (EcmaScript Module) Import
 
-Here's how to import jQuery-CSV in ECMAScript Node.js:
+Here's how to import jQuery-CSV as am ECMAScript module Node.js:
 
 [jQuery-CSV - ESM Import Demonstration](http://evanplaice.github.io/jquery-csv/examples/snippets/esm-usage.js)
 
 ## Node.js CJS (CommonJS Module) Import
 
-Here's how to import jQuery-CSV in ECMAScript Node.js:
+Here's how to import jQuery-CSV as CommonJS module Node.js:
 
 [jQuery-CSV - CJS Import Demonstration](http://evanplaice.github.io/jquery-csv/examples/snippets/node-usage.js)
 
