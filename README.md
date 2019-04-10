@@ -13,7 +13,6 @@ This is a complete, customizable, battle tested, performance optimized CSV parse
 
 Enough with the wind-up...
 
-Want to see it in action? Check out the [Basic Usage Demo](http://evanplaice.github.io/jquery-csv/examples/basic-usage.html).
 
 # Features
 
@@ -115,13 +114,27 @@ Instead of the typical useless contrived example code, I have provided a handful
 
 Want to play with the parser and maybe validate your CSV data without all the frills? No need to download the source first, there's a demo for that...
 
-[jQuery-CSV - Basic Usage Demonstration](http://evanplaice.github.io/jquery-csv/examples/basic-usage.html)
+[jQuery-CSV - toArray()](http://evanplaice.github.io/jquery-csv/examples/to-array.html)
 
-## ESM Import
+[jQuery-CSV - toArrays()](http://evanplaice.github.io/jquery-csv/examples/to-arrays.html)
 
-Here is an example of how to import jQuery-csv in ECMAScript:
+[jQuery-CSV - fromArrays()](http://evanplaice.github.io/jquery-csv/examples/from-arrays.html)
 
-[jQuery-CSV - ESM Import Demonstration](http://evanplaice.github.io/jquery-csv/examples/esm-usage.js)
+[jQuery-CSV - toObjects()](http://evanplaice.github.io/jquery-csv/examples/to-objects.html)
+
+[jQuery-CSV - fromObjects()](http://evanplaice.github.io/jquery-csv/examples/from-objects.html)
+
+## Node.js ESM (EcmaScript Module) Import
+
+Here's how to import jQuery-CSV in ECMAScript Node.js:
+
+[jQuery-CSV - ESM Import Demonstration](http://evanplaice.github.io/jquery-csv/examples/snippets/esm-usage.js)
+
+## Node.js CJS (CommonJS Module) Import
+
+Here's how to import jQuery-CSV in ECMAScript Node.js:
+
+[jQuery-CSV - CJS Import Demonstration](http://evanplaice.github.io/jquery-csv/examples/snippets/node-usage.js)
 
 ## Client-Side File Handling
 
