@@ -7,7 +7,6 @@
     "email": "evan.plaice@gmail.com"
   },
   "devDependencies": {
-    "jquery": "^3.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.8.0"
   },
