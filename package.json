@@ -25,6 +25,7 @@
     "lint:htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
     "lint:semistandard": "npx semistandard",
     "minify": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle",
+    "package": "npx rimraf package && npm pack | tail -n 1 | xargs tar -xf",
     "preversion": "npm run lint && npm run test",
     "postversion": "git push --follow-tags",
     "prepublish": "npm run lint && npm run test"

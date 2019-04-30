@@ -1,9 +1,10 @@
 .github
 docs/
 examples/
+package/
 test/
+*.tgz
 .gitattributes
 .htmlhint
 .travis.yml
 CONTRIBUTING.md
-*.tgz
