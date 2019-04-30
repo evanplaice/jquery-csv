@@ -122,4 +122,38 @@ Output:
 ]
 ```
 
+### Custom User Defined Date Parser
+
+This is an example of using a custom function passed to the onParseValue callback that will parse dates
+
+*Usage:*
+
+```javascript
+const csv = '10-11-1995,10/23/1993,12.30.1962,10,hello,5.47';
+
+const parseDates = function(value, state) {
+  // Only try to parse values that include a '.' or '/' or '-'
+  if (value.match(/(\.|\/|\-)/g)) {
+    const date = new Date(value);
+
+    if (date != 'Invalid Date')
+      return date;
+  }
+
+  return value;
+};
+
+const data = $.csv2Array(csv, { onParseValue: parseDates });
+
+Output:
+[
+  Wed Oct 11 1995 00:00:00 GMT-0500 (Central Daylight Time),
+  Sat Oct 23 1993 00:00:00 GMT-0500 (Central Daylight Time),
+  Sun Dec 30 1962 00:00:00 GMT-0600 (Central Standard Time),
+  10,
+  hello,
+  5.47
+]
+```
+
 Aside: There are plenty more use-cases to be discovered for the plethora of hooks. If you feel like you have one that is common enough to justify adding it to the library we'd like to see it. Just create a new 'feature request' in the 'issues' section outlining the details.

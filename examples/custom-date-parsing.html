@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Roboto|Source+Code+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/monokai.min.css">
+    <link rel="stylesheet" href="_demo.css">
+  </head>
+
+  <body>
+
+    <div id="header">
+      <h1 id="title">User Defined Date Parsing Callback</h1>
+      <div id="link"><a href="https://github.com/evanplaice/jquery-csv">GitHub</a></div>
+    </div>
+    <div id="container">
+      <section id="content">
+        <h2>Description</h2>
+        <p>Using a custom defined hook to parse dates</p>
+        <hr>
+        <h2>Usage</h2>
+        <pre><code class="javascript">const parseDates = function(value, state) {
+  if (value.match(/(\.|\/|\-)/g)) {
+    const date = new Date(value);
+  
+    if (date != 'Invalid Date')
+      return date;
+  }
+  
+    return value;
+};
+  
+const data = $.csv2Array(csv, { onParseValue: parseDates });</code></pre>
+        <hr />
+        <h2>Input</h2>
+        <textarea id="input" style="height: 200px;">
+10-11-1995,10/23/1993,12.30.1962,10,hello,5.47
+        </textarea>
+        <input id="run" type="button" value="Run" />
+        <hr />
+        <h2>Result</h2>
+        <textarea id="result" style="height: 170px;"></textarea>
+      </section>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+    <script src="../src/jquery.csv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+      // enable syntax highlighting
+      hljs.initHighlightingOnLoad();
+
+      $(document).ready(() => {
+        format();
+      });
+
+      $('#run').bind('click', function () {
+        format();
+      });
+
+      function format() {
+        const csv = $('#input').val();
+        
+        const parseDates = function(value, state) {
+          if (value.match(/(\.|\/|\-)/g)) {
+            const date = new Date(value);
+
+            if (date != 'Invalid Date')
+              return date;
+          }
+
+          return value;
+        };
+
+        const data = $.csv2Array(csv, { onParseValue: parseDates });
+
+        $('#result').empty();
+        $('#result').html(data);
+      }
+    </script>
+  </body>
+</html>
