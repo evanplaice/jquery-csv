@@ -1,4 +1,4 @@
-function isFileAPIAvailable() {
+global.isFileAPIAvailable = function () {
   // Check for the various File API support.
   if (window.File && window.FileReader && window.FileList && window.Blob) {
     // Great success! All the File APIs are supported.
@@ -19,18 +19,18 @@ function isFileAPIAvailable() {
     document.writeln(' - Opera: Not supported');
     return false;
   }
-}
+};
 
 // Used to generate the data for the sine wave demo
 // source: http://coding.smashingmagazine.com/2011/10/04/quick-look-math-animations-javascript/
-function drawSine() {
+global.drawSine = function () {
   var counter = 0;
   // 100 iterations
   var increase = Math.PI * 2 / 100;
-  for ( i = 0; i <= 1; i += 0.01 ) {
-    x = i;
-    y = Math.sin( counter ) / 2 + 0.5;
+  for (var i = 0; i <= 1; i += 0.01) {
+    var x = i;
+    var y = Math.sin(counter) / 2 + 0.5;
     counter += increase;
     console.log(x + ',' + y);
   }
-}
+};
