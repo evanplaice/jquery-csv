@@ -8,31 +8,31 @@
   <body>
 
     <div id="header">
-      <h1 id="title">$.csv.fromArrays()</h1>
+      <h1 id="title">User Defined Date Parsing Callback</h1>
       <div id="link"><a href="https://github.com/evanplaice/jquery-csv">GitHub</a></div>
     </div>
     <div id="container">
       <section id="content">
         <h2>Description</h2>
-        <p>Used to format a fixed 2D array of data as CSV.</p>
+        <p>Using a custom defined hook to parse dates</p>
         <hr>
         <h2>Usage</h2>
-        <pre><code class="javascript">var result = $.csv.fromArrays(input);</code></pre>
+        <pre><code class="javascript">const parseDates = function(value, state) {
+  if (value.match(/(\.|\/|\-)/g)) {
+    const date = new Date(value);
+  
+    if (date != 'Invalid Date')
+      return date;
+  }
+  
+    return value;
+};
+  
+const data = $.csv2Array(csv, { onParseValue: parseDates });</code></pre>
         <hr />
         <h2>Input</h2>
         <textarea id="input" style="height: 200px;">
-[
-  ["All work","and no play","makes Jack","a dull boy..."],
-  ["All work","and no play","makes Jack","a dull boy..."],
-  ["All work","and no play","makes Jack","a dull boy..."],
-  ["All work","and no play","makes Jack","a dull boy..."],
-  ["All work","and no play","makes Jack","a dull boy..."],
-  ["All work","and no play","makes Jack","a dull boy..."],
-  ["All work","and no play","makes Jack","a dull boy..."],
-  ["All work","and no play","makes Jack","a dull boy..."],
-  ["All work","and no play","makes Jack","a dull boy..."],
-  ["All work","and no play","makes Jack","a dull boy..."]
-]
+10-11-1995,10/23/1993,12.30.1962,10,hello,5.47
         </textarea>
         <input id="run" type="button" value="Run" />
         <hr />
@@ -57,10 +57,23 @@
       });
 
       function format() {
-        const input = JSON.parse($('#input').val());
-        const csv = $.csv.fromArrays(input);
+        const csv = $('#input').val();
+        
+        const parseDates = function(value, state) {
+          if (value.match(/(\.|\/|\-)/g)) {
+            const date = new Date(value);
+
+            if (date != 'Invalid Date')
+              return date;
+          }
+
+          return value;
+        };
+
+        const data = $.csv2Array(csv, { onParseValue: parseDates });
+
         $('#result').empty();
-        $('#result').html(csv);
+        $('#result').html(data);
       }
     </script>
   </body>
