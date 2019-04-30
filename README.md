@@ -164,22 +164,6 @@ Warning: You may experience multiple spontaneous 'oh my got that's soo awesome' 
 
 [jQuery-CSV - Google Visualization API Demonstration](http://evanplaice.github.io/jquery-csv/examples/google-visualization.html)
 
-## jQuery-CSV + Node.js
-
-What's better than a powerful JavaScript? platform in the browser. A second, even more powerful JavaScript? platform on the server.
-
-And... jQuery-CSV fully supports it. There is no online demo because it requires a Node.js server to run but a stub is provided to help get you started.
-
-Dependencies:
-
-To make this example work, you'll also need to install jQuery via the NPM.
-
-```npm install jquery```
-
-The link to the stub:
-
-[node-usage.js](http://evanplaice.github.io/jquery-csv/examples/node-usage.js)
-
 **jQuery-CSV** coding style is inherited from the [JQuery Core Style Guidelines](https://contribute.jquery.org/style-guide/)
 
 by **Evan Plaice**
