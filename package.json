@@ -6,6 +6,13 @@
     "name": "Evan Plaice",
     "email": "evan.plaice@gmail.com"
   },
+  "contributors": [
+    {
+      "name": "Colton Ehrman",
+      "email": "coltonje95@gmail.com",
+      "url": "http://coltonehrman.com"
+    }
+  ],
   "devDependencies": {
     "tap-spec": "^5.0.0",
     "tape": "^4.8.0"
