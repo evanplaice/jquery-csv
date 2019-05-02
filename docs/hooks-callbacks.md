@@ -23,7 +23,7 @@ This hook is called before the parser starts processing the dataset. Useful if y
 
 ```javascript
 // strips empty (illegal) lines from the data before parsing 
-var removeEmptyLines = function(csv) {
+var removeEmptyLines = function(csv, state) {
   var lines = $.csv.splitLines(csv);
   var output = [];
   for(var i=0, len=lines.length; i<len; i++) {
