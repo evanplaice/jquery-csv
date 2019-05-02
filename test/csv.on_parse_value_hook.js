@@ -42,6 +42,7 @@ test('$.csv.toObjects onParseValue hook callback - should have correct state', (
     if (state.rowNum === 2, state.colNum === 3) {
       t.equal(value, 'some');
     }
+    return value;
   };
   csv.toObjects(fixtures.value_objects_csv, { onParseValue: checkValueState });
   t.end();
@@ -52,6 +53,7 @@ test('$.csv.toArrays onParseValue hook callback - should have correct state', (t
     if (state.rowNum === 1, state.colNum === 3) {
       t.equal(value, 'some');
     }
+    return value;
   };
   csv.toArrays(fixtures.value_arrays_csv, { onParseValue: checkValueState });
   t.end();
