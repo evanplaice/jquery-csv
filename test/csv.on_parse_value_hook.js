@@ -32,7 +32,6 @@ test('$.csv.toArrays onParseValue hook callback - should be passed the data and 
 
 test('$.csv.toObjects onParseValue hook callback - should affect return value', (t) => {
   const returnMutatedValues = (value) => value + 'a';
-  console.log(fixtures.value_objects_obj);
   const result = csv.toObjects(fixtures.value_objects_csv, { onParseValue: returnMutatedValues });
   t.deepEqual(result, fixtures.value_objects_obj, 'return value should reflect what was returned from callback');
   t.end();
