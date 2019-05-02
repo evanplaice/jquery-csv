@@ -714,7 +714,7 @@ RegExp.escape = function (s) {
 
       // onPreParse hook
       if (options.onPreParse !== undefined) {
-        options.onPreParse(csv, options.state);
+        csv = options.onPreParse(csv, options.state);
       }
 
       // parse the data
@@ -806,7 +806,7 @@ RegExp.escape = function (s) {
 
       // onPreParse hook
       if (options.onPreParse !== undefined) {
-        options.onPreParse(csv, options.state);
+        csv = options.onPreParse(csv, options.state);
       }
 
       // parse the csv
