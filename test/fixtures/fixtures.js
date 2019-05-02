@@ -65,6 +65,7 @@ var fs = require('fs');
     objects_csv: csvFixture('objects'),
     objects_obj: jsonFixture('objects'),
     objects2_csv: csvFixture('objects2')
+
   };
 
   // CommonJS module is defined
