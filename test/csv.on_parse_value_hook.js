@@ -37,9 +37,22 @@ test('$.csv.toObjects onParseValue hook callback - should affect return value', 
   t.end();
 });
 
-test('$.csv.toArrays onParseValue hook callback - should affect return value', (t) => {
-  const returnMutatedValues = (value) => value + 'a';
-  const result = csv.toArrays(fixtures.value_arrays_csv, { onParseValue: returnMutatedValues });
-  t.deepEqual(result, fixtures.value_arrays_obj, 'return value should reflect what was returned from callback');
+test('$.csv.toObjects onParseValue hook callback - should have correct state', (t) => {
+  const checkValueState = (value, state) => {
+    if (state.rowNum === 2, state.colNum === 3) {
+      t.equal(value, 'some');
+    }
+  };
+  csv.toObjects(fixtures.value_objects_csv, { onParseValue: checkValueState });
+  t.end();
+});
+
+test('$.csv.toArrays onParseValue hook callback - should have correct state', (t) => {
+  const checkValueState = (value, state) => {
+    if (state.rowNum === 1, state.colNum === 3) {
+      t.equal(value, 'some');
+    }
+  };
+  csv.toArrays(fixtures.value_arrays_csv, { onParseValue: checkValueState });
   t.end();
 });
