@@ -1,6 +1,6 @@
 {
   "name": "jquery-csv",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "A jQuery CSV parser plugin. Battle Tested | Optimized | 100% IETF RFC 4180 Complete",
   "author": {
     "name": "Evan Plaice",
@@ -26,9 +26,8 @@
     "lint:semistandard": "npx semistandard",
     "minify": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle",
     "package": "npx rimraf package && npm pack | tail -n 1 | xargs tar -xf",
-    "preversion": "npm run lint && npm run test && npm minify",
-    "postversion": "git push --follow-tags",
-    "prepublish": "npm run lint && npm run test"
+    "preversion": "npm run lint && npm run test && npm run minify",
+    "postversion": "git push --follow-tags"
   },
   "license": "MIT",
   "repository": "http://github.com/evanplaice/jquery-csv/",

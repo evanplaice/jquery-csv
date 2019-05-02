@@ -722,7 +722,7 @@ RegExp.escape = function (s) {
 
       // onPostParse hook
       if (options.onPostParse !== undefined) {
-        options.onPostParse(data, options.state);
+        data = options.onPostParse(data, options.state);
       }
 
       // push the value to a callback if one is defined
@@ -843,7 +843,7 @@ RegExp.escape = function (s) {
 
       // onPostParse hook
       if (options.onPostParse !== undefined) {
-        options.onPostParse(data, options.state);
+        data = options.onPostParse(data, options.state);
       }
 
       // push the value to a callback if one is defined
