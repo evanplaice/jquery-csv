@@ -227,7 +227,7 @@ RegExp.escape = function (s) {
                 break;
               }
               // broken paser?
-              throw new Error('CSVDataError: Illegal State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
+              throw Error('CSVDataError: Illegal State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
 
             // un-delimited input
             case 3:
@@ -244,13 +244,13 @@ RegExp.escape = function (s) {
               }
               if (m0 === delimiter) {
               // non-compliant data
-                throw new Error('CSVDataError: Illegal Quote [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
+                throw Error('CSVDataError: Illegal Quote [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
               }
               // broken parser?
-              throw new Error('CSVDataError: Illegal Data [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
+              throw Error('CSVDataError: Illegal Data [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
             default:
               // shenanigans
-              throw new Error('CSVDataError: Unknown State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
+              throw Error('CSVDataError: Unknown State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
           }
           // console.log('val:' + m0 + ' state:' + state);
         });
@@ -408,7 +408,7 @@ RegExp.escape = function (s) {
                 break;
               }
               // broken paser?
-              throw new Error('CSVDataError: Illegal state [Row:' + options.state.rowNum + ']');
+              throw Error('CSVDataError: Illegal state [Row:' + options.state.rowNum + ']');
 
             // un-delimited input
             case 3:
@@ -429,13 +429,13 @@ RegExp.escape = function (s) {
               }
               // non-compliant data
               if (m0 === delimiter) {
-                throw new Error('CSVDataError: Illegal quote [Row:' + options.state.rowNum + ']');
+                throw Error('CSVDataError: Illegal quote [Row:' + options.state.rowNum + ']');
               }
               // broken parser?
-              throw new Error('CSVDataError: Illegal state [Row:' + options.state.rowNum + ']');
+              throw Error('CSVDataError: Illegal state [Row:' + options.state.rowNum + ']');
             default:
               // shenanigans
-              throw new Error('CSVDataError: Unknown state [Row:' + options.state.rowNum + ']');
+              throw Error('CSVDataError: Unknown state [Row:' + options.state.rowNum + ']');
           }
           // console.log('val:' + m0 + ' state:' + state);
         });
@@ -556,7 +556,7 @@ RegExp.escape = function (s) {
                 break;
               }
               // broken paser?
-              throw new Error('CSVDataError: Illegal State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
+              throw Error('CSVDataError: Illegal State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
 
             // un-delimited input
             case 3:
@@ -571,13 +571,13 @@ RegExp.escape = function (s) {
               }
               // non-compliant data
               if (m0 === delimiter) {
-                throw new Error('CSVDataError: Illegal Quote [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
+                throw Error('CSVDataError: Illegal Quote [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
               }
               // broken parser?
-              throw new Error('CSVDataError: Illegal Data [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
+              throw Error('CSVDataError: Illegal Data [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
             default:
               // shenanigans
-              throw new Error('CSVDataError: Unknown State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
+              throw Error('CSVDataError: Unknown State [Row:' + options.state.rowNum + '][Col:' + options.state.colNum + ']');
           }
           // console.log('val:' + m0 + ' state:' + state);
         });
