@@ -31,9 +31,9 @@ test('$.csv.toArrays onPreParse hook callback - should be passed the raw csv and
 });
 
 test('$.csv.toObjects onPreParse hook callback - should affect return value', (t) => {
-  const returnEmptyCSV = () => '';
-  const result = csv.toObjects(fixtures.objects_csv);
-  t.deepEqual(result, fixtures.objects_obj, 'return value should reflect what was returned from callback');
+  const returnEmptyCSV = () => 'header\n""';
+  const result = csv.toObjects(fixtures.objects_csv,{ onPreParse: returnEmptyCSV });
+  t.deepEqual(result, [{ header: '' }], 'return value should reflect what was returned from callback');
   t.end();
 });
 
