@@ -138,6 +138,9 @@ RegExp.escape = function (s) {
           if (options.onParseValue === undefined) {
             // onParseValue hook not set
             entry.push(value);
+          } else if (options.headers && options.state.rowNum === 1) {
+            // don't onParseValue object headers
+            entry.push(value);
           } else {
             var hook = options.onParseValue(value, options.state); // onParseValue Hook
             // false skips the row, configurable through a hook
@@ -801,7 +804,8 @@ RegExp.escape = function (s) {
         state: {
           rowNum: 1,
           colNum: 1
-        }
+        },
+        headers: true
       };
 
       // onPreParse hook
@@ -811,7 +815,7 @@ RegExp.escape = function (s) {
 
       // parse the csv
       var headerLine = $.csv.parsers.splitLines(csv, headerOptions);
-      var headers = $.csv.toArray(headerLine[0], options);
+      var headers = $.csv.toArray(headerLine[0], headerOptions);
 
       // fetch the data
       lines = $.csv.parsers.splitLines(csv, options);
