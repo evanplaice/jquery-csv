@@ -631,6 +631,15 @@ RegExp.escape = function (s) {
      * use $.csv2Array instead.
      */
     toArray: function (csv, options, callback) {
+      // if callback was passed to options swap callback with options
+      if (options !== undefined && typeof (options) === 'function') {
+        if (callback !== undefined) {
+          return console.error('You cannot 3 arguments with the 2nd argument being a function');
+        }
+        callback = options;
+        options = {};
+      }
+
       options = (options !== undefined ? options : {});
       var config = {};
       config.callback = ((callback !== undefined && typeof (callback) === 'function') ? callback : false);
@@ -671,6 +680,15 @@ RegExp.escape = function (s) {
      * dimension contains the values (or values/columns).
      */
     toArrays: function (csv, options, callback) {
+      // if callback was passed to options swap callback with options
+      if (options !== undefined && typeof (options) === 'function') {
+        if (callback !== undefined) {
+          return console.error('You cannot 3 arguments with the 2nd argument being a function');
+        }
+        callback = options;
+        options = {};
+      }
+
       options = (options !== undefined ? options : {});
       var config = {};
       config.callback = ((callback !== undefined && typeof (callback) === 'function') ? callback : false);
@@ -728,6 +746,15 @@ RegExp.escape = function (s) {
      * used as the key for each value per entry.
      */
     toObjects: function (csv, options, callback) {
+      // if callback was passed to options swap callback with options
+      if (options !== undefined && typeof (options) === 'function') {
+        if (callback !== undefined) {
+          return console.error('You cannot 3 arguments with the 2nd argument being a function');
+        }
+        callback = options;
+        options = {};
+      }
+
       options = (options !== undefined ? options : {});
       var config = {};
       config.callback = ((callback !== undefined && typeof (callback) === 'function') ? callback : false);
@@ -839,6 +866,15 @@ RegExp.escape = function (s) {
     * This method generates a CSV file from an array of arrays (representing entries).
     */
     fromArrays: function (arrays, options, callback) {
+      // if callback was passed to options swap callback with options
+      if (options !== undefined && typeof (options) === 'function') {
+        if (callback !== undefined) {
+          return console.error('You cannot 3 arguments with the 2nd argument being a function');
+        }
+        callback = options;
+        options = {};
+      }
+
       options = (options !== undefined ? options : {});
       var config = {};
       config.callback = ((callback !== undefined && typeof (callback) === 'function') ? callback : false);
@@ -903,6 +939,15 @@ RegExp.escape = function (s) {
      * the CSV file, followed by a structured dump of the data.
      */
     fromObjects: function (objects, options, callback) {
+      // if callback was passed to options swap callback with options
+      if (options !== undefined && typeof (options) === 'function') {
+        if (callback !== undefined) {
+          return console.error('You cannot 3 arguments with the 2nd argument being a function');
+        }
+        callback = options;
+        options = {};
+      }
+
       options = (options !== undefined ? options : {});
       var config = {};
       config.callback = ((callback !== undefined && typeof (callback) === 'function') ? callback : false);
