@@ -43,3 +43,25 @@ test('$.csv.toArrays onParseEntry hook callback - should affect return value', (
   t.deepEqual(result, fixtures.entry_arrays_obj, 'return value should reflect what was returned from callback');
   t.end();
 });
+
+test('$.csv.toObjects onParseEntry hook callback - should have correct state', (t) => {
+  const checkEntryState = (entry, state) => {
+    if (state.rowNum === 3) {
+      t.equal(entry, 'keep3');
+    }
+    return entry;
+  };
+  csv.toObjects(fixtures.entry_objects_csv, { onParseEntry: checkEntryState });
+  t.end();
+});
+
+test('$.csv.toArrays onParseEntry hook callback - should have correct state', (t) => {
+  const checkEntryState = (entry, state) => {
+    if (state.rowNum === 3) {
+      t.deepEqual(entry, ['keep3']);
+    }
+    return entry;
+  };
+  csv.toArrays(fixtures.entry_arrays_csv, { onParseEntry: checkEntryState });
+  t.end();
+});
