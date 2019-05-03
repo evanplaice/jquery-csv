@@ -39,7 +39,7 @@ test('$.csv.toObjects onParseValue hook callback - should affect return value', 
 
 test('$.csv.toObjects onParseValue hook callback - should have correct state', (t) => {
   const checkValueState = (value, state) => {
-    if (state.rowNum === 2, state.colNum === 3) {
+    if (state.rowNum === 2 && state.colNum === 3) {
       t.equal(value, 'some');
     }
     return value;
@@ -50,7 +50,7 @@ test('$.csv.toObjects onParseValue hook callback - should have correct state', (
 
 test('$.csv.toArrays onParseValue hook callback - should have correct state', (t) => {
   const checkValueState = (value, state) => {
-    if (state.rowNum === 1, state.colNum === 3) {
+    if (state.rowNum === 1 && state.colNum === 3) {
       t.equal(value, 'some');
     }
     return value;
