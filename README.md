@@ -1,9 +1,9 @@
-[![GitHub release](https://img.shields.io/github/release/evanplaice/jquery-csv.svg)](https://github.com/evanplaice/jquery-csv/releases)
+[![GitHub release](https://img.shields.io/github/release/typeiii/jquery-csv.svg)](https://github.com/typeiii/jquery-csv/releases)
 [![npm](https://img.shields.io/npm/v/jquery-csv.svg)](https://www.npmjs.com/package/jquery-csv)
 [![CDNJS](https://img.shields.io/cdnjs/v/jquery.svg)](https://cdnjs.com/libraries/jquery-csv)
-[![David](https://img.shields.io/david/dev/evanplaice/jquery-csv.svg)](https://david-dm.org/evanplaice/jquery-csv?type=dev)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/evanplaice/jquery-csv/master/LICENSE)
-[![Build Status](https://travis-ci.org/evanplaice/jquery-csv.svg?branch=master)](https://travis-ci.org/evanplaice/jquery-csv)
+[![David](https://img.shields.io/david/dev/tyepiii/jquery-csv.svg)](https://david-dm.org/typeiii/jquery-csv?type=dev)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/typeiii/jquery-csv/master/LICENSE)
+[![Build Status](https://travis-ci.org/typeiii/jquery-csv.svg?branch=master)](https://travis-ci.org/typeiii/jquery-csv)
 
 # Introduction
 
