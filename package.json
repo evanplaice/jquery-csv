@@ -30,7 +30,7 @@
     "postversion": "git push --follow-tags"
   },
   "license": "MIT",
-  "repository": "http://github.com/evanplaice/jquery-csv/",
+  "repository": "http://github.com/typeiii/jquery-csv/",
   "semistandard": {
     "globals": [
       "$",
