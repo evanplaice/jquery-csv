@@ -2,6 +2,8 @@
   "name": "jquery-csv",
   "version": "1.0.3",
   "description": "A jQuery CSV parser plugin. Battle Tested | Optimized | 100% IETF RFC 4180 Complete",
+  "license": "MIT",
+  "repository": "http://github.com/typeiii/jquery-csv/",
   "author": {
     "name": "Evan Plaice",
     "email": "evan.plaice@gmail.com",
@@ -14,10 +16,6 @@
       "url": "http://coltonehrman.com"
     }
   ],
-  "devDependencies": {
-    "tap-spec": "^5.0.0",
-    "tape": "^4.8.0"
-  },
   "main": "src/jquery.csv.js",
   "scripts": {
     "start": "npx live-server",
@@ -30,8 +28,11 @@
     "preversion": "npm run lint && npm run test && npm run minify",
     "postversion": "git push --follow-tags"
   },
-  "license": "MIT",
-  "repository": "http://github.com/typeiii/jquery-csv/",
+
+  "devDependencies": {
+    "tap-spec": "^5.0.0",
+    "tape": "^4.8.0"
+  },
   "semistandard": {
     "globals": [
       "$",
