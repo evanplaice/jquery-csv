@@ -29,5 +29,5 @@ jobs:
         run: npm t
       - name: Lint
         run: npm run lint
-      - name: Types
-        run: npm run types
+      # - name: Types
+      #   run: npm run types
