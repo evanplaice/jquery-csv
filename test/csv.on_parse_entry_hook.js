@@ -5,11 +5,13 @@ const fixtures = require('./fixtures/fixtures.js');
 test('$.csv.toObjects onParseEntry hook callback - should be passed the data and state', (t) => {
   let passedData, passedState;
 
-  csv.toObjects(fixtures.objects_csv, { onParseEntry: (data, state) => {
-    passedData = data;
-    passedState = state;
-    return data;
-  } });
+  csv.toObjects(fixtures.objects_csv, {
+    onParseEntry: (data, state) => {
+      passedData = data;
+      passedState = state;
+      return data;
+    }
+  });
 
   t.isNot(passedData, null, 'data argument should not be null');
   t.isNot(passedState, null, 'state argument should not be null');
@@ -19,11 +21,13 @@ test('$.csv.toObjects onParseEntry hook callback - should be passed the data and
 test('$.csv.toArrays onParseEntry hook callback - should be passed the data and state', (t) => {
   let passedData, passedState;
 
-  csv.toArrays(fixtures.arrays1_csv, { onParseEntry: (data, state) => {
-    passedData = data;
-    passedState = state;
-    return data;
-  } });
+  csv.toArrays(fixtures.arrays1_csv, {
+    onParseEntry: (data, state) => {
+      passedData = data;
+      passedState = state;
+      return data;
+    }
+  });
 
   t.isNot(passedData, null, 'data argument should not be null');
   t.isNot(passedState, null, 'state argument should not be null');

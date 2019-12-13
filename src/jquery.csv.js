@@ -1,3 +1,4 @@
+/* eslint no-prototype-builtins: 0 */
 /**
  * jQuery-csv (jQuery Plugin)
  *
