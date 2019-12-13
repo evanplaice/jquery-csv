@@ -20,12 +20,12 @@
   "scripts": {
     "start": "npx live-server",
     "test": "npx tape ./test/*.js | tap-spec",
-    "lint": "npm run lint:htmlhint && npm run lint:semistandard",
-    "lint:htmlhint": "npx htmlhint --config .htmlhint examples/**/*.html",
-    "lint:semistandard": "npx semistandard",
-    "minify": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle",
+    "lint": "npm run lint:html && npm run lint:js",
+    "lint:html": "htmlhint --config .htmlhint examples/**/*.html",
+    "lint:js": "semistandard",
+    "build:min": "npx uglify-js src/jquery.csv.js -o src/jquery.csv.min.js --compress --mangle",
     "package": "npx rimraf package && npm pack | tail -n 1 | xargs tar -xf",
-    "preversion": "npm run lint && npm run test && npm run minify",
+    "preversion": "npm run lint && npm run test",
     "postversion": "git push --follow-tags"
   },
   "devDependencies": {
