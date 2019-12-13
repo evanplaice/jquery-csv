@@ -3,7 +3,8 @@
 [![GitHub Releases](https://img.shields.io/github/release/typeiii/jquery-csv.svg)](https://github.com/typeiii/jquery-csv/releases)
 [![NPM Release](https://img.shields.io/npm/v/jquery-csv.svg)](https://www.npmjs.com/package/jquery-csv)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/typeiii/jquery-csv/master/LICENSE)
-[![Build Status](https://travis-ci.org/typeiii/jquery-csv.svg?branch=master)](https://travis-ci.org/typeiii/jquery-csv)
+[![Latest Status](https://github.com/typeiii/jquery-csv/workflows/Latest/badge.svg)](https://github.com/typeiii/jquery-csv/actions)
+[![Release Status](https://github.com/typeiii/jquery-csv/workflows/Release/badge.svg)](https://github.com/typeiii/jquery-csv/actions)
 
 # Introduction
 
