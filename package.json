@@ -29,6 +29,8 @@
     "postversion": "git push --follow-tags"
   },
   "devDependencies": {
+    "htmlhint": "^0.11.0",
+    "semistandard": "^14.2.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.8.0"
   },
