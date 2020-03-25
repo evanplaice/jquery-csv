@@ -1,4 +1,4 @@
-<div style="font-weight:bold; text-align:center;">NOTICE: For a more modern take on CSV parsing, check out the <a href="https://github.com/vanillaes/csv-es">CSV-ES</a> project</div>
+<p align="center"><strong>✓ NOTICE: For a more modern take on CSV parsing, check out the <a href="https://github.com/vanillaes/csv-es">CSV-ES</a> project ⚠	✓</strong></p>
 
 [![GitHub Releases](https://img.shields.io/github/release/typeiii/jquery-csv.svg)](https://github.com/typeiii/jquery-csv/releases)
 [![NPM Release](https://img.shields.io/npm/v/jquery-csv.svg)](https://www.npmjs.com/package/jquery-csv)
