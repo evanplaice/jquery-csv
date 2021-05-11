@@ -1,10 +1,10 @@
 <p align="center"><strong>✓ NOTICE: For a more modern take on CSV parsing, check out the <a href="https://github.com/vanillaes/csv-es">CSV-ES</a> project	✓</strong></p>
 
-[![GitHub Releases](https://img.shields.io/github/release/typeiii/jquery-csv.svg)](https://github.com/typeiii/jquery-csv/releases)
+[![GitHub Releases](https://img.shields.io/github/release/evanplaice/jquery-csv.svg)](https://github.com/evanplaice/jquery-csv/releases)
 [![NPM Release](https://img.shields.io/npm/v/jquery-csv.svg)](https://www.npmjs.com/package/jquery-csv)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/typeiii/jquery-csv/master/LICENSE)
-[![Latest Status](https://github.com/typeiii/jquery-csv/workflows/Latest/badge.svg)](https://github.com/typeiii/jquery-csv/actions)
-[![Release Status](https://github.com/typeiii/jquery-csv/workflows/Release/badge.svg)](https://github.com/typeiii/jquery-csv/actions)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/evanplaice/jquery-csv/master/LICENSE)
+[![Latest Status](https://github.com/evanplaice/jquery-csv/workflows/Latest/badge.svg)](https://github.com/evanplaice/jquery-csv/actions)
+[![Release Status](https://github.com/evanplaice/jquery-csv/workflows/Release/badge.svg)](https://github.com/evanplaice/jquery-csv/actions)
 
 # Introduction
 
@@ -115,27 +115,27 @@ Instead of the typical useless contrived example code, I have provided a handful
 
 Want to play with the parser and maybe validate your CSV data without all the frills? No need to download the source first, there's a demo for that...
 
-[jQuery-CSV - toArray()](http://typeiii.github.io/jquery-csv/examples/to-array.html)
+[jQuery-CSV - toArray()](http://evanplaice.github.io/jquery-csv/examples/to-array.html)
 
-[jQuery-CSV - toArrays()](http://typeiii.github.io/jquery-csv/examples/to-arrays.html)
+[jQuery-CSV - toArrays()](http://evanplaice.github.io/jquery-csv/examples/to-arrays.html)
 
-[jQuery-CSV - fromArrays()](http://typeiii.github.io/jquery-csv/examples/from-arrays.html)
+[jQuery-CSV - fromArrays()](http://evanplaice.github.io/jquery-csv/examples/from-arrays.html)
 
-[jQuery-CSV - toObjects()](http://typeiii.github.io/jquery-csv/examples/to-objects.html)
+[jQuery-CSV - toObjects()](http://evanplaice.github.io/jquery-csv/examples/to-objects.html)
 
-[jQuery-CSV - fromObjects()](http://typeiii.github.io/jquery-csv/examples/from-objects.html)
+[jQuery-CSV - fromObjects()](http://evanplaice.github.io/jquery-csv/examples/from-objects.html)
 
 ## Node.js ESM (EcmaScript Module) Import
 
 Here's how to import jQuery-CSV as am ECMAScript module Node.js:
 
-[jQuery-CSV - ESM Import Demonstration](http://typeiii.github.io/jquery-csv/examples/snippets/esm-usage.js)
+[jQuery-CSV - ESM Import Demonstration](http://evanplaice.github.io/jquery-csv/examples/snippets/esm-usage.js)
 
 ## Node.js CJS (CommonJS Module) Import
 
 Here's how to import jQuery-CSV as CommonJS module Node.js:
 
-[jQuery-CSV - CJS Import Demonstration](http://typeiii.github.io/jquery-csv/examples/snippets/node-usage.js)
+[jQuery-CSV - CJS Import Demonstration](http://evanplaice.github.io/jquery-csv/examples/snippets/node-usage.js)
 
 ## Client-Side File Handling
 
@@ -143,7 +143,7 @@ Yes, you read that right. It's now possible to open local files in the browser w
 
 The functionality is still pretty new so not all browsers support it (I'm looking @ you IE). If that's not an issue I highly suggest you try it. It's much easier than the traditional client/server approach.
 
-[jQuery-CSV - File Handling Demonstration](http://typeiii.github.io/jquery-csv/examples/file-handling.html)
+[jQuery-CSV - File Handling Demonstration](http://evanplaice.github.io/jquery-csv/examples/file-handling.html)
 
 ## jQuery-CSV + Flot
 
@@ -153,7 +153,7 @@ You can input the data set using either the text area provided or via uploading 
 
 Want to plot 5 data sets on the same grid, no problem; Just upload 5 files containing one dataset each. The jQuery-CSV will handle the plumbing while Flot will make it all look pretty.
 
-[jQuery-CSV - Flot Demonstration](http://typeiii.github.io/jquery-csv/examples/flot.html)
+[jQuery-CSV - Flot Demonstration](http://evanplaice.github.io/jquery-csv/examples/flot.html)
 
 ## jQuery-CSV + Google Visualization API
 
@@ -163,6 +163,6 @@ Don't want to draw a line graph, no problem you can tap into the massive collect
 
 Warning: You may experience multiple spontaneous 'oh my got that's soo awesome' fits of excitement. Maybe even get stoked. Happens to the best us...
 
-[jQuery-CSV - Google Visualization API Demonstration](http://typeiii.github.io/jquery-csv/examples/google-visualization.html)
+[jQuery-CSV - Google Visualization API Demonstration](http://evanplaice.github.io/jquery-csv/examples/google-visualization.html)
 
 **jQuery-CSV** coding style is inherited from the [JQuery Core Style Guidelines](https://contribute.jquery.org/style-guide/)

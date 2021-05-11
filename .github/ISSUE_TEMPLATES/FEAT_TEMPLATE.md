@@ -22,4 +22,4 @@ A brief description of what the feature aims to accomplish
 
 <!-- When this feature is ready to move on to implementation, create a [Specification][Specification]. -->
 
-[Specification]: https://github.com/typeiii/jquery-csv/issues/new?template=SPEC_TEMPLATE.md&labels=specification
+[Specification]: https://github.com/evanplaice/jquery-csv/issues/new?template=SPEC_TEMPLATE.md&labels=specification

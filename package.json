@@ -3,7 +3,7 @@
   "version": "1.0.14",
   "description": "A jQuery CSV parser plugin. Battle Tested | Optimized | 100% IETF RFC 4180 Complete",
   "license": "MIT",
-  "repository": "http://github.com/typeiii/jquery-csv/",
+  "repository": "http://github.com/evanplaice/jquery-csv",
   "author": {
     "name": "Evan Plaice",
     "email": "evan.plaice@gmail.com",

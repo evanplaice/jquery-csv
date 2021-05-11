@@ -34,8 +34,8 @@
 - Make superficial changes (ie style/structure) to existing code
 - Make API breaking changes unless they're clearly documented in a Specification
 
-[Discussion]: https://github.com/typeiii/jquery-csv/issues/new?template=DISC_TEMPLATE.md&labels=discussion
+[Discussion]: https://github.com/evanplaice/jquery-csv/issues/new?template=DISC_TEMPLATE.md&labels=discussion
 [StackOverflow]: https://stackoverflow.com/questions/tagged/jquery-csv?mixed=1
-[Feature]: https://github.com/typeiii/jquery-csv/issues/new?template=FEAT_TEMPLATE.md&labels=feature
-[Specification]: https://github.com/typeiii/jquery-csv/issues/new?template=SPEC_TEMPLATE.md&labels=specification
+[Feature]: https://github.com/evanplaice/jquery-csv/issues/new?template=FEAT_TEMPLATE.md&labels=feature
+[Specification]: https://github.com/evanplaice/jquery-csv/issues/new?template=SPEC_TEMPLATE.md&labels=specification
 [Forking Workflow]: https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow

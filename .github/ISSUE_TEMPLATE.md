@@ -30,5 +30,5 @@ Tell us what happens instead
 
  - [name](href)
 
-[Feature]: https://github.com/typeiii/jquery-csv/issues/new?template=FEAT_TEMPLATE.md&labels=feature
+[Feature]: https://github.com/evanplaice/jquery-csv/issues/new?template=FEAT_TEMPLATE.md&labels=feature
 [StackOverflow]: https://stackoverflow.com/questions/tagged/jquery-csv?mixed=1
