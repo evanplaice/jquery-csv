@@ -1,10 +1,12 @@
-<p align="center"><strong>✓ NOTICE: For a more modern CSV parser, check out the <a href="https://github.com/vanillaes/csv">@VanillaES/CSV</a> project	✓</strong></p>
+<p align="center"><strong>✓ NOTICE: For a more modern CSV parser, check out the <a href="https://github.com/vanillaes/csv">@VanillaES/CSV</a> project ✓</strong></p>
 
-[![GitHub Releases](https://img.shields.io/github/release/evanplaice/jquery-csv.svg)](https://github.com/evanplaice/jquery-csv/releases)
-[![NPM Release](https://img.shields.io/npm/v/jquery-csv.svg)](https://www.npmjs.com/package/jquery-csv)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/evanplaice/jquery-csv/master/LICENSE)
-[![Latest Status](https://github.com/evanplaice/jquery-csv/workflows/Latest/badge.svg)](https://github.com/evanplaice/jquery-csv/actions)
-[![Release Status](https://github.com/evanplaice/jquery-csv/workflows/Release/badge.svg)](https://github.com/evanplaice/jquery-csv/actions)
+<div align="center">
+  <a href="https://github.com/evanplaice/jquery-csv/releases"><img src="https://img.shields.io/github/release/evanplaice/jquery-csv.svg" alt="GitHub Releases"></a>
+  <a href="https://www.npmjs.com/package/jquery-csv"><img src="https://img.shields.io/npm/v/jquery-csv.svg" alt="NPM Release"></a>
+  <a href="https://bundlephobia.com/result?p=jquery-csv"><img src="https://badgen.net/bundlephobia/minzip/jquery-csv" alt="Bundlephobia"></a>
+  <a href="https://github.com/evanplaice/jquery-csv/actions"><img src="https://github.com/evanplaice/jquery-csv/workflows/Latest/badge.svg" alt="Latest Status"></a>
+  <a href="https://github.com/evanplaice/jquery-csv/actions"><img src="https://github.com/evanplaice/jquery-csv/workflows/Release/badge.svg" alt="Release Status"></a>
+</div>
 
 # Introduction
 
