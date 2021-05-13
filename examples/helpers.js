@@ -1,3 +1,5 @@
+var global = window;
+
 global.isFileAPIAvailable = function () {
   // Check for the various File API support.
   if (window.File && window.FileReader && window.FileList && window.Blob) {
