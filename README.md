@@ -47,7 +47,7 @@ npm i jquery-csv
 Then import it as a CommonJS module.
 
 ```javascript
-var csv = require('./jquery.csv.js');
+var csv = require('jquery-csv');
 ```
 
 ## Usage
