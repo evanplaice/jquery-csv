@@ -27,8 +27,8 @@
     "postversion": "git push --follow-tags"
   },
   "devDependencies": {
-    "standard": "^16.0.3",
-    "tape": "^4.13.2"
+    "standard": "^17.1.0",
+    "tape": "^5.8.1"
   },
   "standard": {
     "globals": [
