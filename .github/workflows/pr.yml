@@ -1,0 +1,7 @@
+name: Pull Request
+
+on: [pull_request]
+  
+jobs:
+  ci:
+    uses: evanplaice/jquery-csv/.github/workflows/verify.yml@main
