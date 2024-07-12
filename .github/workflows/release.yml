@@ -6,29 +6,12 @@ on:
     - 'v*'
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Setup
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14
-      - name: Cache
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-npm-cache-
-      - name: Verify
-        run: |
-          npm i
-          npm run preversion
+  ci:
+    uses: evanplaice/jquery-csv/.github/workflows/verify.yml@main
+
   npm:
     runs-on: ubuntu-latest
-    needs: check
+    needs: ci
     steps:
     - name: Checkout
       uses: actions/checkout@master
