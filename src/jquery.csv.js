@@ -658,7 +658,7 @@ RegExp.escape = function (s) {
         onParseEntry: options.onParseEntry,
         onParseValue: options.onParseValue,
         state
-      }
+      };
 
       const entry = $.csv.parsers.parseEntry(csv, options)
 
