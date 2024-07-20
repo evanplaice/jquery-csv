@@ -8,13 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup
-      uses: actions/setup-node@v4
-      with:
-        registry-url: "https://registry.npmjs.org"
-    - run: npm ci
+      uses: actions/checkout@v2
     - name: Publish
-      run: npm publish --access public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: |
+        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
+        npm publish --access public
