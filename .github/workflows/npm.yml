@@ -12,8 +12,7 @@ jobs:
     - name: Setup
       uses: actions/setup-node@v4
       with:
-        node-version: 20
-        registry-url: 'https://registry.npmjs.org'
+        registry-url: "https://registry.npmjs.org"
     - run: npm ci
     - name: Publish
       run: npm publish --provenance --access public
