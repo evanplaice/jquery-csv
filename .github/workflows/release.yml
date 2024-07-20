@@ -11,22 +11,6 @@ jobs:
 
   cd:
     needs: ci
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup
-      uses: actions/setup-node@v4
-      with:
-        registry-url: "https://registry.npmjs.org"
-        cache: npm
-    - run: npm ci
-    - name: Publish
-      run: npm publish --provenance --access public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-    # uses: evanplaice/jquery-csv/.github/workflows/npm.yml@main 
+    uses: evanplaice/jquery-csv/.github/workflows/npm.yml@main
+    secrets: inherit
 
