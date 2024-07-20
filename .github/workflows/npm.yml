@@ -16,9 +16,14 @@ jobs:
       uses: actions/setup-node@v4
       with:
         registry-url: "https://registry.npmjs.org"
+        cache: npm
     - run: npm ci
     - run: cat /home/runner/work/_temp/.npmrc
     - name: Publish
-      run: npm publish --provenance --access public
+      run: |
+        # Change publish registry
+        echo "$(jq '.publishConfig.registry = "https://registry.npmjs.org"' package.json)" > package.json
+        # Publish package
+        npm publish --provenance --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
