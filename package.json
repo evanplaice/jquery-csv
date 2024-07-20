@@ -1,6 +1,6 @@
 {
   "name": "jquery-csv",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "A jQuery CSV parser plugin. Battle Tested | Optimized | 100% IETF RFC 4180 Complete",
   "license": "MIT",
   "repository": {
