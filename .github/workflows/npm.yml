@@ -17,6 +17,7 @@ jobs:
       with:
         registry-url: "https://registry.npmjs.org"
     - run: npm ci
+    - run: cat .npmrc
     - name: Publish
       run: npm publish --provenance --access public
       env:
