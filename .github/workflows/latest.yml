@@ -5,7 +5,8 @@ on:
     branches:
       - main
     paths-ignore:
-      - package.json  
+      - package.json
+      - package-lock.json
 
 jobs:
   ci:
